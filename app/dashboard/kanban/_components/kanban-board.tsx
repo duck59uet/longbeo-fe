@@ -206,21 +206,6 @@ export function KanbanBoard() {
           {!columns.length && <NewSectionDialog />}
         </SortableContext>
       </BoardContainer>
-
-      {'document' in window &&
-        createPortal(
-          <DragOverlay>
-            {activeColumn && (
-              <BoardColumn
-                isOverlay
-                column={activeColumn}
-                tasks={tasks.filter((task) => task.status === activeColumn.id)}
-              />
-            )}
-            {activeTask && <TaskCard task={activeTask} isOverlay />}
-          </DragOverlay>,
-          document.body
-        )}
     </DndContext>
   );
 
