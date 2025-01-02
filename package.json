@@ -7,9 +7,9 @@
     "url": "https://github.com/Kiranism"
   },
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev --turbo -p 3001",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3001",
     "lint": "next lint",
     "format": "prettier . --write",
     "prepare": "husky"
