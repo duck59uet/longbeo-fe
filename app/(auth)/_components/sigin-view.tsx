@@ -1,8 +1,12 @@
+'use client';
+
+import { useState } from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import UserAuthForm from './user-auth-form';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import SignUpForm from './signup-view';
 
 export const metadata: Metadata = {
   title: 'Đăng nhập',
@@ -10,6 +14,12 @@ export const metadata: Metadata = {
 };
 
 export default function SignInViewPage() {
+  const [isSignUp, setIsSignUp] = useState(true);
+
+  const toggleForm = () => {
+    setIsSignUp((prev) => !prev);
+  };
+
   return (
     <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
       <Link
@@ -39,19 +49,39 @@ export default function SignInViewPage() {
           Logo
         </div>
       </div>
-      <div className="flex h-full items-center p-4 lg:p-8">
-        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-          <div className="flex flex-col space-y-2 text-center">
-            <h1 className="font-sans text-2xl font-semibold tracking-tight">
-              Đăng Nhập Tài Khoản
-            </h1>
-            <p className="font-sans text-sm text-muted-foreground">
-              Xin Mời Bạn Điền Thông Tin Vào Bên Dưới.
-            </p>
+      {isSignUp ? (
+        <>
+          <div className="flex h-full items-center p-4 lg:p-8">
+            <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+              <div className="flex flex-col space-y-2 text-center">
+                <h1 className="font-sans text-2xl font-semibold tracking-tight">
+                  Đăng Nhập Tài Khoản
+                </h1>
+                <p className="font-sans text-sm text-muted-foreground">
+                  Xin Mời Bạn Điền Thông Tin Vào Bên Dưới.
+                </p>
+              </div>
+              <UserAuthForm toggleForm={toggleForm}/>
+            </div>
           </div>
-          <UserAuthForm />
-        </div>
-      </div>
+        </>
+      ) : (
+        <>
+          <div className="flex h-full items-center p-4 lg:p-8">
+            <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[370px]">
+              <div className="flex flex-col space-y-2 text-center">
+                <h1 className="font-sans text-2xl font-semibold tracking-tight">
+                  Đăng Ký Tài Khoản
+                </h1>
+                <p className="font-sans text-sm text-muted-foreground">
+                  Xin Mời Bạn Điền Thông Tin Vào Bên Dưới.
+                </p>
+              </div>
+              <SignUpForm toggleForm={toggleForm}/>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

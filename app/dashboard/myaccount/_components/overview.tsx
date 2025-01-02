@@ -1,7 +1,7 @@
 import PageContainer from '@/components/layout/page-container';
-import { RecentSales } from './recent-sales';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import UserForm from './userForm';
 
 export default function OverViewPage() {
   return (
@@ -16,11 +16,12 @@ export default function OverViewPage() {
           <TabsContent value="overview" className="space-y-4">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
               <Card className="col-span-4">
-                <CardHeader>
-                  <CardTitle>Tài chính</CardTitle>
+                <CardHeader className='border-b-[1px] border-black'>
+                  <CardTitle>Thông Tin Tài Khoản
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <RecentSales />
+                  <UserForm />
                 </CardContent>
               </Card>
               <Card className="col-span-4 md:col-span-3">
@@ -28,7 +29,7 @@ export default function OverViewPage() {
                   <CardTitle>Tài chính</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <RecentSales />
+                  <UserForm />
                 </CardContent>
               </Card>
             </div>

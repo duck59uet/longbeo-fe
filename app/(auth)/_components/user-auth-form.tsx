@@ -16,6 +16,7 @@ import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
+import SignUpButton from './signup-button';
 
 const formSchema = z.object({
   username: z.string({ message: 'Hãy nhập tên tài khoản' }),
@@ -24,7 +25,11 @@ const formSchema = z.object({
 
 type UserFormValue = z.infer<typeof formSchema>;
 
-export default function UserAuthForm() {
+interface UserAuthFormProps {
+  toggleForm: () => void;
+}
+
+export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl');
   const [loading, startTransition] = useTransition();
@@ -106,6 +111,17 @@ export default function UserAuthForm() {
           </Button>
         </form>
       </Form>
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">
+            hoặc
+          </span>
+        </div>
+      </div>
+      <SignUpButton toggleForm={toggleForm}/>
     </>
   );
 }
