@@ -44,7 +44,7 @@ export default function UserAuthForm() {
           redirect: false,
           username: data.username,
           password: data.password,
-          callbackUrl: callbackUrl ?? '/dashboard/myaccount',
+          callbackUrl: callbackUrl ?? '/dashboard/overview',
         });
   
         if (result?.ok) {

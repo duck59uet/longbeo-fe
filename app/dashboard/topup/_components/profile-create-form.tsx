@@ -180,7 +180,7 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={title} description={description} />
+        <Heading title='Nộp tiền chuyển khoản' description=''/>
         {initialData && (
           <Button
             disabled={loading}

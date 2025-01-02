@@ -59,9 +59,9 @@ export const navItems: NavItem[] = [
   },
   {
     title: 'Nạp tiền tài khoản',
-    url: '/dashboard/myaccount',
+    url: '/dashboard/topup',
     icon: 'user',
-    shortcut: ['e', 'e'],
+    shortcut: ['t', 't'],
     isActive: false,
     items: [] // No child items
   },
