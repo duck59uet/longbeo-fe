@@ -22,9 +22,9 @@ const authConfig = {
           });
 
           if (user) {
+            localStorage.setItem('accessToken', user.token);
             return { ...user, token: user.token };
           } else {
-
             return null;
           }
         } catch (error) {

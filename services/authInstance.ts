@@ -1,5 +1,8 @@
 import { config } from '@/const';
 import axios from 'axios';
+import { getToken } from "next-auth/jwt";
+
+const secret = process.env.NEXTAUTH_SECRET;
 
 const instance = axios.create({
   baseURL: config.API_ENDPOINT_URL
