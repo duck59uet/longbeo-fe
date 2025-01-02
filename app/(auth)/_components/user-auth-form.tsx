@@ -9,7 +9,6 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { loginUser } from '@/services/login';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
@@ -41,17 +40,15 @@ export default function UserAuthForm() {
   const onSubmit = async (data: UserFormValue) => {
     startTransition(async () => {
       try {
-        const user = await loginUser({
+        const result = await signIn('credentials', {
+          redirect: false,
           username: data.username,
-          password: data.password
+          password: data.password,
+          callbackUrl: callbackUrl ?? '/dashboard/myaccount',
         });
-
-        if (user) {
-          if (typeof window !== 'undefined') {
-            sessionStorage.setItem('accessToken', user.token);
-            localStorage.setItem('accessToken', user.token);
-          }
-          window.location.href = callbackUrl ?? '/dashboard';
+  
+        if (result?.ok) {
+          window.location.href = result.url || '/dashboard';
         } else {
           toast.error('Tên tài khoản hoặc mật khẩu không đúng');
         }

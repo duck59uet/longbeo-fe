@@ -20,9 +20,11 @@ const authConfig = {
             username: credentials?.username as string,
             password: credentials?.password as string
           });
+
           if (user) {
             return { ...user, token: user.token };
           } else {
+
             return null;
           }
         } catch (error) {

@@ -7,12 +7,12 @@ const instance = axios.create({
 const TOKEN_PAYLOAD_KEY = 'Authorization';
 
 instance.interceptors.request.use(async (config) => {
-  const tokens = localStorage.getItem('accessToken');
-  if (tokens) {
-    if (config.headers) {
-      config.headers[TOKEN_PAYLOAD_KEY] = `Bearer ${tokens}`;
-    }
-  }
+  // const tokens = localStorage.getItem('accessToken');
+  // if (tokens) {
+  //   if (config.headers) {
+  //     config.headers[TOKEN_PAYLOAD_KEY] = `Bearer ${tokens}`;
+  //   }
+  // }
   return config;
 });
 

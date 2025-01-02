@@ -191,11 +191,11 @@ export default function AppSidebar() {
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
                     <BadgeCheck />
-                    Account
+                    Tài khoản của tôi
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <CreditCard />
-                    Billing
+                    Nạp tiền tài khoản
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Bell />
@@ -204,7 +204,7 @@ export default function AppSidebar() {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <LogOut />
+                  <LogOut/>
                   Log out
                 </DropdownMenuItem>
               </DropdownMenuContent>
