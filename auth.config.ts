@@ -17,15 +17,18 @@ const authConfig = {
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials, req) {
-        const user = await loginUser({
-          username: credentials?.username,
-          password: credentials?.password
-        });
+        try {
+          const user = await loginUser({
+            username: credentials?.username as string,
+            password: credentials?.password as string
+          });
 
-        if (user) {
-          localStorage.setItem('accessToken', user?.token);
-          return { ...user, token: user.token };
-        } else {
+          if (user) {
+            return { ...user, token: user.token };
+          } else {
+            return null;
+          }
+        } catch (error) {
           return null;
         }
       }

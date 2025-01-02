@@ -1,4 +1,13 @@
 import instance from '../instance';
 
-export const loginUser = async (data: any): Promise<any> =>
-  await instance.post('/auth/user/login', data);
+export const loginUser = async (data: {
+  username: string;
+  password: string;
+}): Promise<any> => {
+  try {
+    const response = await instance.post('/auth/user/login', data);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to login');
+  }
+};

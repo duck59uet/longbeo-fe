@@ -40,17 +40,23 @@ export default function UserAuthForm() {
 
   const onSubmit = async (data: UserFormValue) => {
     startTransition(async () => {
-      const result = await signIn('credentials', {
-        redirect: false,
-        username: data.username,
-        password: data.password,
-        callbackUrl: callbackUrl ?? '/dashboard'
-      });
+      try {
+        const user = await loginUser({
+          username: data.username,
+          password: data.password
+        });
 
-      if (result?.ok) {
-        window.location.href = callbackUrl ?? '/dashboard';
-      } else {
-        toast.error('Tên tài khoản hoặc mật khẩu không đúng');
+        if (user) {
+          if (typeof window !== 'undefined') {
+            sessionStorage.setItem('accessToken', user.token);
+            localStorage.setItem('accessToken', user.token);
+          }
+          window.location.href = callbackUrl ?? '/dashboard';
+        } else {
+          toast.error('Tên tài khoản hoặc mật khẩu không đúng');
+        }
+      } catch (error) {
+        toast.error('Đăng nhập thất bại. Vui lòng thử lại sau.');
       }
     });
   };
