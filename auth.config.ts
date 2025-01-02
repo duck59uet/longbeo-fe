@@ -22,7 +22,12 @@ const authConfig = {
           password: credentials?.password
         });
 
+        console.log('user234', user);
+
         if (user) {
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('accessToken', user.token);
+          }
           return { ...user, token: user.token };
         } else {
           return null;
@@ -42,7 +47,10 @@ const authConfig = {
       return session;
     }
   },
-  secret: process.env.NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: '/auth/signin'
+  }
 } satisfies NextAuthConfig;
 
 export default authConfig;
