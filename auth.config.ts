@@ -22,12 +22,8 @@ const authConfig = {
           password: credentials?.password
         });
 
-        console.log('user234', user);
-
         if (user) {
-          if (typeof window !== 'undefined') {
-            localStorage.setItem('accessToken', user.token);
-          }
+          localStorage.setItem('accessToken', user?.token);
           return { ...user, token: user.token };
         } else {
           return null;
