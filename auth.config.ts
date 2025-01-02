@@ -22,12 +22,12 @@ const authConfig = {
           });
 
           if (user) {
-            localStorage.setItem('accessToken', user.token);
             return { ...user, token: user.token };
           } else {
             return null;
           }
         } catch (error) {
+          console.error('Error during authentication:', error);
           return null;
         }
       }
@@ -46,8 +46,5 @@ const authConfig = {
     }
   },
   secret: process.env.NEXTAUTH_SECRET,
-  pages: {
-    signIn: '/auth/signin'
-  }
 } satisfies NextAuthConfig;
 export default authConfig;
