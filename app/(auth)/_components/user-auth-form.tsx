@@ -15,6 +15,7 @@ import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import * as z from 'zod';
 
 const formSchema = z.object({
@@ -49,7 +50,7 @@ export default function UserAuthForm() {
       if (result?.ok) {
         window.location.href = callbackUrl ?? '/dashboard';
       } else {
-        console.error('Login failed:', result?.error);
+        toast.error('Tên tài khoản hoặc mật khẩu không đúng');
       }
     });
   };
@@ -66,7 +67,7 @@ export default function UserAuthForm() {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Tên tài khoản</FormLabel>
+                <FormLabel className="font-sans">Tên tài khoản</FormLabel>
                 <FormControl>
                   <Input
                     type="string"
@@ -84,7 +85,7 @@ export default function UserAuthForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Mật khẩu</FormLabel>
+                <FormLabel className="font-sans">Mật khẩu</FormLabel>
                 <FormControl>
                   <Input
                     type="password"

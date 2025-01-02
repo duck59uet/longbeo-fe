@@ -1,5 +1,6 @@
 import { NextAuthConfig, Session } from 'next-auth';
 import CredentialProvider from 'next-auth/providers/credentials';
+import { loginUser } from './services/login';
 
 declare module 'next-auth' {
   interface Session {
@@ -16,18 +17,12 @@ const authConfig = {
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials, req) {
-        const res = await fetch('http://localhost:3000/auth/user/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            username: credentials?.username,
-            password: credentials?.password
-          })
+        const user = await loginUser({
+          username: credentials?.username,
+          password: credentials?.password
         });
 
-        const user = await res.json();
-
-        if (res.ok && user) {
+        if (user) {
           return { ...user, token: user.token };
         } else {
           return null;

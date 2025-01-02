@@ -5,8 +5,8 @@ import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: 'Authentication',
-  description: 'Authentication forms built using the components.'
+  title: 'Đăng nhập',
+  description: 'Đăng nhập'
 };
 
 export default function SignInViewPage() {
@@ -19,7 +19,7 @@ export default function SignInViewPage() {
           'absolute right-4 top-4 hidden md:right-8 md:top-8'
         )}
       >
-        Login
+        Đăng nhập
       </Link>
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
         <div className="absolute inset-0 bg-zinc-900" />
@@ -42,10 +42,10 @@ export default function SignInViewPage() {
       <div className="flex h-full items-center p-4 lg:p-8">
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tight">
+            <h1 className="font-sans text-2xl font-semibold tracking-tight">
               Đăng Nhập Tài Khoản
             </h1>
-            <p className="text-sm text-muted-foreground">
+            <p className="font-sans text-sm text-muted-foreground">
               Xin Mời Bạn Điền Thông Tin Vào Bên Dưới.
             </p>
           </div>

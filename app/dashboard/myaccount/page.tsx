@@ -1,7 +1,7 @@
 import OverViewPage from './_components/overview';
 
 export const metadata = {
-  title: 'Trang chủ'
+  title: 'Tài khoản của tôi'
 };
 
 export default function page() {
