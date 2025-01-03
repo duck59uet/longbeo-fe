@@ -9,10 +9,52 @@ export default function OverViewPage() {
       <div className="space-y-2">
         <Tabs defaultValue="overview" className="space-y-4">
           <TabsList className="w-full">
-            <TabsTrigger value="overview">Thông tin</TabsTrigger>
-            <TabsTrigger value="analytics">Thay đổi mật khẩu</TabsTrigger>
-            <TabsTrigger value="sales">Cấu hình tài khoản</TabsTrigger>
+            <TabsTrigger value="overview" className='text-xl'>Thông tin</TabsTrigger>
+            <TabsTrigger value="analytics" className='text-xl'>Thay đổi mật khẩu</TabsTrigger>
+            <TabsTrigger value="sales" className='text-xl'>Cấu hình tài khoản</TabsTrigger>
           </TabsList>
+          <TabsContent value="overview" className="space-y-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
+              <Card className="col-span-4">
+                <CardHeader className='border-b-[1px] border-black'>
+                  <CardTitle>Thông Tin Tài Khoản
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <UserForm />
+                </CardContent>
+              </Card>
+              <Card className="col-span-4 md:col-span-3">
+                <CardHeader>
+                  <CardTitle>Tài chính</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <UserForm />
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+          <TabsContent value="overview" className="space-y-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
+              <Card className="col-span-4">
+                <CardHeader className='border-b-[1px] border-black'>
+                  <CardTitle>Thông Tin Tài Khoản
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <UserForm />
+                </CardContent>
+              </Card>
+              <Card className="col-span-4 md:col-span-3">
+                <CardHeader>
+                  <CardTitle>Tài chính</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <UserForm />
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
           <TabsContent value="overview" className="space-y-4">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
               <Card className="col-span-4">
