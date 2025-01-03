@@ -18,8 +18,8 @@ import { signUpUser } from '@/services/signup';
 import SignInButton from './signin-button';
 
 const formSchema = z.object({
-  userName: z.string({ message: 'Hãy nhập tên tài khoản' }),
-  fullName: z.string({ message: 'Hãy nhập họ và tên' }),
+  username: z.string({ message: 'Hãy nhập tên tài khoản' }),
+  fullname: z.string({ message: 'Hãy nhập họ và tên' }),
   email: z.string().email({ message: 'Hãy nhập email hợp lệ' }),
   password: z.string({ message: 'Hãy nhập mật khẩu' })
 });
@@ -33,8 +33,8 @@ interface UserAuthFormProps {
 export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
   const [loading, startTransition] = useTransition();
   const defaultValues = {
-    userName: '',
-    fullName: '',
+    username: '',
+    fullname: '',
     email: '',
     password: ''
   };
@@ -46,8 +46,8 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
   const onSubmit = async (data: UserFormValue) => {
     startTransition(async () => {
       const user = await signUpUser({
-        userName: data.userName,
-        fullName: data.fullName,
+        userName: data.username,
+        fullName: data.fullname,
         email: data.email,
         password: data.password
       });
@@ -70,7 +70,7 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
         >
           <FormField
             control={form.control}
-            name="userName"
+            name="username"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Tên tài khoản</FormLabel>
@@ -83,7 +83,7 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
           />
           <FormField
             control={form.control}
-            name="fullName"
+            name="fullname"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Họ và tên</FormLabel>

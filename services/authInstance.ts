@@ -1,6 +1,6 @@
 import { config } from '@/const';
 import axios from 'axios';
-import { getToken } from "next-auth/jwt";
+import { getSession } from 'next-auth/react';
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -10,11 +10,13 @@ const authInstance = axios.create({
 const TOKEN_PAYLOAD_KEY = 'Authorization';
 
 authInstance.interceptors.request.use(async (config) => {
-  const tokens = localStorage.getItem('accessToken');
-  if (tokens) {
+  const session = await getSession();
+  const token = session?.accessToken;
+  
+  if (token) {
     if (config.headers) {
       config.headers['Content-Type'] = 'application/json';
-      config.headers[TOKEN_PAYLOAD_KEY] = `Bearer ${tokens}`;
+      config.headers[TOKEN_PAYLOAD_KEY] = `Bearer ${token}`;
     }
   }
   return config;
