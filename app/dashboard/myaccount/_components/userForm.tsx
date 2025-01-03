@@ -13,7 +13,8 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { getInfo } from '@/services/myaccount';
+import { getInfo, updateInfo } from '@/services/myaccount';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
   fullname: z.string().min(2, {
@@ -26,6 +27,9 @@ const formSchema = z.object({
     message: 'Please enter a valid email address.'
   }),
   createdAt: z.string().optional(),
+  avatar: z.string().optional().nullable(),
+  facebook: z.string().optional().nullable(),
+  level: z.string().optional().nullable(),
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -37,6 +41,8 @@ export default function UserForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullname: '',
+      avatar: '',
+      facebook: '',
     }
   });
 
@@ -54,10 +60,23 @@ export default function UserForm() {
     };
 
     fetchUserInfo();
-  }, [form]);
+  }, []);
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await updateInfo({
+        fullname: values.fullname,
+        avatar: values.avatar || '',
+        facebook: values.facebook || ''
+      });
+      if (response.ErrorCode === 'SUCCESSFUL') {
+        toast.success('Cập nhật thông tin thành công');
+      } else {
+        toast.error('Cập nhật thông tin thất bại');
+      }
+    } catch (error) {
+      toast.error('Cập nhật thông tin thất bại');
+    }
   }
 
   return (
@@ -71,7 +90,7 @@ export default function UserForm() {
               <FormItem>
                 <FormLabel>Họ và tên</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your name" {...field} />
+                  <Input placeholder="Họ và tên" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -110,12 +129,12 @@ export default function UserForm() {
           />
           <FormField
             control={form.control}
-            name="username"
+            name="level"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Cấp độ</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input placeholder="Thành viên" {...field} value={field.value || ''} disabled={true}/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -136,12 +155,12 @@ export default function UserForm() {
           />
           <FormField
             control={form.control}
-            name="username"
+            name="avatar"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Link ảnh đại diện</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your company" {...field} />
+                  <Input placeholder="" {...field} value={field.value || ''} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -150,18 +169,18 @@ export default function UserForm() {
         </div>
         <FormField
             control={form.control}
-            name="username"
+            name="facebook"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Link facebook</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your company" {...field} />
+                  <Input placeholder="Link facebook" {...field} value={field.value || ''} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Cập nhật thông tin</Button>
       </form>
     </Form>
   );

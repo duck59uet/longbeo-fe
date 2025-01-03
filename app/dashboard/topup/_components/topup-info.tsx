@@ -19,11 +19,11 @@ export function TopupInfo() {
         <CardTitle></CardTitle>
         <CardDescription></CardDescription>
       </CardHeader>
-      <CardContent className="w-full rounded-lg p-4 py-2">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="bg-[#F5BEBE] p-2">
-              <ul className="space-y-2 text-[#D82222]">
+      <CardContent className="w-full rounded-lg p-4 py-2 mb-2">
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center space-x-2 w-full">
+            <div className="bg-[#F5BEBE] p-2 w-full rounded-lg">
+              <ul className="space-y-2 text-[#D82222] ">
                 <li className="text-sm font-semibold font-sans">
                   - Bạn vui lòng chuyển khoản chính xác nội dung để được cộng tiền
                   nhanh nhất.
