@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import UserAuthForm from './user-auth-form';
 import { buttonVariants } from '@/components/ui/button';
@@ -31,22 +32,16 @@ export default function SignInViewPage() {
       >
         Đăng nhập
       </Link>
-      <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
+      <div className="relative hidden h-full flex-col bg-muted items-center justify-center text-white dark:border-r lg:flex">
         <div className="absolute inset-0 bg-zinc-900" />
-        <div className="relative z-20 flex items-center text-lg font-medium">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="mr-2 h-6 w-6"
-          >
-            <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
-          </svg>
-          Logo
+        <div className="relative z-20 flex items-center justify-center text-lg font-medium">
+          <Image
+            src="/dichvumat.png"
+            alt="Dịch Vụ Mắt"
+            width={400} // Phóng to hình ảnh
+            height={400} // Phóng to hình ảnh
+            className="mx-auto"
+          />
         </div>
       </div>
       {isSignUp ? (
@@ -61,7 +56,7 @@ export default function SignInViewPage() {
                   Xin Mời Bạn Điền Thông Tin Vào Bên Dưới.
                 </p>
               </div>
-              <UserAuthForm toggleForm={toggleForm}/>
+              <UserAuthForm toggleForm={toggleForm} />
             </div>
           </div>
         </>
@@ -77,7 +72,7 @@ export default function SignInViewPage() {
                   Xin Mời Bạn Điền Thông Tin Vào Bên Dưới.
                 </p>
               </div>
-              <SignUpForm toggleForm={toggleForm}/>
+              <SignUpForm toggleForm={toggleForm} />
             </div>
           </div>
         </>
