@@ -1,10 +1,9 @@
 'use client';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Employee } from '@/constants/data';
+import { BuffHistory } from '@/constants/data';
 import { ColumnDef } from '@tanstack/react-table';
-import { CellAction } from './cell-action';
 
-export const columns: ColumnDef<Employee>[] = [
+export const columns: ColumnDef<BuffHistory>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -44,8 +43,4 @@ export const columns: ColumnDef<Employee>[] = [
     accessorKey: 'gender',
     header: 'GENDER'
   },
-  {
-    id: 'actions',
-    cell: ({ row }) => <CellAction data={row.original} />
-  }
 ];

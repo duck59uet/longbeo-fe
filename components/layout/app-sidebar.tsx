@@ -46,9 +46,9 @@ import * as React from 'react';
 import { Icons } from '../icons';
 
 export const company = {
-  name: 'Acme Inc',
+  name: 'Dichvumat.com',
   logo: GalleryVerticalEnd,
-  plan: 'Enterprise'
+  plan: 'App tăng mắt facebook'
 };
 
 export default function AppSidebar() {
@@ -70,7 +70,7 @@ export default function AppSidebar() {
       </SidebarHeader>
       <SidebarContent className="overflow-x-hidden">
         <SidebarGroup>
-          <SidebarGroupLabel>Overview</SidebarGroupLabel>
+          <SidebarGroupLabel>Hệ thống</SidebarGroupLabel>
           <SidebarMenu>
             {navItems.map((item) => {
               const Icon = item.icon ? Icons[item.icon] : Icons.logo;

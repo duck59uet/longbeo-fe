@@ -10,23 +10,14 @@ export type User = {
 };
 export const users: User[] = [];
 
-export type Employee = {
+export type BuffHistory = {
   id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
-  gender: string;
-  date_of_birth: string; // Consider using a proper date type if possible
-  street: string;
-  city: string;
-  state: string;
-  country: string;
-  zipcode: string;
-  longitude?: number; // Optional field
-  latitude?: number; // Optional field
-  job: string;
-  profile_picture?: string | null; // Profile picture can be a string (URL) or null (if no picture)
+  link: string;
+  serviceId: string;
+  quantity: string;
+  amount: string;
+  createdAt: string;
+  note: string; 
 };
 
 export type Product = {
@@ -42,7 +33,7 @@ export type Product = {
 
 export const navItems: NavItem[] = [
   {
-    title: 'Dashboard',
+    title: 'Trang chủ',
     url: '/dashboard/overview',
     icon: 'dashboard',
     isActive: false,
@@ -66,22 +57,35 @@ export const navItems: NavItem[] = [
     items: [] // No child items
   },
   {
-    title: 'Account',
+    title: 'Cấp bậc tài khoán',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'billing',
+    isActive: false,
+    items: []
+  },
+  {
+    title: 'Facebook',
+    url: '#', // Placeholder as there is no direct link for the parent
+    icon: 'facebook',
     isActive: true,
 
     items: [
       {
-        title: 'Profile',
-        url: '/dashboard/profile',
+        title: 'Tăng mắt facebook',
+        url: '/dashboard/facebook/view',
         icon: 'userPen',
-        shortcut: ['m', 'm']
+        shortcut: ['mat', 'mat']
       },
       {
-        title: 'Login',
+        title: 'Tăng mắt xem video facebook',
         shortcut: ['l', 'l'],
-        url: '/',
+        url: '/dashboard/facebook/view-video',
+        icon: 'login'
+      },
+      {
+        title: 'Tăng share facebook',
+        shortcut: ['l', 'l'],
+        url: '/dashboard/facebook/share',
         icon: 'login'
       }
     ]
