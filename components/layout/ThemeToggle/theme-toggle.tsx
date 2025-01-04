@@ -23,13 +23,10 @@ export default function ThemeToggle({}: CompProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme('light')}>
-          Light
+          Giao diện sáng  
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('dark')}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>
-          System
+          Giao diện tối
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

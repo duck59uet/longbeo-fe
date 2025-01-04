@@ -133,7 +133,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Không có thông tin.
                 </TableCell>
               </TableRow>
             )}
@@ -153,16 +153,16 @@ export function DataTable<TData, TValue>({
                   (paginationState.pageIndex + 1) * paginationState.pageSize,
                   totalItems
                 )}{' '}
-                of {totalItems} entries
+                of {totalItems} bản ghi
               </>
             ) : (
-              'No entries found'
+              'Không có bản ghi'
             )}
           </div>
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
             <div className="flex items-center space-x-2">
               <p className="whitespace-nowrap text-sm font-medium">
-                Rows per page
+                Số lượng bản ghi
               </p>
               <Select
                 value={`${paginationState.pageSize}`}
@@ -188,10 +188,10 @@ export function DataTable<TData, TValue>({
           <div className="flex w-[150px] items-center justify-center text-sm font-medium">
             {totalItems > 0 ? (
               <>
-                Page {paginationState.pageIndex + 1} of {table.getPageCount()}
+                Trang {paginationState.pageIndex + 1} / {table.getPageCount()}
               </>
             ) : (
-              'No pages'
+              ''
             )}
           </div>
           <div className="flex items-center space-x-2">

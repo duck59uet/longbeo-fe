@@ -1,5 +1,7 @@
+import { searchParamsCache } from '@/lib/searchparams';
 import { SearchParams } from 'nuqs/parsers';
-import ProfileViewPage from './_components/profile-view-page';
+import React from 'react';
+import TopupListingPage from './_components/topup-page';
 
 type pageProps = {
   searchParams: SearchParams;
@@ -10,5 +12,8 @@ export const metadata = {
 };
 
 export default async function Page({ searchParams }: pageProps) {
-  return <ProfileViewPage />;
+  // Allow nested RSCs to access the search params (in a type-safe way)
+  searchParamsCache.parse(searchParams);
+
+  return <TopupListingPage />;
 }

@@ -20,6 +20,17 @@ export type BuffHistory = {
   note: string; 
 };
 
+export type TopupHistory = {
+  id: number;
+  amount: string;
+  createdAt: string;
+  note: string;
+  payment_method: string;
+  payment_code: string;
+  sender: string;
+  content: string;
+}
+
 export type Product = {
   photo_url: string;
   name: string;

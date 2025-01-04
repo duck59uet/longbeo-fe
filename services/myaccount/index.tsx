@@ -33,3 +33,18 @@ export const changePassword = async (data: {
     throw new Error('Failed to change password');
   }
 };
+
+export const getTopupHistory = async (params: {
+  pageSize : number;
+  pageIndex : number;
+}): Promise<any> => {
+  try {
+    const response = await authInstance.get('/topup/user/history', {
+      params
+    });
+    return response.data;
+  } catch (error) {
+    console.log('error1', error);
+    throw new Error('Failed to get topup history');
+  }
+}
