@@ -1,8 +1,8 @@
 import instance from '../instance';
 
 export const signUpUser = async (data: {
-  userName: string;
-  fullName: string;
+  username: string;
+  fullname: string;
   email: string;
   password: string;
 }): Promise<any> => {

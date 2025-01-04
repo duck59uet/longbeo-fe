@@ -46,8 +46,8 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
   const onSubmit = async (data: UserFormValue) => {
     startTransition(async () => {
       const user = await signUpUser({
-        userName: data.username,
-        fullName: data.fullname,
+        username: data.username,
+        fullname: data.fullname,
         email: data.email,
         password: data.password
       });
