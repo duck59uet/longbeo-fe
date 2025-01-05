@@ -1,9 +1,8 @@
 'use client';
 
-import { DataTable } from '@/components/ui/table/data-table';
-import { TopupHistory } from '@/constants/data';
+import { BuffHistory } from '@/constants/data';
 import { columns } from './columns';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Table,
   TableBody,
@@ -14,16 +13,18 @@ import {
 } from '@/components/ui/table';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 
-export default function TopupTable({
+export default function BuffHistoryTable({
   data,
 }: {
-  data: TopupHistory[];
+  data: BuffHistory[];
 }) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  console.log('table', data);
 
   return (
     <div className="space-y-4">

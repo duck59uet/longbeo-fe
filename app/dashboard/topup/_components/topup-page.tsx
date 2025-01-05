@@ -13,7 +13,6 @@ const TopupPage: React.FC = () => {
     async function fetchData() {
       try {
         const result = await getTopupHistory({ pageSize: 100, pageIndex: 1 });
-        console.log('result', result);
         setData(result.Data[1]);
       } catch (error) {
         console.error('Error fetching top-up history:', error);

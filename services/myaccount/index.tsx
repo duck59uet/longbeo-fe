@@ -44,7 +44,6 @@ export const getTopupHistory = async (params: {
     });
     return response.data;
   } catch (error) {
-    console.log('error1', error);
     throw new Error('Failed to get topup history');
   }
 }

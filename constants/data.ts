@@ -11,13 +11,16 @@ export type User = {
 export const users: User[] = [];
 
 export type BuffHistory = {
-  id: number;
-  link: string;
+  orderId: string;
+  orderLink: string;
   serviceId: string;
-  quantity: string;
-  amount: string;
+  orderQuantity: number;
+  orderAmount: number;
+  orderPrice: number;
   createdAt: string;
-  note: string; 
+  orderNote: string;
+  serviceName: string;
+  servicePrice: number; 
 };
 
 export type TopupHistory = {
@@ -87,18 +90,6 @@ export const navItems: NavItem[] = [
         icon: 'userPen',
         shortcut: ['mat', 'mat']
       },
-      {
-        title: 'Tăng mắt xem video facebook',
-        shortcut: ['l', 'l'],
-        url: '/dashboard/facebook/view-video',
-        icon: 'login'
-      },
-      {
-        title: 'Tăng share facebook',
-        shortcut: ['l', 'l'],
-        url: '/dashboard/facebook/share',
-        icon: 'login'
-      }
     ]
   },
 ];

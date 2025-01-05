@@ -1,46 +1,42 @@
 'use client';
-import { Checkbox } from '@/components/ui/checkbox';
 import { BuffHistory } from '@/constants/data';
 import { ColumnDef } from '@tanstack/react-table';
 
 export const columns: ColumnDef<BuffHistory>[] = [
   {
-    id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false
+    accessorKey: 'orderId',
+    header: 'Mã đơn hàng'
   },
   {
-    accessorKey: 'first_name',
-    header: 'NAME'
+    accessorKey: 'orderLink',
+    header: 'Link đơn'
   },
   {
-    accessorKey: 'country',
-    header: 'COUNTRY'
+    accessorKey: 'serviceName',
+    header: 'Máy chủ'
   },
   {
-    accessorKey: 'email',
-    header: 'EMAIL'
+    accessorKey: 'servicePrice',
+    header: 'Giá'
   },
   {
-    accessorKey: 'job',
-    header: 'COMPANY'
+    accessorKey: 'orderQuantity',
+    header: 'Số lượng'
   },
   {
-    accessorKey: 'gender',
-    header: 'GENDER'
+    accessorKey: 'createdAt',
+    header: 'Bắt đầu'
   },
+  {
+    accessorKey: 'orderAmount',
+    header: 'Số phút'
+  },
+  {
+    accessorKey: 'orderPrice',
+    header: 'Thành tiền'
+  },
+  {
+    accessorKey: 'orderNote',
+    header: 'Ghi chú'
+  }
 ];

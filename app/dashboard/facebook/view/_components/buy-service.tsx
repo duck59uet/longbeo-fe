@@ -12,43 +12,68 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { useEffect, useState } from 'react';
+import { getServiceInfo } from '@/services/service';
+import { toast } from 'sonner';
+import { createOrder } from '@/services/order';
 
 const formSchema = z.object({
-    linkOrder: z.string().nonempty({ message: 'Hãy nhập link order' }),
-    quantity: z.number().min(50, { message: 'Số mắt tối thiểu là 50' }).max(100000, { message: 'Số phút tối đa là 100,000' }),
-    amount: z.number().min(1, { message: 'Số phút tối thiểu là 1 phút' }),
-    serviceId: z.string().nonempty({ message: 'Hãy chọn ít nhất một dịch vụ' }),
-    note: z.string().optional()
+    link: z.string(),
+    quantity: z.string(),
+    amount: z.string(),
+    service_id: z.string(),
+    note: z.string().optional().nullable(),
 });
 
 type BuyServiceFormValues = z.infer<typeof formSchema>;
 
-const servicesData = [
-  { id: 'sv1', name: 'Vip Mắt 1', price: '1.5₫', status: 'Hoạt động' },
-  { id: 'sv2', name: 'Vip Mắt 2', price: '3₫', status: 'Hoạt động' },
-  { id: 'sv3', name: 'Vip Mắt 3', price: '3₫', status: 'Hoạt động' },
-  { id: 'sv4', name: 'Vip Mắt 4', price: '3₫', status: 'Hoạt động' },
-  { id: 'sv5', name: 'Vip Mắt 5', price: '3₫', status: 'Hoạt động' }
-];
-
 export default function BuyServiceForm() {
+  const [servicesData, setServicesData] = useState([]);
   const form = useForm<BuyServiceFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-        linkOrder: '',
-        quantity: 100,
-        amount: 1,
-        serviceId: '',
+        link: '',
+        service_id: '',
+        quantity: '',
+        amount: '',
         note: ''
     }
   });
 
+  useEffect(() => {
+    async function fetchServiceInfo() {
+      try {
+        const data = await getServiceInfo();
+        setServicesData(data.Data);
+      } catch (error) {
+        toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
+      }
+    }
+
+    fetchServiceInfo();
+  }, []);
+
   const onSubmit = async (values: BuyServiceFormValues) => {
-    console.log('Form data:', values);
+    try {
+      const response = await createOrder({ 
+        ...values, 
+        service_id: Number(values.service_id),
+        quantity: Number(values.quantity),
+        amount: Number(values.amount)
+      });
+      
+      if(response.ErrorCode === "SUCCESSFUL"){
+        toast.success('Đã tạo đơn hàng thành công');
+        form.reset();
+      }
+    } catch (error) {
+      console.error('Error creating order:', error);
+    }
   };
+
+
 
   return (
     <Form {...form}>
@@ -56,7 +81,7 @@ export default function BuyServiceForm() {
         <div className="grid grid-cols-1 gap-6">
           <FormField
             control={form.control}
-            name="linkOrder"
+            name="link"
             render={({ field }) => (
               <FormItem className="flex items-center space-x-3">
                 <FormLabel className="w-1/3 text-lg">Link order</FormLabel>
@@ -72,7 +97,7 @@ export default function BuyServiceForm() {
           />
           <FormField
             control={form.control}
-            name="serviceId"
+            name="service_id"
             render={({ field }) => (
               <FormItem className="flex items-center space-x-3">
                 <FormLabel className="w-1/3 text-lg">Máy chủ</FormLabel>
@@ -82,20 +107,20 @@ export default function BuyServiceForm() {
                     value={field.value}
                     onValueChange={field.onChange}
                   >
-                    {servicesData.map((service) => (
-                      <div key={service.id} className="flex items-center space-x-2">
-                        <RadioGroupItem value={service.id} />
+                    {servicesData.map((service: any) => (
+                      <div key={service?.id} className="flex items-center space-x-2">
+                        <RadioGroupItem value={service?.id.toString()} />
                         <span className="bg-red-100 text-red-500 font-bold text-sm px-2 py-1 rounded-md">
-                          {service.id}
+                          {service?.id}
                         </span>
                         <span className="font-medium text-gray-700">
-                          {service.name}
+                          {service?.name}
                         </span>
                         <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-sm">
-                          {service.price}
+                          {service?.price} đ
                         </span>
                         <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sm">
-                          {service.status}
+                          Hoạt động
                         </span>
                       </div>
                     ))}
@@ -116,8 +141,6 @@ export default function BuyServiceForm() {
                   <Input
                     type="number"
                     placeholder="Số mắt"
-                    min={50}
-                    max={100000}
                     {...field}
                   />
                 </FormControl>
@@ -135,6 +158,7 @@ export default function BuyServiceForm() {
                   <Input
                     type="number"
                     placeholder="Số phút"
+                    min={1}
                     {...field}
                   />
                 </FormControl>
@@ -153,6 +177,7 @@ export default function BuyServiceForm() {
                     placeholder="Ghi chú"
                     rows={4}
                     {...field}
+                    value={field.value ?? ''}
                   />
                 </FormControl>
                 <FormMessage />

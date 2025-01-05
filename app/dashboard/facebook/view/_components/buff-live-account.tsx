@@ -45,7 +45,7 @@ export default function BuffLiveAccountPage() {
                     <div className="grid gap-4">
                       <Card className="">
                         <CardContent>
-                          {/* <BuffOrderHistoryTable data={employee} totalData={totalUsers}/> */}
+                          <BuffOrderHistoryTable />
                         </CardContent>
                       </Card>
                     </div>

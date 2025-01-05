@@ -44,6 +44,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import { Icons } from '../icons';
+import useMediaQuery from '@/hooks/useMediaQuery';
 
 export const company = {
   name: 'Dichvumat.com',
@@ -54,9 +55,11 @@ export const company = {
 export default function AppSidebar() {
   const { data: session } = useSession();
   const pathname = usePathname();
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const collapsible = isDesktop ? 'none' : 'icon';
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible={collapsible}>
       <SidebarHeader>
         <div className="flex gap-2 py-2 text-sidebar-accent-foreground ">
           <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">

@@ -1,20 +1,27 @@
 'use client';
 
-import { DataTable } from '@/components/ui/table/data-table';
-import { BuffHistory } from '@/constants/data';
-import { columns } from './columns';
+import { useEffect, useState } from 'react';
+import BuffHistoryTable from './buff-history-table';
+import { getOrder } from '@/services/order';
 
-export default function BuffOrderHistoryTable({
-  data,
-  totalData
-}: {
-  data: BuffHistory[];
-  totalData: number;
-}) {
+export default function BuffOrderHistoryTable() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const result = await getOrder();
+        setData(result.Data);
+      } catch (error) {
+        console.error('Error fetching top-up history:', error);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <div className="space-y-4">
-      <DataTable columns={columns} data={data} totalItems={totalData} />
+      <BuffHistoryTable data={data} />
     </div>
   );
 }
