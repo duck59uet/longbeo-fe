@@ -10,9 +10,9 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signIn } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
-import { useTransition } from 'react';
+import { use, useEffect, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
@@ -42,6 +42,10 @@ export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
     defaultValues
   });
 
+  useEffect(() => {
+    signOut({ redirect: false });
+  }, [])
+
   const onSubmit = async (data: UserFormValue) => {
     startTransition(async () => {
       try {
@@ -53,7 +57,7 @@ export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
         });
   
         if (result?.ok) {
-          window.location.href = result.url || '/dashboard';
+          window.location.href = result.url || '/dashboard/overview';
         } else {
           toast.error('Tên tài khoản hoặc mật khẩu không đúng');
         }

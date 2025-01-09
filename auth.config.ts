@@ -1,6 +1,7 @@
 import { NextAuthConfig, Session } from 'next-auth';
 import CredentialProvider from 'next-auth/providers/credentials';
 import { loginUser } from './services/login';
+import { toast } from 'sonner';
 declare module 'next-auth' {
   interface Session {
     accessToken?: string;

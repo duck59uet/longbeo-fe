@@ -44,7 +44,7 @@ export default function BuffLiveAccountPage() {
                   <TabsContent value="history" className="space-y-4">
                     <div className="grid gap-4">
                       <Card className="">
-                        <CardContent>
+                        <CardContent className='p-0'>
                           <BuffOrderHistoryTable />
                         </CardContent>
                       </Card>
