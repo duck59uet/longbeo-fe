@@ -1,4 +1,3 @@
-// filepath: /d:/longbeo-fe/app/dashboard/facebook/_components/buy-service.tsx
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,29 +17,94 @@ import { useEffect, useState } from 'react';
 import { getServiceInfo } from '@/services/service';
 import { toast } from 'sonner';
 import { createOrder } from '@/services/order';
+// import '@/styles/toast-custom.css';
 
 const formSchema = z.object({
-    link: z.string(),
-    quantity: z.string(),
-    amount: z.string(),
-    service_id: z.string(),
-    note: z.string().optional().nullable(),
+  link: z.string(),
+  quantity: z.string(),
+  amount: z.string(),
+  service_id: z.string(),
+  note: z.string().optional().nullable()
 });
 
 type BuyServiceFormValues = z.infer<typeof formSchema>;
 
 export default function BuyServiceForm() {
-  const [servicesData, setServicesData] = useState([]);
+  const [hasShownToast, setHasShownToast] = useState(false);
+  const [servicesData, setServicesData] = useState<any[]>([]);
   const form = useForm<BuyServiceFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-        link: '',
-        service_id: '',
-        quantity: '',
-        amount: '',
-        note: ''
+      link: '',
+      service_id: '',
+      quantity: '',
+      amount: '',
+      note: ''
     }
   });
+
+  useEffect(() => {
+    if (!hasShownToast) {
+      const toastId1 = toast(
+        <div
+          className="toast-custom"
+          onClick={() => toast.dismiss(toastId1)} // Loại bỏ khi click
+        >
+          <h4 className="text-lg font-semibold text-orange-800">Lưu ý</h4>
+          <p className="text-sm text-orange-700">
+            Hiện tại FB đang quét TẤT CẢ đơn hàng buff mắt ở Máy sever 1 và
+            sever 2 sẽ KHÔNG hoàn tiền trong mọi trường hợp (Kể cả KHÔNG lên
+            mắt), các bạn cân nhắc trước khi đặt hàng. Chỉ tăng mắt cho
+            Video/Livestream công khai, nếu cố tình đặt Video/Livestream KHÔNG
+            công khai có thể KHÔNG lên đủ hoặc KHÔNG lên. Chúng tôi KHÔNG hỗ trợ
+            hoàn tiền!
+          </p>
+        </div>,
+        {
+          duration: Infinity // Không tự động đóng
+        }
+      );
+
+      const toastId2 = toast(
+        <div
+          className="toast-custom"
+          onClick={() => toast.dismiss(toastId2)} // Loại bỏ khi click
+        >
+          <h4 className="text-lg font-semibold text-orange-800">Thông báo</h4>
+          <p className="text-sm text-orange-700">
+            Nghiêm Cấm: các hành vi sử dụng dịch vụ gây hiểu nhầm, vi phạm đạo
+            đức, vi phạm pháp luật, và những hành vi có thể dẫn đến việc lan
+            truyền thông tin sai lệch, bao gồm cả việc sử dụng sai mục đích
+            trong giáo dục trẻ em, bạn có thể đưa ra các điều khoản như sau:
+            <br />
+            1. Cấm hành vi gây hiểu nhầm: Cấm mọi hành vi sử dụng dịch vụ nhằm
+            gây ra sự hiểu nhầm hoặc làm sai lệch thông tin, ảnh hưởng đến sự
+            nhận thức của người dùng về các sản phẩm, dịch vụ hoặc thông tin
+            được cung cấp.
+            <br />
+            2. Cấm vi phạm đạo đức và pháp luật: Cấm mọi hành vi sử dụng dịch vụ
+            nhằm thực hiện các hành vi vi phạm đạo đức, chuẩn mực xã hội, hoặc
+            vi phạm các quy định pháp luật hiện hành. Điều này bao gồm các hành
+            vi như quấy rối, lừa đảo, hoặc xuyên tạc thông tin có chủ đích.
+            <br />
+            3. Cấm lan truyền thông tin vi phạm: Cấm việc chia sẻ, phát tán
+            thông tin sai lệch, thông tin gây hiểu lầm hoặc thông tin có hại cho
+            cộng đồng. Các hành vi này không chỉ gây ảnh hưởng xấu đến người
+            nhận mà còn có thể dẫn đến các hành vi phạm pháp khác. 4. Cấm sử
+            dụng sai mục đích trong giáo dục trẻ em: Cấm việc sử dụng dịch vụ để
+            thực hiện các hành vi không phù hợp trong việc giáo dục trẻ em, như
+            đưa vào giảng dạy các thông tin sai lệch, không phù hợp về văn hóa,
+            đạo đức, hoặc pháp luật.
+          </p>
+        </div>,
+        {
+          duration: Infinity
+        }
+      );
+
+      setHasShownToast(true);
+    }
+  }, [hasShownToast]);
 
   useEffect(() => {
     async function fetchServiceInfo() {
@@ -57,14 +121,14 @@ export default function BuyServiceForm() {
 
   const onSubmit = async (values: BuyServiceFormValues) => {
     try {
-      const response = await createOrder({ 
-        ...values, 
+      const response = await createOrder({
+        ...values,
         service_id: Number(values.service_id),
         quantity: Number(values.quantity),
         amount: Number(values.amount)
       });
-      
-      if(response.ErrorCode === "SUCCESSFUL"){
+
+      if (response.ErrorCode === 'SUCCESSFUL') {
         toast.success('Đã tạo đơn hàng thành công');
         form.reset();
       }
@@ -72,8 +136,6 @@ export default function BuyServiceForm() {
       console.error('Error creating order:', error);
     }
   };
-
-
 
   return (
     <Form {...form}>
@@ -102,29 +164,32 @@ export default function BuyServiceForm() {
               <FormItem className="flex items-center space-x-3">
                 <FormLabel className="w-1/3 text-lg">Máy chủ</FormLabel>
                 <FormControl className="w-2/3">
-                  <div className='space-y-2'>
-                  <RadioGroup
-                    value={field.value}
-                    onValueChange={field.onChange}
-                  >
-                    {servicesData.map((service: any) => (
-                      <div key={service?.id} className="flex items-center space-x-2">
-                        <RadioGroupItem value={service?.id.toString()} />
-                        <span className="bg-red-100 text-red-500 font-bold text-sm px-2 py-1 rounded-md">
-                          {service?.id}
-                        </span>
-                        <span className="font-medium text-gray-700">
-                          {service?.name}
-                        </span>
-                        <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-sm">
-                          {service?.price} đ
-                        </span>
-                        <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sm">
-                          Hoạt động
-                        </span>
-                      </div>
-                    ))}
-                  </RadioGroup>
+                  <div className="space-y-2">
+                    <RadioGroup
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    >
+                      {servicesData.map((service: any) => (
+                        <div
+                          key={service?.id}
+                          className="flex items-center space-x-2"
+                        >
+                          <RadioGroupItem value={service?.id.toString()} />
+                          <span className="bg-red-100 text-red-500 font-bold text-sm px-2 py-1 rounded-md">
+                            {service?.id}
+                          </span>
+                          <span className="font-medium text-gray-700">
+                            {service?.name}
+                          </span>
+                          <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-sm">
+                            {service?.price} đ
+                          </span>
+                          <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sm">
+                            Hoạt động
+                          </span>
+                        </div>
+                      ))}
+                    </RadioGroup>
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -138,11 +203,7 @@ export default function BuyServiceForm() {
               <FormItem className="flex items-center space-x-3">
                 <FormLabel className="w-1/3 text-lg">Số mắt</FormLabel>
                 <FormControl className="w-2/3">
-                  <Input
-                    type="number"
-                    placeholder="Số mắt"
-                    {...field}
-                  />
+                  <Input type="number" placeholder="Số mắt" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -185,7 +246,21 @@ export default function BuyServiceForm() {
             )}
           />
         </div>
-        <Button type="submit" className='w-full'>Tạo tiến trình</Button>
+        <div className="flex items-center space-x-3">
+          <FormLabel className="w-1/3 text-lg">Thành tiền</FormLabel>
+          <span className="text-lg font-semibold text-red-500">
+            {Number(form.watch('amount')) *
+              Number(form.watch('quantity')) *
+              servicesData.find(
+                (service: any) =>
+                  service.id === Number(form.watch('service_id'))
+              )?.price || 0}{' '}
+            đ
+          </span>
+        </div>
+        <Button type="submit" className="w-full">
+          Tạo tiến trình
+        </Button>
       </form>
     </Form>
   );

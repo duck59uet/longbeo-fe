@@ -47,3 +47,12 @@ export const getTopupHistory = async (params: {
     throw new Error('Failed to get topup history');
   }
 }
+
+export const getBalanceInfo = async (): Promise<any> => {
+  try {
+    const response = await authInstance.get('/user/balance');
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get balance info');
+  }
+}

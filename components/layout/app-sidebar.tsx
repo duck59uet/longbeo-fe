@@ -48,12 +48,12 @@ import useMediaQuery from '@/hooks/useMediaQuery';
 
 export const company = {
   name: 'Dichvumat.com',
-  logo: GalleryVerticalEnd,
+  logo: '/dichvumat.png',
   plan: 'App tăng mắt facebook'
 };
 
 export default function AppSidebar() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const pathname = usePathname();
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const collapsible = isDesktop ? 'none' : 'icon';
@@ -63,7 +63,7 @@ export default function AppSidebar() {
       <SidebarHeader>
         <div className="flex gap-2 py-2 text-sidebar-accent-foreground ">
           <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-            <company.logo className="size-4" />
+            <img src={company.logo} alt="Company Logo" className="size-4" />
           </div>
           <div className="grid flex-1 text-left text-sm leading-tight">
             <span className="truncate font-semibold">{company.name}</span>
@@ -131,7 +131,7 @@ export default function AppSidebar() {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
+      {/* <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
@@ -214,7 +214,7 @@ export default function AppSidebar() {
             </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>
-      </SidebarFooter>
+      </SidebarFooter> */}
       <SidebarRail />
     </Sidebar>
   );
