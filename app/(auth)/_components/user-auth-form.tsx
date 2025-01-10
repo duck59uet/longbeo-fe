@@ -12,11 +12,12 @@ import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn, signOut } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
-import { use, useEffect, useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
 import SignUpButton from './signup-button';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const formSchema = z.object({
   username: z.string({ message: 'Hãy nhập tên tài khoản' }),
@@ -31,6 +32,7 @@ interface UserAuthFormProps {
 
 export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
   const searchParams = useSearchParams();
+  const [rememberMeChecked, setRememberMeChecked] = useState(false);
   const callbackUrl = searchParams.get('callbackUrl');
   const [loading, startTransition] = useTransition();
   const defaultValues = {
@@ -44,7 +46,7 @@ export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
 
   useEffect(() => {
     signOut({ redirect: false });
-  }, [])
+  }, []);
 
   const onSubmit = async (data: UserFormValue) => {
     startTransition(async () => {
@@ -53,9 +55,9 @@ export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
           redirect: false,
           username: data.username,
           password: data.password,
-          callbackUrl: callbackUrl ?? '/dashboard/overview',
+          callbackUrl: callbackUrl ?? '/dashboard/overview'
         });
-  
+
         if (result?.ok) {
           window.location.href = result.url || '/dashboard/overview';
         } else {
@@ -102,6 +104,7 @@ export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
                   <Input
                     type="password"
                     placeholder="Mật khẩu"
+                    autoComplete="current-password"
                     disabled={loading}
                     {...field}
                   />
@@ -110,6 +113,17 @@ export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
               </FormItem>
             )}
           />
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="rememberMe"
+              checked={rememberMeChecked}
+              onCheckedChange={(checked) => setRememberMeChecked(checked === true)}
+              disabled={loading}
+            />
+            <label htmlFor="rememberMe" className="font-sans">
+              Ghi nhớ tài khoản
+            </label>
+          </div>
           <Button disabled={loading} className="ml-auto w-full" type="submit">
             Đăng nhập
           </Button>
@@ -120,12 +134,10 @@ export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            hoặc
-          </span>
+          <span className="bg-background px-2 text-muted-foreground">hoặc</span>
         </div>
       </div>
-      <SignUpButton toggleForm={toggleForm}/>
+      <SignUpButton toggleForm={toggleForm} />
     </>
   );
 }

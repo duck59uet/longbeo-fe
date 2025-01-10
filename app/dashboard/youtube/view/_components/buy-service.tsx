@@ -116,7 +116,7 @@ export default function BuyServiceForm() {
   useEffect(() => {
     async function fetchServiceInfo() {
       try {
-        const data = await getServiceInfo(1);
+        const data = await getServiceInfo(2);
         setServicesData(data.Data);
       } catch (error) {
         toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');

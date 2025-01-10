@@ -21,7 +21,8 @@ const formSchema = z.object({
   username: z.string({ message: 'Hãy nhập tên tài khoản' }),
   fullname: z.string({ message: 'Hãy nhập họ và tên' }),
   email: z.string().email({ message: 'Hãy nhập email hợp lệ' }),
-  password: z.string({ message: 'Hãy nhập mật khẩu' })
+  password: z.string({ message: 'Hãy nhập mật khẩu' }),
+  phone: z.string({ message: 'Hãy nhập số điện thoại' })
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -36,7 +37,8 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
     username: '',
     fullname: '',
     email: '',
-    password: ''
+    password: '',
+    phone: ''
   };
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
@@ -102,6 +104,19 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input type="email" placeholder="Email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Số điện thoại</FormLabel>
+                <FormControl>
+                  <Input type="text" placeholder="Số điện thoại" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -88,7 +88,52 @@ export const navItems: NavItem[] = [
         title: 'Tăng mắt facebook',
         url: '/dashboard/facebook/view',
         icon: 'userPen',
-        shortcut: ['mat', 'mat']
+        shortcut: ['matF', 'matF']
+      },
+    ]
+  },
+  {
+    title: 'Youtube',
+    url: '#', // Placeholder as there is no direct link for the parent
+    icon: 'youtube',
+    isActive: true,
+
+    items: [
+      {
+        title: 'Tăng mắt youtube',
+        url: '/dashboard/youtube/view',
+        icon: 'userPen',
+        shortcut: ['matY', 'matY']
+      },
+    ]
+  },
+  {
+    title: 'Shopee',
+    url: '#', // Placeholder as there is no direct link for the parent
+    icon: 'shopee',
+    isActive: true,
+
+    items: [
+      {
+        title: 'Tăng mắt shopee',
+        url: '/dashboard/shopee/view',
+        icon: 'userPen',
+        shortcut: ['matS', 'matS']
+      },
+    ]
+  },
+  {
+    title: 'Instagram',
+    url: '#', // Placeholder as there is no direct link for the parent
+    icon: 'instagram',
+    isActive: true,
+
+    items: [
+      {
+        title: 'Tăng mắt instagram',
+        url: '/dashboard/instagram/view',
+        icon: 'userPen',
+        shortcut: ['matI', 'matI']
       },
     ]
   },
