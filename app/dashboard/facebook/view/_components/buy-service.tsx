@@ -7,7 +7,7 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -17,6 +17,13 @@ import { useEffect, useState } from 'react';
 import { getServiceInfo } from '@/services/service';
 import { toast } from 'sonner';
 import { createOrder } from '@/services/order';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
 // import '@/styles/toast-custom.css';
 
 const formSchema = z.object({
@@ -210,23 +217,37 @@ export default function BuyServiceForm() {
             )}
           />
           <FormField
-            control={form.control}
-            name="amount"
-            render={({ field }) => (
-              <FormItem className="flex items-center space-x-3">
-                <FormLabel className="w-1/3 text-lg">Số phút</FormLabel>
-                <FormControl className="w-2/3">
-                  <Input
-                    type="number"
-                    placeholder="Số phút"
-                    min={1}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          control={form.control}
+          name="amount"
+          render={({ field }) => (
+            <FormItem className="flex items-center space-x-3">
+              <FormLabel className="w-1/3 text-lg">Số phút</FormLabel>
+              <FormControl className="w-2/3">
+                <Select
+                  onValueChange={(value) => field.onChange(value)}
+                  value={field.value}
+                >
+                  <SelectTrigger className="w-2/3">
+                    <SelectValue placeholder="Số phút" />
+                  </SelectTrigger>
+                  <SelectContent className='w-2/3'>
+                    <SelectItem value="15">15 phút</SelectItem>
+                    <SelectItem value="30">30 phút</SelectItem>
+                    <SelectItem value="48">48 phút</SelectItem>
+                    <SelectItem value="60">60 phút</SelectItem>
+                    <SelectItem value="120">120 phút</SelectItem>
+                    <SelectItem value="150">150 phút</SelectItem>
+                    <SelectItem value="180">180 phút</SelectItem>
+                    <SelectItem value="360">360 phút</SelectItem>
+                    <SelectItem value="720">720 phút</SelectItem>
+                    <SelectItem value="1440">1440 phút</SelectItem>
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
           <FormField
             control={form.control}
             name="note"

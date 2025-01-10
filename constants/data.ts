@@ -63,14 +63,6 @@ export const navItems: NavItem[] = [
     items: [] // No child items
   },
   {
-    title: 'Admin nạp tài khoản',
-    url: '/dashboard/admin/topup',
-    icon: 'user',
-    shortcut: ['t', 't'],
-    isActive: false,
-    items: [] // No child items
-  },
-  {
     title: 'Nạp tiền tài khoản',
     url: '/dashboard/topup',
     icon: 'user',
