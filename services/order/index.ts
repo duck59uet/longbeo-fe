@@ -15,9 +15,9 @@ export const createOrder = async (data: {
   }
 };
 
-export const getOrder = async (): Promise<any> => {
+export const getOrder = async (ids: string): Promise<any> => {
   try {
-    const response = await authInstance.get('/order/user/history');
+    const response = await authInstance.get(`/order/user/history/${ids}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to get order history');

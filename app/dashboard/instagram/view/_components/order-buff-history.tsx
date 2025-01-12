@@ -9,7 +9,7 @@ export default function BuffOrderHistoryTable() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await getOrder();
+        const result = await getOrder('12, 13, 14');
         setData(result.Data);
       } catch (error) {
         console.error('Error fetching top-up history:', error);

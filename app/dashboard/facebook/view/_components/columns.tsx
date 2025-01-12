@@ -4,10 +4,6 @@ import { ColumnDef } from '@tanstack/react-table';
 
 export const columns: ColumnDef<BuffHistory>[] = [
   {
-    accessorKey: 'orderId',
-    header: 'Mã đơn hàng'
-  },
-  {
     accessorKey: 'orderLink',
     header: 'Link đơn'
   },
