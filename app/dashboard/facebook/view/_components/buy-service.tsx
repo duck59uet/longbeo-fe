@@ -7,7 +7,7 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -24,11 +24,15 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-// import '@/styles/toast-custom.css';
+import { Modal } from '@/components/ui/modal';
 
 const formSchema = z.object({
   link: z.string(),
-  quantity: z.string(),
+  quantity: z
+    .string()
+    .refine((val) => !isNaN(Number(val)) && Number(val) > 50, {
+      message: 'Số lượng phải lớn hơn 50'
+    }),
   amount: z.string(),
   service_id: z.string(),
   note: z.string().optional().nullable()
@@ -39,6 +43,8 @@ type BuyServiceFormValues = z.infer<typeof formSchema>;
 export default function BuyServiceForm() {
   const [hasShownToast, setHasShownToast] = useState(false);
   const [servicesData, setServicesData] = useState<any[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
   const form = useForm<BuyServiceFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -139,147 +145,174 @@ export default function BuyServiceForm() {
         toast.success('Đã tạo đơn hàng thành công');
         form.reset();
       }
+
+      if (response.AdditionalData.Code === 'E004') {
+        setModalMessage('Không đủ số dư trong tài khoản');
+        setIsModalOpen(true);
+      }
     } catch (error) {
       console.error('Error creating order:', error);
     }
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-4">
-        <div className="grid grid-cols-1 gap-6">
-          <FormField
-            control={form.control}
-            name="link"
-            render={({ field }) => (
-              <FormItem className="flex items-center space-x-3">
-                <FormLabel className="w-1/3 text-lg">Link order</FormLabel>
-                <FormControl className="w-2/3">
-                  <Input
-                    placeholder="Nhập link hoặc ID bài viết cần tăng"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="service_id"
-            render={({ field }) => (
-              <FormItem className="flex items-center space-x-3">
-                <FormLabel className="w-1/3 text-lg">Máy chủ</FormLabel>
-                <FormControl className="w-2/3">
-                  <div className="space-y-2">
-                    <RadioGroup
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-4">
+          <div className="grid grid-cols-1 gap-6">
+            <FormField
+              control={form.control}
+              name="link"
+              render={({ field }) => (
+                <FormItem className="flex items-center space-x-3">
+                  <FormLabel className="w-1/3 text-lg">Link order</FormLabel>
+                  <FormControl className="w-2/3">
+                    <Input
+                      placeholder="Nhập link hoặc ID bài viết cần tăng"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="service_id"
+              render={({ field }) => (
+                <FormItem className="flex items-center space-x-3">
+                  <FormLabel className="w-1/3 text-lg">Máy chủ</FormLabel>
+                  <FormControl className="w-2/3">
+                    <div className="space-y-2">
+                      <RadioGroup
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        {servicesData.map((service: any) => (
+                          <div
+                            key={service?.id}
+                            className="flex items-center space-x-2"
+                          >
+                            <RadioGroupItem value={service?.id.toString()} />
+                            <span className="font-medium text-gray-700">
+                              {service?.name}
+                            </span>
+                            <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-sm">
+                              {service?.price} đ
+                            </span>
+                            <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sm">
+                              Hoạt động
+                            </span>
+                          </div>
+                        ))}
+                      </RadioGroup>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="quantity"
+              render={({ field }) => (
+                <FormItem className="flex items-center space-x-3">
+                  <FormLabel className="w-1/3 text-lg">Số mắt</FormLabel>
+                  <FormControl className="w-2/3">
+                    <Input
+                      type="number"
+                      placeholder="Số mắt"
+                      {...field}
+                      defaultValue={50}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="amount"
+              render={({ field }) => (
+                <FormItem className="flex items-center space-x-3">
+                  <FormLabel className="w-1/3 text-lg">Số phút</FormLabel>
+                  <FormControl className="w-2/3">
+                    <Select
+                      onValueChange={(value) => field.onChange(value)}
                       value={field.value}
-                      onValueChange={field.onChange}
                     >
-                      {servicesData.map((service: any) => (
-                        <div
-                          key={service?.id}
-                          className="flex items-center space-x-2"
-                        >
-                          <RadioGroupItem value={service?.id.toString()} />
-                          <span className="font-medium text-gray-700">
-                            {service?.name}
-                          </span>
-                          <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-sm">
-                            {service?.price} đ
-                          </span>
-                          <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sm">
-                            Hoạt động
-                          </span>
-                        </div>
-                      ))}
-                    </RadioGroup>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="quantity"
-            render={({ field }) => (
-              <FormItem className="flex items-center space-x-3">
-                <FormLabel className="w-1/3 text-lg">Số mắt</FormLabel>
-                <FormControl className="w-2/3">
-                  <Input type="number" placeholder="Số mắt" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-          control={form.control}
-          name="amount"
-          render={({ field }) => (
-            <FormItem className="flex items-center space-x-3">
-              <FormLabel className="w-1/3 text-lg">Số phút</FormLabel>
-              <FormControl className="w-2/3">
-                <Select
-                  onValueChange={(value) => field.onChange(value)}
-                  value={field.value}
-                >
-                  <SelectTrigger className="w-2/3">
-                    <SelectValue placeholder="Số phút" />
-                  </SelectTrigger>
-                  <SelectContent className='w-2/3'>
-                    <SelectItem value="15">15 phút</SelectItem>
-                    <SelectItem value="30">30 phút</SelectItem>
-                    <SelectItem value="48">48 phút</SelectItem>
-                    <SelectItem value="60">60 phút</SelectItem>
-                    <SelectItem value="120">120 phút</SelectItem>
-                    <SelectItem value="150">150 phút</SelectItem>
-                    <SelectItem value="180">180 phút</SelectItem>
-                    <SelectItem value="360">360 phút</SelectItem>
-                    <SelectItem value="720">720 phút</SelectItem>
-                    <SelectItem value="1440">1440 phút</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-          <FormField
-            control={form.control}
-            name="note"
-            render={({ field }) => (
-              <FormItem className="flex items-center space-x-3 md-9">
-                <FormLabel className="w-1/3 text-lg">Ghi chú</FormLabel>
-                <FormControl className="w-2/3">
-                  <Textarea
-                    placeholder="Ghi chú"
-                    rows={4}
-                    {...field}
-                    value={field.value ?? ''}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="flex items-center space-x-3">
-          <FormLabel className="w-1/3 text-lg">Thành tiền</FormLabel>
-          <span className="text-lg font-semibold text-red-500">
-            {Number(form.watch('amount')) *
-              Number(form.watch('quantity')) *
-              servicesData.find(
-                (service: any) =>
-                  service.id === Number(form.watch('service_id'))
-              )?.price || 0}{' '}
-            đ
-          </span>
-        </div>
-        <Button type="submit" className="w-full bg-[#4680FF] text-white hover:bg-[#2E5BFF]">
-          Tạo tiến trình
-        </Button>
-      </form>
-    </Form>
+                      <SelectTrigger className="w-2/3">
+                        <SelectValue placeholder="Số phút" />
+                      </SelectTrigger>
+                      <SelectContent className="w-2/3">
+                        <SelectItem value="30">30 phút</SelectItem>
+                        <SelectItem value="60">60 phút</SelectItem>
+                        <SelectItem value="90">90 phút</SelectItem>
+                        <SelectItem value="120">120 phút</SelectItem>
+                        <SelectItem value="150">150 phút</SelectItem>
+                        <SelectItem value="180">180 phút</SelectItem>
+                        <SelectItem value="210">210 phút</SelectItem>
+                        <SelectItem value="270">270 phút</SelectItem>
+                        <SelectItem value="300">300 phút</SelectItem>
+                        <SelectItem value="330">330 phút</SelectItem>
+                        <SelectItem value="360">360 phút</SelectItem>
+                        <SelectItem value="390">390 phút</SelectItem>
+                        <SelectItem value="720">720 phút</SelectItem>
+                        <SelectItem value="1440">1440 phút</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="note"
+              render={({ field }) => (
+                <FormItem className="flex items-center space-x-3 md-9">
+                  <FormLabel className="w-1/3 text-lg">Ghi chú</FormLabel>
+                  <FormControl className="w-2/3">
+                    <Textarea
+                      placeholder="Ghi chú"
+                      rows={4}
+                      {...field}
+                      value={field.value ?? ''}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="flex items-center space-x-3">
+            <FormLabel className="w-1/3 text-lg">Thành tiền</FormLabel>
+            <span className="text-lg font-semibold text-red-500">
+              {Number(form.watch('amount')) *
+                Number(form.watch('quantity')) *
+                servicesData.find(
+                  (service: any) =>
+                    service.id === Number(form.watch('service_id'))
+                )?.price || 0}{' '}
+              đ
+            </span>
+          </div>
+          <Button
+            type="submit"
+            className="w-full bg-[#4680FF] text-white hover:bg-[#2E5BFF]"
+          >
+            Tạo tiến trình
+          </Button>
+        </form>
+      </Form>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Thông báo"
+        description={''}
+      >
+        {modalMessage}
+      </Modal>
+    </>
   );
 }

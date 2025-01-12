@@ -1,0 +1,6 @@
+/* styles.css */
+.pc-sidebar {
+    box-shadow: 1px 0 3px 0px #dbe0e5;
+    border-right: var(--pc-sidebar-border);
+}
+  
