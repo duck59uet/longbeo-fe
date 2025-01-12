@@ -16,7 +16,7 @@ export default function BuffLiveAccountPage() {
             <CardContent>
               <div className="space-y-4 mt-4">
                 <Tabs defaultValue="buy-service" className="space-y-4">
-                  <TabsList className="w-full h-10 flex flex justify-between">
+                  <TabsList className="w-full h-10 flex flex justify-between bg-[#ECF2FF]">
                     <TabsTrigger
                       value="buy-service"
                       className="text-xl font-sans flex-1 bg-transparent border-none"

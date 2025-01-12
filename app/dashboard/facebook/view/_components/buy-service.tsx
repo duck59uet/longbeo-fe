@@ -276,7 +276,7 @@ export default function BuyServiceForm() {
             đ
           </span>
         </div>
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full bg-[#4680FF] text-white hover:bg-[#2E5BFF]">
           Tạo tiến trình
         </Button>
       </form>

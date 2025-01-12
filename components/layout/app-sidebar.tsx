@@ -1,19 +1,9 @@
 'use client';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger
 } from '@/components/ui/collapsible';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
 import {
   Sidebar,
   SidebarContent,
@@ -31,15 +21,7 @@ import {
 } from '@/components/ui/sidebar';
 import { navItems } from '@/constants/data';
 import {
-  BadgeCheck,
-  Bell,
-  ChevronRight,
-  ChevronsUpDown,
-  CreditCard,
-  GalleryVerticalEnd,
-  LogOut
-} from 'lucide-react';
-import { useSession } from 'next-auth/react';
+  ChevronRight} from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
@@ -89,6 +71,7 @@ export default function AppSidebar() {
                       <SidebarMenuButton
                         tooltip={item.title}
                         isActive={pathname === item.url}
+                        className='hover:bg-[#ECF2FF]'
                       >
                         {item.icon && <Icon />}
                         <span>{item.title}</span>
@@ -102,6 +85,7 @@ export default function AppSidebar() {
                             <SidebarMenuSubButton
                               asChild
                               isActive={pathname === subItem.url}
+                              className='hover:bg-[#ECF2FF]'
                             >
                               <Link href={subItem.url}>
                                 <span>{subItem.title}</span>
@@ -119,6 +103,7 @@ export default function AppSidebar() {
                     asChild
                     tooltip={item.title}
                     isActive={pathname === item.url}
+                    className='hover:bg-[#ECF2FF]'
                   >
                     <Link href={item.url}>
                       <Icon />

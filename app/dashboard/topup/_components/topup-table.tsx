@@ -1,9 +1,8 @@
 'use client';
 
-import { DataTable } from '@/components/ui/table/data-table';
 import { TopupHistory } from '@/constants/data';
 import { columns } from './columns';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Table,
   TableBody,

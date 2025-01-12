@@ -3,12 +3,20 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import { getInfo } from '@/services/myaccount';
 
 export function TopupInfo() {
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [userInfo, setUserInfo] = useState<any>(null);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  React.useEffect(() => {
+    getInfo().then((res) => {
+      setUserInfo(res.Data);
+    });
+  }, []);
 
   const instructions = [
     'Bạn vui lòng chuyển khoản chính xác nội dung để được cộng tiền nhanh nhất.',
@@ -17,6 +25,8 @@ export function TopupInfo() {
     'Nạp sai số tài khoản, sai ngân hàng, sai nội dung sẽ bị trừ 20% phí giao dịch.',
     'Bấm vào số tài khoản hoặc nội dung để sao chép nội thông tin chuyển tiền 1 cách chuẩn nhất.'
   ];
+
+  
 
   return (
     <>
@@ -62,7 +72,7 @@ export function TopupInfo() {
               NỘI DUNG: (BẮT BUỘC GHI ĐÚNG NỘI DUNG DƯỚI ĐÂY)
             </div>
             <div className="bg-[#EEF3FF] text-[#5B7CFD] text-center text-lg font-bold py-4 rounded-b-lg">
-              naptien Thamnh1287
+              naptien {userInfo?.username}
             </div>
           </div>
         </CardContent>
