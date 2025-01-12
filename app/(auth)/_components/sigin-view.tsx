@@ -27,13 +27,13 @@ export default function SignInViewPage() {
         href="/examples/authentication"
         className={cn(
           buttonVariants({ variant: 'ghost' }),
-          'absolute right-4 top-4 hidden md:right-8 md:top-8'
+          'absolute right-4 top-4 hidden md:right-8 md:top-8 bg-'
         )}
       >
         Đăng nhập
       </Link>
-      <div className="relative hidden h-full flex-col bg-muted items-center justify-center text-white dark:border-r lg:flex">
-        <div className="absolute inset-0 bg-zinc-900" />
+      <div className="relative hidden h-full flex-col bg-[#FFFFF] items-center justify-center text-white dark:border-r lg:flex">
+        <div className="absolute inset-0 bg-[#FFFFF]" />
         <div className="relative z-20 flex items-center justify-center text-lg font-medium">
           <Image
             src="/dichvumat.png"

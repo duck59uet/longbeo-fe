@@ -4,10 +4,6 @@ import { ColumnDef } from '@tanstack/react-table';
 
 export const columns: ColumnDef<TopupHistory>[] = [
   {
-    accessorKey: 'id',
-    header: 'ID'
-  },
-  {
     accessorKey: 'createdAt',
     header: 'Thời gian'
   },

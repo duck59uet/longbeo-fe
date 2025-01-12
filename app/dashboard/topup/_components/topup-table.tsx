@@ -25,7 +25,7 @@ export default function TopupTable({
   });
 
   return (
-    <div className="space-y-4">
+    <div className="overflow-x-auto">
       <ScrollArea className="grid h-[calc(80vh-220px)] rounded-md border md:h-[calc(90dvh-240px)]">
         <Table className="relative">
           <TableHeader>
