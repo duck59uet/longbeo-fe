@@ -4,39 +4,35 @@ import { ColumnDef } from '@tanstack/react-table';
 
 export const columns: ColumnDef<BuffHistory>[] = [
   {
-    accessorKey: 'orderId',
-    header: 'Mã đơn hàng'
-  },
-  {
-    accessorKey: 'orderLink',
+    accessorKey: 'order_link',
     header: 'Link đơn'
   },
   {
-    accessorKey: 'serviceName',
+    accessorKey: 'service_name',
     header: 'Máy chủ'
   },
   {
-    accessorKey: 'servicePrice',
+    accessorKey: 'service_price',
     header: 'Giá'
   },
   {
-    accessorKey: 'orderQuantity',
+    accessorKey: 'order_quantity',
     header: 'Số lượng'
   },
   {
-    accessorKey: 'createdAt',
+    accessorKey: 'order_createdAt',
     header: 'Bắt đầu'
   },
   {
-    accessorKey: 'orderAmount',
+    accessorKey: 'order_amount',
     header: 'Số phút'
   },
   {
-    accessorKey: 'orderPrice',
+    accessorKey: 'order_price',
     header: 'Thành tiền'
   },
   {
-    accessorKey: 'orderNote',
+    accessorKey: 'order_note',
     header: 'Ghi chú'
   }
 ];
