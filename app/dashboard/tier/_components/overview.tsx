@@ -46,18 +46,18 @@ export default function OverViewPage() {
           ].map((item, index) => (
             <Card key={index}>
               <CardHeader>
-                <CardTitle className="text-center">{item.title}</CardTitle>
+                <CardTitle className="text-center font-sans">{item.title}</CardTitle>
               </CardHeader>
               <CardContent className="text-center">
-                <div className="text-2xl font-bold">{item.amount}</div>
-                <Button className="mt-4 w-full" variant="outline">
+                <div className="text-2xl font-bold font-sans">{item.amount}</div>
+                <Button className="mt-4 w-full font-sans" variant="outline">
                   Nâng Cấp Ngay
                 </Button>
                 <ul className="mt-4 text-left space-y-2">
                   {item.features.map((feature, i) => (
                     <li key={i} className="flex items-center">
                       <span
-                        className={`mr-2 ${
+                        className={`mr-2 font-sans ${
                           feature.enabled ? 'text-blue-500' : 'text-red-500'
                         }`}
                       >
