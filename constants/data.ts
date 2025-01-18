@@ -72,7 +72,7 @@ export const navItems: NavItem[] = [
   },
   {
     title: 'Cấp bậc tài khoán',
-    url: '#', // Placeholder as there is no direct link for the parent
+    url: '/dashboard/tier', 
     icon: 'billing',
     isActive: false,
     items: []
