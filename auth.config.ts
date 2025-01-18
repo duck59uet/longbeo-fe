@@ -47,5 +47,6 @@ const authConfig = {
     }
   },
   secret: process.env.NEXTAUTH_SECRET,
+  trustHost: true,
 } satisfies NextAuthConfig;
 export default authConfig;
