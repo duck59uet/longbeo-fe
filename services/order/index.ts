@@ -15,9 +15,17 @@ export const createOrder = async (data: {
   }
 };
 
-export const getOrder = async (ids: string): Promise<any> => {
+export const getOrder = async ({
+  categoryId = 0,
+  page = 1,
+  limit = 10
+}: {
+  categoryId ?: number;
+  page?: number;
+  limit?: number;
+}): Promise<any> => {
   try {
-    const response = await authInstance.get(`/order/user/history/${ids}`);
+    const response = await authInstance.get(`/order/user/history?categoryId=${categoryId}&limit=${limit}&page=${page}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to get order history');

@@ -30,19 +30,24 @@ import {
 } from '@tanstack/react-table';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { parseAsInteger, useQueryState } from 'nuqs';
+import { useEffect, useState } from 'react';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   totalItems: number;
   pageSizeOptions?: number[];
+  onPageChange: any;
+  onLimitChange: any;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   totalItems,
-  pageSizeOptions = [10, 20, 30, 40, 50]
+  pageSizeOptions = [10, 20, 30, 40, 50],
+  onPageChange,
+  onLimitChange
 }: DataTableProps<TData, TValue>) {
   const [currentPage, setCurrentPage] = useQueryState(
     'page',
@@ -54,6 +59,24 @@ export function DataTable<TData, TValue>({
       .withOptions({ shallow: false, history: 'push' })
       .withDefault(10)
   );
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+
+  useEffect(() => {
+    onPageChange(page);
+  }, [page]);
+
+  useEffect(() => {
+    onLimitChange(limit);
+  }, [limit]);
+
+  const handlePageChange = (newPage: any) => {
+    setPage(newPage);
+  };
+
+  const handleLimitChange = (newLimit: any) => {
+    setLimit(newLimit);
+  };
 
   const paginationState = {
     pageIndex: currentPage - 1, // zero-based index for React Table
@@ -147,16 +170,16 @@ export function DataTable<TData, TValue>({
           <div className="flex-1 text-sm text-muted-foreground">
             {totalItems > 0 ? (
               <>
-                Showing{' '}
+                Hiển thị{' '}
                 {paginationState.pageIndex * paginationState.pageSize + 1} to{' '}
                 {Math.min(
                   (paginationState.pageIndex + 1) * paginationState.pageSize,
                   totalItems
                 )}{' '}
-                of {totalItems} bản ghi
+                trên {totalItems} bản ghi
               </>
             ) : (
-              'Không có bản ghi'
+              ''
             )}
           </div>
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
@@ -168,6 +191,7 @@ export function DataTable<TData, TValue>({
                 value={`${paginationState.pageSize}`}
                 onValueChange={(value) => {
                   table.setPageSize(Number(value));
+                  handleLimitChange(Number(value));
                 }}
               >
                 <SelectTrigger className="h-8 w-[70px]">
@@ -199,7 +223,10 @@ export function DataTable<TData, TValue>({
               aria-label="Go to first page"
               variant="outline"
               className="hidden h-8 w-8 p-0 lg:flex"
-              onClick={() => table.setPageIndex(0)}
+              onClick={() => {
+                table.setPageIndex(0);
+                handlePageChange(1);
+              }}
               disabled={!table.getCanPreviousPage()}
             >
               <DoubleArrowLeftIcon className="h-4 w-4" aria-hidden="true" />
@@ -208,7 +235,10 @@ export function DataTable<TData, TValue>({
               aria-label="Go to previous page"
               variant="outline"
               className="h-8 w-8 p-0"
-              onClick={() => table.previousPage()}
+              onClick={() => {
+                table.previousPage();
+                handlePageChange(page - 1);
+              }}
               disabled={!table.getCanPreviousPage()}
             >
               <ChevronLeftIcon className="h-4 w-4" aria-hidden="true" />
@@ -217,7 +247,10 @@ export function DataTable<TData, TValue>({
               aria-label="Go to next page"
               variant="outline"
               className="h-8 w-8 p-0"
-              onClick={() => table.nextPage()}
+              onClick={() => {
+                table.nextPage();
+                handlePageChange(page + 1);
+              }}
               disabled={!table.getCanNextPage()}
             >
               <ChevronRightIcon className="h-4 w-4" aria-hidden="true" />
@@ -226,7 +259,10 @@ export function DataTable<TData, TValue>({
               aria-label="Go to last page"
               variant="outline"
               className="hidden h-8 w-8 p-0 lg:flex"
-              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+              onClick={() => {
+                table.setPageIndex(table.getPageCount() - 1);
+                handlePageChange(table.getPageCount());
+              }}
               disabled={!table.getCanNextPage()}
             >
               <DoubleArrowRightIcon className="h-4 w-4" aria-hidden="true" />
