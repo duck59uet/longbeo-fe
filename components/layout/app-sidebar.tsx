@@ -27,6 +27,7 @@ import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import { Icons } from '../icons';
 import useMediaQuery from '@/hooks/useMediaQuery';
+import { ScrollArea } from '../ui/scroll-area';
 
 export const company = {
   name: 'Dichvumat.com',
@@ -56,6 +57,7 @@ export default function AppSidebar() {
       <SidebarContent className="overflow-x-hidden">
         <SidebarGroup>
           <SidebarGroupLabel>Hệ thống</SidebarGroupLabel>
+          <ScrollArea className="grid h-[calc(80vh-220px)] rounded-md border md:h-[calc(90dvh-240px)]">
           <SidebarMenu>
             {navItems.map((item) => {
               const Icon = item.icon ? Icons[item.icon] : Icons.logo;
@@ -114,12 +116,13 @@ export default function AppSidebar() {
               );
             })}
           </SidebarMenu>
+          </ScrollArea>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
         <div className="flex flex-col items-start bottom-0 gap-3 py-4">
           {/* Zalo */}
-          <a
+          {/* <a
             href="https://zalo.me/g/azthjg861"
             target="_blank"
             rel="noopener noreferrer"
@@ -130,9 +133,9 @@ export default function AppSidebar() {
               alt="Zalo"
               className="h-6 w-6"
             />
-          </a>
+          </a> */}
           {/* Messenger */}
-          <a
+          {/* <a
             href="https://m.me/YOUR_MESSENGER_LINK"
             target="_blank"
             rel="noopener noreferrer"
@@ -143,9 +146,9 @@ export default function AppSidebar() {
               alt="Messenger"
               className="h-6 w-6"
             />
-          </a>
+          </a> */}
           {/* Call */}
-          <a
+          {/* <a
             href="tel:+0976836223"
             className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500 shadow-lg"
           >
@@ -154,7 +157,7 @@ export default function AppSidebar() {
               alt="Call"
               className="h-6 w-6"
             />
-          </a>
+          </a> */}
         </div>
       </SidebarFooter>
       <SidebarRail />
