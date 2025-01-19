@@ -36,7 +36,7 @@ export default function SignInViewPage() {
         <div className="absolute inset-0 bg-[#FFFFF]" />
         <div className="relative z-20 flex items-center justify-center text-lg font-medium">
           <Image
-            src="/dichvumat.png"
+            src="/logo.png"
             alt="Dịch Vụ Mắt"
             width={400} // Phóng to hình ảnh
             height={400} // Phóng to hình ảnh

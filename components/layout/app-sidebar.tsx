@@ -31,7 +31,7 @@ import useMediaQuery from '@/hooks/useMediaQuery';
 export const company = {
   name: 'Dichvumat.com',
   logo: '/dichvumat.png',
-  plan: 'App tăng mắt facebook'
+  plan: 'App tăng mắt'
 };
 
 export default function AppSidebar() {
