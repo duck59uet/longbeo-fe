@@ -24,6 +24,10 @@ export default function OverViewPage() {
     }
 
     fetchBalanceInfo();
+
+    const interval = setInterval(fetchBalanceInfo, 15000);
+
+    return () => clearInterval(interval);
   }, []);
   
   return (
