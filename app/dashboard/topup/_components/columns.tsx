@@ -8,14 +8,6 @@ export const columns: ColumnDef<TopupHistory>[] = [
     header: 'Thời gian'
   },
   {
-    accessorKey: 'payment_method',
-    header: 'Loại'
-  },
-  {
-    accessorKey: 'payment_code',
-    header: 'Mã giao dịch'
-  },
-  {
     accessorKey: 'amount',
     header: 'Thực nhận'
   },
@@ -23,8 +15,4 @@ export const columns: ColumnDef<TopupHistory>[] = [
     accessorKey: 'sender',
     header: 'Người gửi'
   },
-  {
-    accessorKey: 'content',
-    header: 'Nội dung'
-  }
 ];
