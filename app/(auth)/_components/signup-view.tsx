@@ -22,7 +22,9 @@ const formSchema = z.object({
   fullname: z.string({ message: 'Hãy nhập họ và tên' }),
   email: z.string().email({ message: 'Hãy nhập email hợp lệ' }),
   password: z.string({ message: 'Hãy nhập mật khẩu' }),
-  phone: z.string({ message: 'Hãy nhập số điện thoại' })
+  phone: z.string()
+    .regex(/^[0-9]+$/, { message: 'Số điện thoại chỉ được chứa các ký tự số' })
+    .nonempty({ message: 'Hãy nhập số điện thoại' })
 });
 
 type UserFormValue = z.infer<typeof formSchema>;

@@ -30,7 +30,7 @@ const formSchema = z.object({
   link: z.string(),
   quantity: z
     .string()
-    .refine((val) => !isNaN(Number(val)) && Number(val) > 50, {
+    .refine((val) => !isNaN(Number(val)) && Number(val) >= 50, {
       message: 'Số lượng phải lớn hơn 50'
     }),
   amount: z.string(),

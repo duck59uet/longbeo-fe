@@ -25,7 +25,6 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { Modal } from '@/components/ui/modal';
-// import '@/styles/toast-custom.css';
 
 const formSchema = z.object({
   link: z.string(),
@@ -51,7 +50,7 @@ export default function BuyServiceForm() {
     defaultValues: {
       link: '',
       service_id: '',
-      quantity: '50',
+      quantity: '',
       amount: '',
       note: ''
     }
@@ -123,7 +122,7 @@ export default function BuyServiceForm() {
   useEffect(() => {
     async function fetchServiceInfo() {
       try {
-        const data = await getServiceInfo(3);
+        const data = await getServiceInfo(5);
         setServicesData(data.Data);
       } catch (error) {
         toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
@@ -220,7 +219,12 @@ export default function BuyServiceForm() {
                 <FormItem className="flex items-center space-x-3">
                   <FormLabel className="w-1/3 text-lg">Số mắt</FormLabel>
                   <FormControl className="w-2/3">
-                    <Input type="number" placeholder="Số mắt" {...field} />
+                    <Input
+                      type="number"
+                      placeholder="Số mắt"
+                      {...field}
+                      defaultValue={50}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
