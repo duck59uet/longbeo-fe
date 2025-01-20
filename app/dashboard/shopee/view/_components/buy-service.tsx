@@ -25,6 +25,8 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { Modal } from '@/components/ui/modal';
+import { CardContent } from '@/components/ui/card';
+import { TriangleAlert } from 'lucide-react';
 // import '@/styles/toast-custom.css';
 
 const formSchema = z.object({
@@ -56,6 +58,21 @@ export default function BuyServiceForm() {
       note: ''
     }
   });
+
+  const instructions = [
+    'Liên kết: Liên kết phát trực tiếp Shopee',
+    'Vị trí: Toàn cầu',
+    'Bắt đầu: 0-5 phút',
+    'Thời gian: 15 phút',
+    'Không thả',
+    'Không nạp lại'
+  ];
+
+  const instructions1 = [
+    'Khi dịch vụ bận, tốc độ bắt đầu của quy trình sẽ thay đổi.',
+    'Không đặt đơn hàng thứ hai thông qua cùng một liên kết trước khi đơn hàng của bạn được hoàn tất trong hệ thống.',
+    'Trong trường hợp có bất kỳ vấn đề nào với dịch vụ, vui lòng liên hệ với bộ phận hỗ trợ.',
+  ];
 
   useEffect(() => {
     if (!hasShownToast) {
@@ -213,6 +230,26 @@ export default function BuyServiceForm() {
                 </FormItem>
               )}
             />
+            <CardContent className="w-full rounded-lg p-4 py-2 mb-2">
+              {/* Hướng dẫn */}
+              <div className="bg-blue-100 p-4 rounded-lg">
+                <div className="flex items-center space-x-2 mb-4">
+                  <TriangleAlert className="w-6 h-6 text-red-500" />
+                  <span className="text-red-500 font-semibold">Chi tiết dịch vụ:</span>
+                </div>
+                <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
+                  {instructions.map((text, index) => (
+                    <li key={index}>- {text}</li>
+                  ))}
+                </ul>
+                <span className="text-red-500 font-semibold">Thông tin chung:</span>
+                <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
+                  {instructions1.map((text, index) => (
+                    <li key={index}>- {text}</li>
+                  ))}
+                </ul>
+              </div>
+            </CardContent>
             <FormField
               control={form.control}
               name="quantity"

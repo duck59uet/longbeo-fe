@@ -25,6 +25,8 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { Modal } from '@/components/ui/modal';
+import { CardContent } from '@/components/ui/card';
+import { TriangleAlert } from 'lucide-react';
 
 const formSchema = z.object({
   link: z.string(),
@@ -55,6 +57,14 @@ export default function BuyServiceForm() {
       note: ''
     }
   });
+
+  const instructions = [
+    'Thời gian bắt đầu: 0-5 phút',
+    'Đồng thời 100%',
+    'Thời gian phục vụ: Theo thời gian đặt',
+    'Liên kết ví dụ: Liên kết phát trực tiếp trên Facebook',
+    '# Không đặt đơn hàng thứ hai trên cùng một liên kết trước khi đơn hàng của bạn được hoàn tất trong hệ thống.'
+  ];
 
   useEffect(() => {
     if (!hasShownToast) {
@@ -212,6 +222,20 @@ export default function BuyServiceForm() {
                 </FormItem>
               )}
             />
+            <CardContent className="w-full rounded-lg p-4 py-2 mb-2">
+              {/* Hướng dẫn */}
+              <div className="bg-blue-100 p-4 rounded-lg">
+                <div className="flex items-center space-x-2 mb-4">
+                  <TriangleAlert className="w-6 h-6 text-red-500" />
+                  <span className="text-red-500 font-semibold">Chi tiết dịch vụ:</span>
+                </div>
+                <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans">
+                  {instructions.map((text, index) => (
+                    <li key={index}>- {text}</li>
+                  ))}
+                </ul>
+              </div>
+            </CardContent>
             <FormField
               control={form.control}
               name="quantity"
