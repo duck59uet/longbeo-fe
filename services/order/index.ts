@@ -5,6 +5,7 @@ export const createOrder = async (data: {
   quantity: number;
   amount: number;
   service_id: number;
+  service_time_id: number;
   note?: string | null | undefined;
 }): Promise<any> => {
   try {
