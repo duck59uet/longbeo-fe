@@ -25,6 +25,7 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { Modal } from '@/components/ui/modal';
+import { getServiceTimeInfo } from '@/services/serviceTime';
 
 const formSchema = z.object({
   link: z.string(),
@@ -35,6 +36,7 @@ const formSchema = z.object({
     }),
   amount: z.string(),
   service_id: z.string(),
+  service_time_id: z.string(),
   note: z.string().optional().nullable()
 });
 
@@ -43,6 +45,7 @@ type BuyServiceFormValues = z.infer<typeof formSchema>;
 export default function BuyServiceForm() {
   const [hasShownToast, setHasShownToast] = useState(false);
   const [servicesData, setServicesData] = useState<any[]>([]);
+  const [servicesTimeData, setServiceTimesData] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const form = useForm<BuyServiceFormValues>({
@@ -50,7 +53,8 @@ export default function BuyServiceForm() {
     defaultValues: {
       link: '',
       service_id: '',
-      quantity: '',
+      service_time_id: '',
+      quantity: '50',
       amount: '',
       note: ''
     }
@@ -132,13 +136,39 @@ export default function BuyServiceForm() {
     fetchServiceInfo();
   }, []);
 
+  async function fetchServiceTimeInfo(serviceId: number) {
+    try {
+      const data = await getServiceTimeInfo(serviceId);
+      const serviceTimes = Array.isArray(data.Data) ? data.Data : [];
+      setServiceTimesData(serviceTimes);
+    } catch (error) {
+      toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
+      setServiceTimesData([]);
+    }
+  }
+
+  const handleServiceChange = (value: string) => {
+    form.setValue('service_id', value);
+    fetchServiceTimeInfo(Number(value));
+  };
+
   const onSubmit = async (values: BuyServiceFormValues) => {
     try {
+      const selectedServiceTime = servicesTimeData.find(
+        (time: any) => time.id.toString() === values.service_time_id
+      );
+
+      if (!selectedServiceTime) {
+        toast.error('Dữ liệu thời gian dịch vụ không hợp lệ.');
+        return;
+      }
+
       const response = await createOrder({
         ...values,
         service_id: Number(values.service_id),
+        service_time_id: Number(values.service_time_id),
         quantity: Number(values.quantity),
-        amount: Number(values.amount)
+        amount: selectedServiceTime.time
       });
 
       if (response.ErrorCode === 'SUCCESSFUL') {
@@ -186,7 +216,10 @@ export default function BuyServiceForm() {
                     <div className="space-y-2">
                       <RadioGroup
                         value={field.value}
-                        onValueChange={field.onChange}
+                        onValueChange={(value) => {
+                          field.onChange(value);
+                          handleServiceChange(value);
+                        }}
                       >
                         {servicesData.map((service: any) => (
                           <div
@@ -232,7 +265,7 @@ export default function BuyServiceForm() {
             />
             <FormField
               control={form.control}
-              name="amount"
+              name="service_time_id"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3">
                   <FormLabel className="w-1/3 text-lg">Số phút</FormLabel>
@@ -244,21 +277,19 @@ export default function BuyServiceForm() {
                       <SelectTrigger className="w-2/3">
                         <SelectValue placeholder="Số phút" />
                       </SelectTrigger>
-                      <SelectContent className="w-2/3">
-                        <SelectItem value="30">30 phút</SelectItem>
-                        <SelectItem value="60">60 phút</SelectItem>
-                        <SelectItem value="90">90 phút</SelectItem>
-                        <SelectItem value="120">120 phút</SelectItem>
-                        <SelectItem value="150">150 phút</SelectItem>
-                        <SelectItem value="180">180 phút</SelectItem>
-                        <SelectItem value="210">210 phút</SelectItem>
-                        <SelectItem value="270">270 phút</SelectItem>
-                        <SelectItem value="300">300 phút</SelectItem>
-                        <SelectItem value="330">330 phút</SelectItem>
-                        <SelectItem value="360">360 phút</SelectItem>
-                        <SelectItem value="390">390 phút</SelectItem>
-                        <SelectItem value="720">720 phút</SelectItem>
-                        <SelectItem value="1440">1440 phút</SelectItem>
+                      <SelectContent className="w-full">
+                        {Array.isArray(servicesTimeData) &&
+                        servicesTimeData.length > 0 ? (
+                          servicesTimeData.map((time: any, index: number) => (
+                            <SelectItem key={index} value={time.id.toString()}>
+                              {time.time} phút
+                            </SelectItem>
+                          ))
+                        ) : (
+                          <div className="p-2 text-gray-500">
+                            Không có dữ liệu thời gian
+                          </div>
+                        )}
                       </SelectContent>
                     </Select>
                   </FormControl>
@@ -288,7 +319,7 @@ export default function BuyServiceForm() {
           <div className="flex items-center space-x-3">
             <FormLabel className="w-1/3 text-lg">Thành tiền</FormLabel>
             <span className="text-lg font-semibold text-red-500">
-              {Number(form.watch('amount')) *
+              {Number(form.watch('service_time_id')) *
                 Number(form.watch('quantity')) *
                 servicesData.find(
                   (service: any) =>

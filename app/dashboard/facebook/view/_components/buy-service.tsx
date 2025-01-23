@@ -56,7 +56,7 @@ export default function BuyServiceForm() {
       link: '',
       service_id: '',
       service_time_id: '',
-      quantity: '',
+      quantity: '50',
       amount: '',
       note: ''
     }
