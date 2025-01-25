@@ -319,7 +319,10 @@ export default function BuyServiceForm() {
           <div className="flex items-center space-x-3">
             <FormLabel className="w-1/3 text-lg">Thành tiền</FormLabel>
             <span className="text-lg font-semibold text-red-500">
-              {Number(form.watch('service_time_id')) *
+              {servicesTimeData.find(
+                  (serviceTime: any) =>
+                    serviceTime.id === Number(form.watch('service_time_id'))
+                )?.time *
                 Number(form.watch('quantity')) *
                 servicesData.find(
                   (service: any) =>
