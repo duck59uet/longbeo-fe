@@ -39,11 +39,11 @@ export function TopupInfo() {
           {/* Thông tin ngân hàng */}
           <div className="flex flex-col items-center mt-6">
             <div className="border rounded-lg p-[56px] w-full text-center grid gap-4 md:grid-cols-2">
-              <div className='flex justify-center items-center'>
+              <div className="flex justify-center items-center">
                 <img
                   src="/qr-topup.jpg" // Đường dẫn tới ảnh QR
                   alt="QR Code"
-                  className="w-full max-w-[130px] h-auto object-contain"
+                  className="w-full max-w-[400px] md:max-w-[300px] h-auto object-contain"
                 />
               </div>
               <div className="text-left content-center">
@@ -54,17 +54,15 @@ export function TopupInfo() {
                   Chủ tài khoản:{' '}
                   <span className="font-bold">NGUYEN DUC THUAN</span>
                 </p>
+                <div className="mt-6">
+                  <div className="bg-[#5B7CFD] text-white text-center text-sm font-bold py-2 rounded-t-lg">
+                    NỘI DUNG: (BẮT BUỘC GHI ĐÚNG NỘI DUNG DƯỚI ĐÂY)
+                  </div>
+                  <div className="bg-[#EEF3FF] text-[#5B7CFD] text-center text-lg font-bold py-4 rounded-b-lg">
+                    naptien {userInfo?.username}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* Nội dung chuyển khoản */}
-          <div className="mt-6">
-            <div className="bg-[#5B7CFD] text-white text-center text-sm font-bold py-2 rounded-t-lg">
-              NỘI DUNG: (BẮT BUỘC GHI ĐÚNG NỘI DUNG DƯỚI ĐÂY)
-            </div>
-            <div className="bg-[#EEF3FF] text-[#5B7CFD] text-center text-lg font-bold py-4 rounded-b-lg">
-              naptien {userInfo?.username}
             </div>
           </div>
         </CardContent>
