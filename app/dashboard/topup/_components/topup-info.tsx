@@ -59,7 +59,7 @@ export function TopupInfo() {
                     NỘI DUNG: (BẮT BUỘC GHI ĐÚNG NỘI DUNG DƯỚI ĐÂY)
                   </div>
                   <div className="bg-[#EEF3FF] text-[#5B7CFD] text-center text-lg font-bold py-4 rounded-b-lg">
-                    naptien {userInfo?.username}
+                    {userInfo?.username}
                   </div>
                 </div>
               </div>
