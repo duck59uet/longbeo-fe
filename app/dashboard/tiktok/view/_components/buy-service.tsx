@@ -67,6 +67,12 @@ export default function BuyServiceForm() {
           className="toast-custom"
           onClick={() => toast.dismiss(toastId1)} // Loại bỏ khi click
         >
+          <button
+            onClick={() => toast.dismiss(toastId1)} // Đóng khi nhấn nút
+            className="absolute top-2 right-2 text-sm text-gray-500"
+          >
+            Đóng
+          </button>
           <h4 className="text-lg font-semibold text-orange-800">Lưu ý</h4>
           <p className="text-sm text-orange-700">
             Hiện tại FB đang quét TẤT CẢ đơn hàng buff mắt ở Máy sever 1 và
@@ -87,29 +93,31 @@ export default function BuyServiceForm() {
           className="toast-custom"
           onClick={() => toast.dismiss(toastId2)} // Loại bỏ khi click
         >
+          <button
+            onClick={() => toast.dismiss(toastId2)} // Đóng khi nhấn nút
+            className="absolute top-2 right-2 text-sm text-gray-500"
+          ></button>
           <h4 className="text-lg font-semibold text-orange-800">Thông báo</h4>
           <p className="text-sm text-orange-700">
             Nghiêm Cấm:
             <br />
-            1. Cấm mọi hành vi sử dụng dịch vụ nhằm
-            gây ra sự hiểu nhầm hoặc làm sai lệch thông tin, ảnh hưởng đến sự
-            nhận thức của người dùng về các sản phẩm, dịch vụ hoặc thông tin
-            được cung cấp.
+            1. Cấm mọi hành vi sử dụng dịch vụ nhằm gây ra sự hiểu nhầm hoặc làm
+            sai lệch thông tin, ảnh hưởng đến sự nhận thức của người dùng về các
+            sản phẩm, dịch vụ hoặc thông tin được cung cấp.
             <br />
-            2. Cấm mọi hành vi sử dụng dịch vụ
-            nhằm thực hiện các hành vi vi phạm đạo đức, chuẩn mực xã hội, hoặc
-            vi phạm các quy định pháp luật hiện hành. Điều này bao gồm các hành
-            vi như quấy rối, lừa đảo, hoặc xuyên tạc thông tin có chủ đích.
+            2. Cấm mọi hành vi sử dụng dịch vụ nhằm thực hiện các hành vi vi
+            phạm đạo đức, chuẩn mực xã hội, hoặc vi phạm các quy định pháp luật
+            hiện hành. Điều này bao gồm các hành vi như quấy rối, lừa đảo, hoặc
+            xuyên tạc thông tin có chủ đích.
             <br />
-            3. Cấm việc chia sẻ, phát tán
-            thông tin sai lệch, thông tin gây hiểu lầm hoặc thông tin có hại cho
-            cộng đồng. Các hành vi này không chỉ gây ảnh hưởng xấu đến người
-            nhận mà còn có thể dẫn đến các hành vi phạm pháp khác. 
+            3. Cấm việc chia sẻ, phát tán thông tin sai lệch, thông tin gây hiểu
+            lầm hoặc thông tin có hại cho cộng đồng. Các hành vi này không chỉ
+            gây ảnh hưởng xấu đến người nhận mà còn có thể dẫn đến các hành vi
+            phạm pháp khác.
             <br />
-            4. Cấm việc sử dụng dịch vụ để
-            thực hiện các hành vi không phù hợp trong việc giáo dục trẻ em, như
-            đưa vào giảng dạy các thông tin sai lệch, không phù hợp về văn hóa,
-            đạo đức, hoặc pháp luật.
+            4. Cấm việc sử dụng dịch vụ để thực hiện các hành vi không phù hợp
+            trong việc giáo dục trẻ em, như đưa vào giảng dạy các thông tin sai
+            lệch, không phù hợp về văn hóa, đạo đức, hoặc pháp luật.
           </p>
         </div>,
         {
@@ -318,9 +326,9 @@ export default function BuyServiceForm() {
             <FormLabel className="w-1/3 text-lg">Thành tiền</FormLabel>
             <span className="text-lg font-semibold text-red-500">
               {servicesTimeData.find(
-                  (serviceTime: any) =>
-                    serviceTime.id === Number(form.watch('service_time_id'))
-                )?.time *
+                (serviceTime: any) =>
+                  serviceTime.id === Number(form.watch('service_time_id'))
+              )?.time *
                 Number(form.watch('quantity')) *
                 servicesData.find(
                   (service: any) =>
