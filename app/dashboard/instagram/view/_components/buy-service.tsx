@@ -67,13 +67,13 @@ export default function BuyServiceForm() {
     'Liên kết: Tên người dùng hoặc Liên kết phát trực tiếp',
     'Vị trí: Toàn cầu',
     'Bắt đầu: 0-2 phút',
-    'Không giảm',
+    'Không giảm'
   ];
 
   const instructions1 = [
     'Khi dịch vụ bận, tốc độ bắt đầu của quy trình sẽ thay đổi.',
     'Không đặt đơn hàng thứ hai thông qua cùng một liên kết trước khi đơn hàng của bạn được hoàn tất trong hệ thống.',
-    'Trong trường hợp có bất kỳ vấn đề nào với dịch vụ, vui lòng liên hệ với bộ phận hỗ trợ.',
+    'Trong trường hợp có bất kỳ vấn đề nào với dịch vụ, vui lòng liên hệ với bộ phận hỗ trợ.'
   ];
 
   useEffect(() => {
@@ -86,7 +86,9 @@ export default function BuyServiceForm() {
           <button
             onClick={() => toast.dismiss(toastId1)} // Đóng khi nhấn nút
             className="absolute top-2 right-2 text-sm text-gray-500"
-          ></button>
+          >
+            Đóng
+          </button>
           <h4 className="text-lg font-semibold text-orange-800">Lưu ý</h4>
           <p className="text-sm text-orange-700">
             Hiện tại FB đang quét TẤT CẢ đơn hàng buff mắt ở Máy sever 1 và
@@ -110,30 +112,30 @@ export default function BuyServiceForm() {
           <button
             onClick={() => toast.dismiss(toastId2)} // Đóng khi nhấn nút
             className="absolute top-2 right-2 text-sm text-gray-500"
-          ></button>
+          >
+            Đóng
+          </button>
           <h4 className="text-lg font-semibold text-orange-800">Thông báo</h4>
           <p className="text-sm text-orange-700">
-            Nghiêm Cấm: 
+            Nghiêm Cấm:
             <br />
-            1. Cấm mọi hành vi sử dụng dịch vụ nhằm
-            gây ra sự hiểu nhầm hoặc làm sai lệch thông tin, ảnh hưởng đến sự
-            nhận thức của người dùng về các sản phẩm, dịch vụ hoặc thông tin
-            được cung cấp.
+            1. Cấm mọi hành vi sử dụng dịch vụ nhằm gây ra sự hiểu nhầm hoặc làm
+            sai lệch thông tin, ảnh hưởng đến sự nhận thức của người dùng về các
+            sản phẩm, dịch vụ hoặc thông tin được cung cấp.
             <br />
-            2. Cấm mọi hành vi sử dụng dịch vụ
-            nhằm thực hiện các hành vi vi phạm đạo đức, chuẩn mực xã hội, hoặc
-            vi phạm các quy định pháp luật hiện hành. Điều này bao gồm các hành
-            vi như quấy rối, lừa đảo, hoặc xuyên tạc thông tin có chủ đích.
+            2. Cấm mọi hành vi sử dụng dịch vụ nhằm thực hiện các hành vi vi
+            phạm đạo đức, chuẩn mực xã hội, hoặc vi phạm các quy định pháp luật
+            hiện hành. Điều này bao gồm các hành vi như quấy rối, lừa đảo, hoặc
+            xuyên tạc thông tin có chủ đích.
             <br />
-            3. Cấm việc chia sẻ, phát tán
-            thông tin sai lệch, thông tin gây hiểu lầm hoặc thông tin có hại cho
-            cộng đồng. Các hành vi này không chỉ gây ảnh hưởng xấu đến người
-            nhận mà còn có thể dẫn đến các hành vi phạm pháp khác. 
+            3. Cấm việc chia sẻ, phát tán thông tin sai lệch, thông tin gây hiểu
+            lầm hoặc thông tin có hại cho cộng đồng. Các hành vi này không chỉ
+            gây ảnh hưởng xấu đến người nhận mà còn có thể dẫn đến các hành vi
+            phạm pháp khác.
             <br />
-            4. Cấm việc sử dụng dịch vụ để
-            thực hiện các hành vi không phù hợp trong việc giáo dục trẻ em, như
-            đưa vào giảng dạy các thông tin sai lệch, không phù hợp về văn hóa,
-            đạo đức, hoặc pháp luật.
+            4. Cấm việc sử dụng dịch vụ để thực hiện các hành vi không phù hợp
+            trong việc giáo dục trẻ em, như đưa vào giảng dạy các thông tin sai
+            lệch, không phù hợp về văn hóa, đạo đức, hoặc pháp luật.
           </p>
         </div>,
         {
@@ -159,27 +161,27 @@ export default function BuyServiceForm() {
   }, []);
 
   async function fetchServiceTimeInfo(serviceId: number) {
-      try {
-        const data = await getServiceTimeInfo(serviceId);
-        const serviceTimes = Array.isArray(data.Data) ? data.Data : [];
-        setServiceTimesData(serviceTimes);
-      } catch (error) {
-        toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
-        setServiceTimesData([]);
-      }
+    try {
+      const data = await getServiceTimeInfo(serviceId);
+      const serviceTimes = Array.isArray(data.Data) ? data.Data : [];
+      setServiceTimesData(serviceTimes);
+    } catch (error) {
+      toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
+      setServiceTimesData([]);
     }
-  
-    const handleServiceChange = (value: string) => {
-      form.setValue('service_id', value);
-      fetchServiceTimeInfo(Number(value));
-    };
+  }
+
+  const handleServiceChange = (value: string) => {
+    form.setValue('service_id', value);
+    fetchServiceTimeInfo(Number(value));
+  };
 
   const onSubmit = async (values: BuyServiceFormValues) => {
     try {
       const selectedServiceTime = servicesTimeData.find(
         (time: any) => time.id.toString() === values.service_time_id
       );
-  
+
       if (!selectedServiceTime) {
         toast.error('Dữ liệu thời gian dịch vụ không hợp lệ.');
         return;
@@ -192,7 +194,6 @@ export default function BuyServiceForm() {
         quantity: Number(values.quantity),
         amount: selectedServiceTime.time
       });
-
 
       if (response.ErrorCode === 'SUCCESSFUL') {
         toast.success('Đã tạo đơn hàng thành công');
@@ -273,14 +274,18 @@ export default function BuyServiceForm() {
               <div className="bg-blue-100 p-4 rounded-lg">
                 <div className="flex items-center space-x-2 mb-4">
                   <TriangleAlert className="w-6 h-6 text-red-500" />
-                  <span className="text-red-500 font-semibold">Chi tiết dịch vụ:</span>
+                  <span className="text-red-500 font-semibold">
+                    Chi tiết dịch vụ:
+                  </span>
                 </div>
                 <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
                   {instructions.map((text, index) => (
                     <li key={index}>- {text}</li>
                   ))}
                 </ul>
-                <span className="text-red-500 font-semibold">Thông tin chung:</span>
+                <span className="text-red-500 font-semibold">
+                  Thông tin chung:
+                </span>
                 <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
                   {instructions1.map((text, index) => (
                     <li key={index}>- {text}</li>
@@ -358,9 +363,9 @@ export default function BuyServiceForm() {
             <FormLabel className="w-1/3 text-lg">Thành tiền</FormLabel>
             <span className="text-lg font-semibold text-red-500">
               {servicesTimeData.find(
-                  (serviceTime: any) =>
-                    serviceTime.id === Number(form.watch('service_time_id'))
-                )?.time *
+                (serviceTime: any) =>
+                  serviceTime.id === Number(form.watch('service_time_id'))
+              )?.time *
                 Number(form.watch('quantity')) *
                 servicesData.find(
                   (service: any) =>

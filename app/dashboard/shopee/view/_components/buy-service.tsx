@@ -88,7 +88,9 @@ export default function BuyServiceForm() {
           <button
             onClick={() => toast.dismiss(toastId1)} // Đóng khi nhấn nút
             className="absolute top-2 right-2 text-sm text-gray-500"
-          ></button>
+          >
+            Đóng
+          </button>
           <h4 className="text-lg font-semibold text-orange-800">Lưu ý</h4>
           <p className="text-sm text-orange-700">
             Hiện tại FB đang quét TẤT CẢ đơn hàng buff mắt ở Máy sever 1 và
@@ -112,7 +114,9 @@ export default function BuyServiceForm() {
           <button
             onClick={() => toast.dismiss(toastId2)} // Đóng khi nhấn nút
             className="absolute top-2 right-2 text-sm text-gray-500"
-          ></button>
+          >
+            Đóng
+          </button>
           <h4 className="text-lg font-semibold text-orange-800">Thông báo</h4>
           <p className="text-sm text-orange-700">
             Nghiêm Cấm:

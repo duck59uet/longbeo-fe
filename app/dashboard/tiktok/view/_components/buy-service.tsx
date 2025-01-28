@@ -96,7 +96,9 @@ export default function BuyServiceForm() {
           <button
             onClick={() => toast.dismiss(toastId2)} // Đóng khi nhấn nút
             className="absolute top-2 right-2 text-sm text-gray-500"
-          ></button>
+          >
+            Đóng
+          </button>
           <h4 className="text-lg font-semibold text-orange-800">Thông báo</h4>
           <p className="text-sm text-orange-700">
             Nghiêm Cấm:
