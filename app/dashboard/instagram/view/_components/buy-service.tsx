@@ -105,26 +105,24 @@ export default function BuyServiceForm() {
         >
           <h4 className="text-lg font-semibold text-orange-800">Thông báo</h4>
           <p className="text-sm text-orange-700">
-            Nghiêm Cấm: các hành vi sử dụng dịch vụ gây hiểu nhầm, vi phạm đạo
-            đức, vi phạm pháp luật, và những hành vi có thể dẫn đến việc lan
-            truyền thông tin sai lệch, bao gồm cả việc sử dụng sai mục đích
-            trong giáo dục trẻ em, bạn có thể đưa ra các điều khoản như sau:
+            Nghiêm Cấm: 
             <br />
-            1. Cấm hành vi gây hiểu nhầm: Cấm mọi hành vi sử dụng dịch vụ nhằm
+            1. Cấm mọi hành vi sử dụng dịch vụ nhằm
             gây ra sự hiểu nhầm hoặc làm sai lệch thông tin, ảnh hưởng đến sự
             nhận thức của người dùng về các sản phẩm, dịch vụ hoặc thông tin
             được cung cấp.
             <br />
-            2. Cấm vi phạm đạo đức và pháp luật: Cấm mọi hành vi sử dụng dịch vụ
+            2. Cấm mọi hành vi sử dụng dịch vụ
             nhằm thực hiện các hành vi vi phạm đạo đức, chuẩn mực xã hội, hoặc
             vi phạm các quy định pháp luật hiện hành. Điều này bao gồm các hành
             vi như quấy rối, lừa đảo, hoặc xuyên tạc thông tin có chủ đích.
             <br />
-            3. Cấm lan truyền thông tin vi phạm: Cấm việc chia sẻ, phát tán
+            3. Cấm việc chia sẻ, phát tán
             thông tin sai lệch, thông tin gây hiểu lầm hoặc thông tin có hại cho
             cộng đồng. Các hành vi này không chỉ gây ảnh hưởng xấu đến người
-            nhận mà còn có thể dẫn đến các hành vi phạm pháp khác. 4. Cấm sử
-            dụng sai mục đích trong giáo dục trẻ em: Cấm việc sử dụng dịch vụ để
+            nhận mà còn có thể dẫn đến các hành vi phạm pháp khác. 
+            <br />
+            4. Cấm việc sử dụng dịch vụ để
             thực hiện các hành vi không phù hợp trong việc giáo dục trẻ em, như
             đưa vào giảng dạy các thông tin sai lệch, không phù hợp về văn hóa,
             đạo đức, hoặc pháp luật.
