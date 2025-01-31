@@ -43,6 +43,7 @@ const formSchema = z.object({
 type BuyServiceFormValues = z.infer<typeof formSchema>;
 
 export default function BuyServiceForm() {
+  const CATEGORY_ID = 10;
   const [hasShownToast, setHasShownToast] = useState(false);
   const [servicesData, setServicesData] = useState<any[]>([]);
   const [servicesTimeData, setServiceTimesData] = useState<any[]>([]);
@@ -134,7 +135,7 @@ export default function BuyServiceForm() {
   useEffect(() => {
     async function fetchServiceInfo() {
       try {
-        const data = await getServiceInfo(5);
+        const data = await getServiceInfo(CATEGORY_ID);
         setServicesData(data.Data);
       } catch (error) {
         toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');

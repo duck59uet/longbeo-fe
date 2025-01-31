@@ -7,6 +7,7 @@ import PageContainer from '@/components/layout/page-container';
 import { columns } from './columns';
 
 export default function BuffOrderHistoryTable() {
+  const CATEGORY_ID = 10;
   const [data, setData] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [page, setPage] = useState(1);
@@ -14,7 +15,7 @@ export default function BuffOrderHistoryTable() {
 
   const fetchData = async (page: any, limit: any) => {
     try {
-      const result = await getOrder({ categoryId: 5, page, limit });
+      const result = await getOrder({ categoryId: CATEGORY_ID, page, limit });
       setData(result.Data[1]);
       setTotalItems(result.total[0]);
     } catch (error) {

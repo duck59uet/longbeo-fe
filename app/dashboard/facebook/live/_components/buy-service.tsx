@@ -28,7 +28,6 @@ import { Modal } from '@/components/ui/modal';
 import { CardContent } from '@/components/ui/card';
 import { TriangleAlert } from 'lucide-react';
 import { getServiceTimeInfo } from '@/services/serviceTime';
-// import '@/styles/toast-custom.css';
 
 const formSchema = z.object({
   link: z.string(),
@@ -46,7 +45,6 @@ const formSchema = z.object({
 type BuyServiceFormValues = z.infer<typeof formSchema>;
 
 export default function BuyServiceForm() {
-  const CATEGORY_ID = 9;
   const [hasShownToast, setHasShownToast] = useState(false);
   const [servicesData, setServicesData] = useState<any[]>([]);
   const [servicesTimeData, setServiceTimesData] = useState<any[]>([]);
@@ -65,16 +63,11 @@ export default function BuyServiceForm() {
   });
 
   const instructions = [
-    'Liên kết: Tên người dùng hoặc Liên kết phát trực tiếp',
-    'Vị trí: Toàn cầu',
-    'Bắt đầu: 0-2 phút',
-    'Không giảm'
-  ];
-
-  const instructions1 = [
-    'Khi dịch vụ bận, tốc độ bắt đầu của quy trình sẽ thay đổi.',
-    'Không đặt đơn hàng thứ hai thông qua cùng một liên kết trước khi đơn hàng của bạn được hoàn tất trong hệ thống.',
-    'Trong trường hợp có bất kỳ vấn đề nào với dịch vụ, vui lòng liên hệ với bộ phận hỗ trợ.'
+    'Thời gian bắt đầu: 0-5 phút',
+    'Đồng thời 100%',
+    'Thời gian phục vụ: Theo thời gian đặt',
+    'Liên kết ví dụ: Liên kết phát trực tiếp trên Facebook',
+    '# Không đặt đơn hàng thứ hai trên cùng một liên kết trước khi đơn hàng của bạn được hoàn tất trong hệ thống.'
   ];
 
   useEffect(() => {
@@ -151,7 +144,7 @@ export default function BuyServiceForm() {
   useEffect(() => {
     async function fetchServiceInfo() {
       try {
-        const data = await getServiceInfo(CATEGORY_ID);
+        const data = await getServiceInfo(1);
         setServicesData(data.Data);
       } catch (error) {
         toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
@@ -279,16 +272,8 @@ export default function BuyServiceForm() {
                     Chi tiết dịch vụ:
                   </span>
                 </div>
-                <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
+                <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans">
                   {instructions.map((text, index) => (
-                    <li key={index}>- {text}</li>
-                  ))}
-                </ul>
-                <span className="text-red-500 font-semibold">
-                  Thông tin chung:
-                </span>
-                <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
-                  {instructions1.map((text, index) => (
                     <li key={index}>- {text}</li>
                   ))}
                 </ul>
@@ -301,7 +286,12 @@ export default function BuyServiceForm() {
                 <FormItem className="flex items-center space-x-3">
                   <FormLabel className="w-1/3 text-lg">Số mắt</FormLabel>
                   <FormControl className="w-2/3">
-                    <Input type="number" placeholder="Số mắt" {...field} />
+                    <Input
+                      type="number"
+                      placeholder="Số mắt"
+                      {...field}
+                      defaultValue={50}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

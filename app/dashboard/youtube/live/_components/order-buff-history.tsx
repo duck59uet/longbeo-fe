@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import BuffHistoryTable from './buff-history-table';
 import { getOrder } from '@/services/order';
 import { DataTable as OrderTable } from '@/components/ui/table/data-table';
 import PageContainer from '@/components/layout/page-container';
+import { Card } from '@/components/ui/card';
 import { columns } from './columns';
 
 export default function BuffOrderHistoryTable() {
-  const CATEGORY_ID = 6;
   const [data, setData] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [page, setPage] = useState(1);
@@ -15,7 +16,7 @@ export default function BuffOrderHistoryTable() {
 
   const fetchData = async (page: any, limit: any) => {
     try {
-      const result = await getOrder({ categoryId: CATEGORY_ID, page, limit });
+      const result = await getOrder({ categoryId: 2, page, limit });
       setData(result.Data[1]);
       setTotalItems(result.total[0]);
     } catch (error) {

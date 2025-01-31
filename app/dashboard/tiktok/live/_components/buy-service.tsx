@@ -25,10 +25,7 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { Modal } from '@/components/ui/modal';
-import { CardContent } from '@/components/ui/card';
-import { TriangleAlert } from 'lucide-react';
 import { getServiceTimeInfo } from '@/services/serviceTime';
-// import '@/styles/toast-custom.css';
 
 const formSchema = z.object({
   link: z.string(),
@@ -46,7 +43,6 @@ const formSchema = z.object({
 type BuyServiceFormValues = z.infer<typeof formSchema>;
 
 export default function BuyServiceForm() {
-  const CATEGORY_ID = 9;
   const [hasShownToast, setHasShownToast] = useState(false);
   const [servicesData, setServicesData] = useState<any[]>([]);
   const [servicesTimeData, setServiceTimesData] = useState<any[]>([]);
@@ -63,19 +59,6 @@ export default function BuyServiceForm() {
       note: ''
     }
   });
-
-  const instructions = [
-    'Liên kết: Tên người dùng hoặc Liên kết phát trực tiếp',
-    'Vị trí: Toàn cầu',
-    'Bắt đầu: 0-2 phút',
-    'Không giảm'
-  ];
-
-  const instructions1 = [
-    'Khi dịch vụ bận, tốc độ bắt đầu của quy trình sẽ thay đổi.',
-    'Không đặt đơn hàng thứ hai thông qua cùng một liên kết trước khi đơn hàng của bạn được hoàn tất trong hệ thống.',
-    'Trong trường hợp có bất kỳ vấn đề nào với dịch vụ, vui lòng liên hệ với bộ phận hỗ trợ.'
-  ];
 
   useEffect(() => {
     if (!hasShownToast) {
@@ -151,7 +134,7 @@ export default function BuyServiceForm() {
   useEffect(() => {
     async function fetchServiceInfo() {
       try {
-        const data = await getServiceInfo(CATEGORY_ID);
+        const data = await getServiceInfo(5);
         setServicesData(data.Data);
       } catch (error) {
         toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
@@ -270,30 +253,6 @@ export default function BuyServiceForm() {
                 </FormItem>
               )}
             />
-            <CardContent className="w-full rounded-lg p-4 py-2 mb-2">
-              {/* Hướng dẫn */}
-              <div className="bg-blue-100 p-4 rounded-lg">
-                <div className="flex items-center space-x-2 mb-4">
-                  <TriangleAlert className="w-6 h-6 text-red-500" />
-                  <span className="text-red-500 font-semibold">
-                    Chi tiết dịch vụ:
-                  </span>
-                </div>
-                <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
-                  {instructions.map((text, index) => (
-                    <li key={index}>- {text}</li>
-                  ))}
-                </ul>
-                <span className="text-red-500 font-semibold">
-                  Thông tin chung:
-                </span>
-                <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
-                  {instructions1.map((text, index) => (
-                    <li key={index}>- {text}</li>
-                  ))}
-                </ul>
-              </div>
-            </CardContent>
             <FormField
               control={form.control}
               name="quantity"
@@ -301,7 +260,12 @@ export default function BuyServiceForm() {
                 <FormItem className="flex items-center space-x-3">
                   <FormLabel className="w-1/3 text-lg">Số mắt</FormLabel>
                   <FormControl className="w-2/3">
-                    <Input type="number" placeholder="Số mắt" {...field} />
+                    <Input
+                      type="number"
+                      placeholder="Số mắt"
+                      {...field}
+                      defaultValue={50}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

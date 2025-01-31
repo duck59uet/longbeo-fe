@@ -1,7 +1,7 @@
 import BuffLiveAccountPage from './_components/buff-live-account';
 
 export const metadata = {
-  title: 'Tăng mắt facebook'
+  title: 'Tăng view facebook'
 };
 
 export default async function Page() {

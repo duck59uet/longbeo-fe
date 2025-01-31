@@ -13,10 +13,11 @@ export default function BuffOrderHistoryTable() {
   const [totalItems, setTotalItems] = useState(0);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const CATEGORY_ID = 7;
 
   const fetchData = async (page: any, limit: any) => {
     try {
-      const result = await getOrder({ categoryId: 2, page, limit });
+      const result = await getOrder({ categoryId: CATEGORY_ID, page, limit });
       setData(result.Data[1]);
       setTotalItems(result.total[0]);
     } catch (error) {

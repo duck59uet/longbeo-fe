@@ -86,9 +86,14 @@ export const navItems: NavItem[] = [
     items: [
       {
         title: 'Tăng mắt facebook',
-        url: '/dashboard/facebook/view',
+        url: '/dashboard/facebook/live',
         icon: 'userPen',
         shortcut: ['matF', 'matF']
+      },
+      {
+        title: 'Tăng view facebook',
+        url: '/dashboard/facebook/view',
+        icon: 'userPen',
       },
     ]
   },
@@ -101,9 +106,14 @@ export const navItems: NavItem[] = [
     items: [
       {
         title: 'Tăng mắt tiktok',
-        url: '/dashboard/tiktok/view',
+        url: '/dashboard/tiktok/live',
         icon: 'userPen',
         shortcut: ['matT', 'matT']
+      },
+      {
+        title: 'Tăng view tiktok',
+        url: '/dashboard/tiktok/view',
+        icon: 'userPen',
       },
     ]
   },
@@ -116,9 +126,14 @@ export const navItems: NavItem[] = [
     items: [
       {
         title: 'Tăng mắt youtube',
-        url: '/dashboard/youtube/view',
+        url: '/dashboard/youtube/live',
         icon: 'userPen',
         shortcut: ['matY', 'matY']
+      },
+      {
+        title: 'Tăng view youtube',
+        url: '/dashboard/youtube/view',
+        icon: 'userPen',
       },
     ]
   },
@@ -131,7 +146,7 @@ export const navItems: NavItem[] = [
     items: [
       {
         title: 'Tăng mắt shopee',
-        url: '/dashboard/shopee/view',
+        url: '/dashboard/shopee/live',
         icon: 'userPen',
         shortcut: ['matS', 'matS']
       },
@@ -146,9 +161,14 @@ export const navItems: NavItem[] = [
     items: [
       {
         title: 'Tăng mắt instagram',
-        url: '/dashboard/instagram/view',
+        url: '/dashboard/instagram/live',
         icon: 'userPen',
         shortcut: ['matI', 'matI']
+      },
+      {
+        title: 'Tăng view instagram',
+        url: '/dashboard/instagram/view',
+        icon: 'userPen',
       },
     ]
   },
