@@ -24,7 +24,8 @@ const formSchema = z.object({
   password: z.string({ message: 'Hãy nhập mật khẩu' }),
   phone: z.string()
     .regex(/^[0-9]+$/, { message: 'Số điện thoại chỉ được chứa các ký tự số' })
-    .nonempty({ message: 'Hãy nhập số điện thoại' })
+    .nonempty({ message: 'Hãy nhập số điện thoại' }),
+  referUser: z.string().optional()
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -40,7 +41,8 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
     fullname: '',
     email: '',
     password: '',
-    phone: ''
+    phone: '',
+    referUser: ''
   };
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
@@ -53,10 +55,11 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
         username: data.username,
         fullname: data.fullname,
         email: data.email,
-        password: data.password
+        password: data.password,
+        referUser: data.referUser,
       });
 
-      if (user) {
+      if (user.ErrorCode === 'SUCCESSFUL') {
         toast.success('Đăng ký thành công');
         window.location.href = '/';
       } else {
@@ -132,6 +135,19 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
                 <FormLabel>Mật khẩu</FormLabel>
                 <FormControl>
                   <Input type="password" placeholder="Mật khẩu" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="referUser"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Người giới thiệu</FormLabel>
+                <FormControl>
+                  <Input type="text" placeholder="Người giới thiệu" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

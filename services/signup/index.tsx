@@ -5,6 +5,7 @@ export const signUpUser = async (data: {
   fullname: string;
   email: string;
   password: string;
+  referUser?: string;
 }): Promise<any> => {
   try {
     const response = await instance.post('/user/create', data);
