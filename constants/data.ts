@@ -85,14 +85,19 @@ export const navItems: NavItem[] = [
 
     items: [
       {
-        title: 'Tăng mắt facebook',
+        title: 'Tăng mắt live Facebook',
         url: '/dashboard/facebook/live',
         icon: 'userPen',
         shortcut: ['matF', 'matF']
       },
       {
-        title: 'Tăng view facebook',
+        title: 'Tăng view Live Facebook',
         url: '/dashboard/facebook/view',
+        icon: 'userPen',
+      },
+      {
+        title: 'Tăng view Reel Facebook',
+        url: '/dashboard/facebook/viewReel',
         icon: 'userPen',
       },
     ]
