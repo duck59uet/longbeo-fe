@@ -41,22 +41,24 @@ export function UserNav() {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem onClick={() => (window.location.href = '/dashboard/myaccount')}>
+            <DropdownMenuItem
+              onClick={() => (window.location.href = '/dashboard/myaccount')}
+            >
               Tài khoản của tôi
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => (window.location.href = '/dashboard/topup')}>
+            <DropdownMenuItem
+              onClick={() => (window.location.href = '/dashboard/topup')}
+            >
               Nạp tiền tài khoản
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <a href="tel:+0976836223">
+              <a href="https://zalo.me/0976836223" target="_blank" rel="noopener noreferrer">
                 Hỗ trợ
               </a>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => signOut()}>
-            Log out
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => signOut()}>Log out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     );
