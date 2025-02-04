@@ -51,7 +51,7 @@ export function UserNav() {
             >
               Nạp tiền tài khoản
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <a href="https://zalo.me/0976836223" target="_blank" rel="noopener noreferrer">
                 Hỗ trợ
               </a>
