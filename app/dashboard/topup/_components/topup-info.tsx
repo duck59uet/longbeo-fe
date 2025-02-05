@@ -19,7 +19,7 @@ export function TopupInfo() {
     'Nếu sau 10 phút tài khoản chưa được cộng tiền vui liên hệ Admin để được hỗ trợ.',
     'Vui lòng không nạp từ bank khác qua bank này (tránh lỗi).',
     'Nạp sai số tài khoản, sai ngân hàng, sai nội dung sẽ bị trừ 20% phí giao dịch.',
-    'Bấm vào số tài khoản hoặc nội dung để sao chép nội thông tin chuyển tiền 1 cách chuẩn nhất.'
+    'Bấm vào số tài khoản hoặc nội dung để sao chép nội dung thông tin chuyển tiền một cách chuẩn nhất.'
   ];
 
   return (
@@ -37,23 +37,6 @@ export function TopupInfo() {
         {/* Phần thông tin ngân hàng & QR code */}
         <div className="flex flex-col items-center mt-6">
           <div className="border rounded-lg w-full text-center grid gap-4 p-4 md:p-[56px] md:grid-cols-2">
-            {/* Cột chứa QR code */}
-            <div className="flex flex-col justify-center items-center gap-4">
-              <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-                <img
-                  src="/qr-topup.jpg"
-                  alt="QR Code Bank"
-                  className="w-full max-w-[400px] md:max-w-[300px] h-auto object-contain"
-                />
-                <img
-                  src="/qr-momo.jpg"
-                  alt="QR Code Momo"
-                  className="w-full max-w-[400px] md:max-w-[300px] h-auto object-contain"
-                />
-              </div>
-            </div>
-
-            {/* Cột chứa thông tin ngân hàng */}
             <div className="flex flex-col justify-center text-center md:text-left">
               <p className="text-sm font-semibold">
                 Số tài khoản: <span className="font-bold">0451000399584</span>
@@ -69,6 +52,20 @@ export function TopupInfo() {
                 <div className="bg-[#EEF3FF] text-[#5B7CFD] text-center text-lg font-bold py-4 rounded-b-lg">
                   {userInfo?.username}
                 </div>
+              </div>
+            </div>
+            <div className="flex flex-col justify-center items-center gap-4">
+              <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+                <img
+                  src="/qr-topup.jpg"
+                  alt="QR Code Bank"
+                  className="w-full max-w-[400px] md:max-w-[300px] h-auto object-contain"
+                />
+                <img
+                  src="/qr-momo.jpg"
+                  alt="QR Code Momo"
+                  className="w-full max-w-[400px] md:max-w-[300px] h-auto object-contain"
+                />
               </div>
             </div>
           </div>
