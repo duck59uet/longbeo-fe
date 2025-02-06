@@ -200,6 +200,8 @@ export default function BuyServiceForm() {
       });
 
       if (response.ErrorCode === 'SUCCESSFUL') {
+        setModalMessage('Tạo đơn hàng thành công');
+        setIsModalOpen(true);
         toast.success('Đã tạo đơn hàng thành công');
         form.reset();
       }
