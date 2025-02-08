@@ -136,6 +136,11 @@ export default function BuyServiceForm() {
       try {
         const data = await getServiceInfo(5);
         setServicesData(data.Data);
+        if (data.Data && data.Data.length > 0) {
+          const firstServiceId = data.Data[0].id.toString();
+          form.setValue('service_id', firstServiceId);
+          fetchServiceTimeInfo(Number(firstServiceId));
+        }
       } catch (error) {
         toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
       }
