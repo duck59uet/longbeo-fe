@@ -165,6 +165,11 @@ export default function BuyServiceForm() {
       const data = await getServiceTimeInfo(serviceId);
       const serviceTimes = Array.isArray(data.Data) ? data.Data : [];
       setServiceTimesData(serviceTimes);
+      if (serviceTimes.length > 0) {
+        form.setValue('service_time_id', serviceTimes[0].id.toString());
+      } else {
+        form.setValue('service_time_id', '');
+      }
     } catch (error) {
       toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
       setServiceTimesData([]);
@@ -300,40 +305,6 @@ export default function BuyServiceForm() {
                       {...field}
                       defaultValue={50}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="service_time_id"
-              render={({ field }) => (
-                <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">Số phút</FormLabel>
-                  <FormControl className="w-2/3">
-                    <Select
-                      onValueChange={(value) => field.onChange(value)}
-                      value={field.value}
-                    >
-                      <SelectTrigger className="w-2/3">
-                        <SelectValue placeholder="Số phút" />
-                      </SelectTrigger>
-                      <SelectContent className="w-full">
-                        {Array.isArray(servicesTimeData) &&
-                        servicesTimeData.length > 0 ? (
-                          servicesTimeData.map((time: any, index: number) => (
-                            <SelectItem key={index} value={time.id.toString()}>
-                              {time.time} phút
-                            </SelectItem>
-                          ))
-                        ) : (
-                          <div className="p-2 text-gray-500">
-                            Không có dữ liệu thời gian
-                          </div>
-                        )}
-                      </SelectContent>
-                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

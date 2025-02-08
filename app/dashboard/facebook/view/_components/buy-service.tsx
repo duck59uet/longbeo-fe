@@ -310,7 +310,7 @@ export default function BuyServiceForm() {
               name="service_time_id"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">Số phút</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">Số giây</FormLabel>
                   <FormControl className="w-2/3">
                     <Select
                       onValueChange={(value) => field.onChange(value)}
@@ -324,7 +324,7 @@ export default function BuyServiceForm() {
                         servicesTimeData.length > 0 ? (
                           servicesTimeData.map((time: any, index: number) => (
                             <SelectItem key={index} value={time.id.toString()}>
-                              {time.time} phút
+                              {time.time} giây
                             </SelectItem>
                           ))
                         ) : (

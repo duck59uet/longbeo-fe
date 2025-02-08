@@ -25,7 +25,7 @@ export const columns: ColumnDef<BuffHistory>[] = [
   },
   {
     accessorKey: 'order_amount',
-    header: 'Số phút'
+    header: 'Số giây'
   },
   {
     accessorKey: 'order_price',
