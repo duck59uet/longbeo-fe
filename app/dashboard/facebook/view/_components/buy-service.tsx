@@ -322,11 +322,22 @@ export default function BuyServiceForm() {
                       <SelectContent className="w-full">
                         {Array.isArray(servicesTimeData) &&
                         servicesTimeData.length > 0 ? (
-                          servicesTimeData.map((time: any, index: number) => (
-                            <SelectItem key={index} value={time.id.toString()}>
-                              {time.time} giây
-                            </SelectItem>
-                          ))
+                          servicesTimeData.map((time: any, index: number) => {
+                            // Kiểm tra nếu time.time chia hết cho 60 thì hiển thị bằng phút
+                            const isDivisibleBy60 = time.time % 60 === 0;
+                            const displayText = isDivisibleBy60
+                              ? `${time.time / 60} phút`
+                              : `${time.time} giây`;
+
+                            return (
+                              <SelectItem
+                                key={index}
+                                value={time.id.toString()}
+                              >
+                                {displayText}
+                              </SelectItem>
+                            );
+                          })
                         ) : (
                           <div className="p-2 text-gray-500">
                             Không có dữ liệu thời gian
