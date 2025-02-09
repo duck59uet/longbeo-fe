@@ -314,9 +314,9 @@ export default function BuyServiceForm() {
               name="quantity"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">Số mắt</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">Số lượng</FormLabel>
                   <FormControl className="w-2/3">
-                    <Input type="number" placeholder="Số mắt" {...field} />
+                    <Input type="number" placeholder="Số lượng" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

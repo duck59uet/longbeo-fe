@@ -91,12 +91,12 @@ export const navItems: NavItem[] = [
         shortcut: ['matF', 'matF']
       },
       {
-        title: 'Tăng view Live Facebook',
+        title: 'Tăng lượt xem video Facebook',
         url: '/dashboard/facebook/view',
         icon: 'userPen',
       },
       {
-        title: 'Tăng view Reel Facebook',
+        title: 'Tăng Reel Facebook',
         url: '/dashboard/facebook/viewReel',
         icon: 'userPen',
       },
