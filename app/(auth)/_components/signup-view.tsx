@@ -56,6 +56,7 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
         fullname: data.fullname,
         email: data.email,
         password: data.password,
+        phone: data.phone,
         referUser: data.referUser,
       });
 

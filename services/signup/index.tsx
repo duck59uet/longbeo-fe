@@ -5,6 +5,7 @@ export const signUpUser = async (data: {
   fullname: string;
   email: string;
   password: string;
+  phone: string;
   referUser?: string;
 }): Promise<any> => {
   try {
