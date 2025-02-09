@@ -67,7 +67,7 @@ export default function AppSidebar() {
                   <Collapsible
                     key={item.title}
                     asChild
-                    defaultOpen={item.isActive}
+                    defaultOpen={!isDesktop}
                     className="group/collapsible"
                   >
                     <SidebarMenuItem>
@@ -77,7 +77,6 @@ export default function AppSidebar() {
                           isActive={pathname === item.url}
                           className="hover:bg-[#ECF2FF]"
                           onClick={() => {
-                            // Khi click trên mobile, đóng Sidebar.
                             if (!isDesktop) {
                               setOpenMobile(false);
                             }

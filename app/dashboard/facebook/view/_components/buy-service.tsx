@@ -323,7 +323,6 @@ export default function BuyServiceForm() {
                         {Array.isArray(servicesTimeData) &&
                         servicesTimeData.length > 0 ? (
                           servicesTimeData.map((time: any, index: number) => {
-                            // Kiểm tra nếu time.time chia hết cho 60 thì hiển thị bằng phút
                             const isDivisibleBy60 = time.time % 60 === 0;
                             const displayText = isDivisibleBy60
                               ? `${time.time / 60} phút`
