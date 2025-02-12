@@ -32,7 +32,8 @@ import {
   Facebook,
   Youtube,
   UserX2Icon,
-  X
+  X,
+  Book
 } from 'lucide-react';
 
 export type Icon = LucideIcon;
@@ -67,6 +68,7 @@ export const Icons = {
   facebook: Facebook,
   youtube: Youtube,
   moon: Moon,
+  book: Book,
   laptop: Laptop,
   gitHub: ({ ...props }: LucideProps) => (
     <svg

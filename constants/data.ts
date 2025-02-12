@@ -177,4 +177,24 @@ export const navItems: NavItem[] = [
       },
     ]
   },
+  {
+    title: 'Tài liệu API',
+    url: '#', 
+    icon: 'book',
+    isActive: true,
+
+    items: [
+      {
+        title: 'Tài liệu',
+        url: '/dashboard/api/docs',
+        icon: 'userPen',
+        shortcut: ['matI', 'matI']
+      },
+      {
+        title: 'Danh sách service',
+        url: '/dashboard/api/listService',
+        icon: 'userPen',
+      },
+    ]
+  },
 ];
