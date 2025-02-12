@@ -17,6 +17,13 @@ import { useEffect, useState } from 'react';
 import { getServiceInfo } from '@/services/service';
 import { toast } from 'sonner';
 import { createOrder } from '@/services/order';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
 import { Modal } from '@/components/ui/modal';
 import { CardContent } from '@/components/ui/card';
 import { TriangleAlert } from 'lucide-react';
@@ -146,11 +153,6 @@ export default function BuyServiceForm() {
       try {
         const data = await getServiceInfo(CATEGORY_ID);
         setServicesData(data.Data);
-        if (data.Data && data.Data.length > 0) {
-          const firstServiceId = data.Data[0].id.toString();
-          form.setValue('service_id', firstServiceId);
-          fetchServiceTimeInfo(Number(firstServiceId));
-        }
       } catch (error) {
         toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
       }
@@ -164,11 +166,6 @@ export default function BuyServiceForm() {
       const data = await getServiceTimeInfo(serviceId);
       const serviceTimes = Array.isArray(data.Data) ? data.Data : [];
       setServiceTimesData(serviceTimes);
-      if (serviceTimes.length > 0) {
-        form.setValue('service_time_id', serviceTimes[0].id.toString());
-      } else {
-        form.setValue('service_time_id', '');
-      }
     } catch (error) {
       toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
       setServiceTimesData([]);
@@ -192,11 +189,9 @@ export default function BuyServiceForm() {
       }
 
       const response = await createOrder({
-        ...values,
-        service_id: Number(values.service_id),
-        service_time_id: Number(values.service_time_id),
+        link: values.link,
+        service: Number(values.service_time_id),
         quantity: Number(values.quantity),
-        amount: selectedServiceTime.time
       });
 
       if (response.ErrorCode === 'SUCCESSFUL') {
@@ -206,12 +201,14 @@ export default function BuyServiceForm() {
         form.reset();
       }
 
-      if (response.AdditionalData.Code === 'E004') {
+      if (response.ErrorCode === 'E004' || response.ErrorCode === 'E500') {
         setModalMessage('Không đủ số dư trong tài khoản');
         setIsModalOpen(true);
       }
     } catch (error) {
       console.error('Error creating order:', error);
+      setModalMessage('Không đủ số dư trong tài khoản');
+      setIsModalOpen(true);
     }
   };
 
@@ -304,9 +301,43 @@ export default function BuyServiceForm() {
               name="quantity"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">Số lượng</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">Số mắt</FormLabel>
                   <FormControl className="w-2/3">
-                    <Input type="number" placeholder="Số lượng" {...field} />
+                    <Input type="number" placeholder="Số mắt" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="service_time_id"
+              render={({ field }) => (
+                <FormItem className="flex items-center space-x-3">
+                  <FormLabel className="w-1/3 text-lg">Số phút</FormLabel>
+                  <FormControl className="w-2/3">
+                    <Select
+                      onValueChange={(value) => field.onChange(value)}
+                      value={field.value}
+                    >
+                      <SelectTrigger className="w-2/3">
+                        <SelectValue placeholder="Số phút" />
+                      </SelectTrigger>
+                      <SelectContent className="w-full">
+                        {Array.isArray(servicesTimeData) &&
+                        servicesTimeData.length > 0 ? (
+                          servicesTimeData.map((time: any, index: number) => (
+                            <SelectItem key={index} value={time.id.toString()}>
+                              {time.time} phút
+                            </SelectItem>
+                          ))
+                        ) : (
+                          <div className="p-2 text-gray-500">
+                            Không có dữ liệu thời gian
+                          </div>
+                        )}
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

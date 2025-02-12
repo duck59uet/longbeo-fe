@@ -202,11 +202,9 @@ export default function BuyServiceForm() {
       }
 
       const response = await createOrder({
-        ...values,
-        service_id: Number(values.service_id),
-        service_time_id: Number(values.service_time_id),
+        link: values.link,
+        service: Number(values.service_time_id),
         quantity: Number(values.quantity),
-        amount: selectedServiceTime.time
       });
 
       if (response.ErrorCode === 'SUCCESSFUL') {
@@ -216,12 +214,14 @@ export default function BuyServiceForm() {
         form.reset();
       }
 
-      if (response.AdditionalData.Code === 'E004') {
+      if (response.ErrorCode === 'E004' || response.ErrorCode === 'E500') {
         setModalMessage('Không đủ số dư trong tài khoản');
         setIsModalOpen(true);
       }
     } catch (error) {
       console.error('Error creating order:', error);
+      setModalMessage('Không đủ số dư trong tài khoản');
+      setIsModalOpen(true);
     }
   };
 

@@ -3,9 +3,7 @@ import authInstance from '../authInstance';
 export const createOrder = async (data: {
   link: string;
   quantity: number;
-  amount: number;
-  service_id: number;
-  service_time_id: number;
+  service: number;
   note?: string | null | undefined;
 }): Promise<any> => {
   try {
