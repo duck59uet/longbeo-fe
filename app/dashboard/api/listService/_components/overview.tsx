@@ -1,81 +1,86 @@
 'use client';
 
 import PageContainer from '@/components/layout/page-container';
-import { useEffect, useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getBalanceInfo } from '@/services/myaccount';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { getAvailableTime } from '@/services/serviceTime';
+import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 
-export default function OverViewPage() {
-  const [balance, setBalance] = useState(0);
-  const [topup, setTopup] = useState(0);
-  const [orderSpent, setOrderSpent] = useState(0);
+interface Service {
+  id: number;
+  time: string;
+  serviceName: string;
+  categoryName: string;
+  price: number;
+}
+
+export default function ServiceTable() {
+  const [services, setServices] = useState<Service[]>([]);
+
+  function sortServices(data: Service[]): Service[] {
+    return data.sort((a, b) => {
+      if (a.categoryName !== b.categoryName) {
+        return a.categoryName.localeCompare(b.categoryName);
+      }
+      
+      if (a.serviceName !== b.serviceName) {
+        return a.serviceName.localeCompare(b.serviceName);
+      }
+      
+      return Number(a.time) - Number(b.time);
+    });
+  }
 
   useEffect(() => {
-    async function fetchBalanceInfo() {
+    async function fetchData() {
       try {
-        const data = await getBalanceInfo();
-        setBalance(data.Data.balance);
-        setTopup(data.Data.topup);
-        setOrderSpent(data.Data.order);
+        const result = await getAvailableTime();
+
+        if (result.ErrorCode === 'SUCCESSFUL') {
+          const data = sortServices(result.Data);
+          setServices(data);
+        } else {
+          throw new Error('Dữ liệu không hợp lệ');
+        }
       } catch (error) {
-        toast.error('Không thể tải thông tin số dư. Vui lòng thử lại sau.');
+        toast.error('Không thể tải dữ liệu');
       }
     }
 
-    fetchBalanceInfo();
-
-    const interval = setInterval(fetchBalanceInfo, 15000);
-
-    return () => clearInterval(interval);
+    fetchData();
   }, []);
-  
+
   return (
     <PageContainer scrollable>
       <div className="space-y-2">
-        <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-2xl font-bold tracking-tight">
-            Hi, Welcome back 👋
-          </h2>
-        </div>
-        <div className="grid gap-4 md:grid-cols-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Số dư hiện tại</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold text-red-500">{balance} đ</p>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle>Tổng đã tiêu</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold text-yellow-500">{orderSpent} đ</p>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle>Tổng đã nạp</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold text-green-500">{topup} đ</p>
-            </CardContent>
-          </Card>
-          
-          {/* Thành viên */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Thành viên</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold text-blue-500">Cấp bậc</p>
-            </CardContent>
-          </Card>
-        </div>
+        <ScrollArea className="grid h-[calc(80vh-220px)] rounded-md border md:h-[calc(90dvh-240px)]">
+          <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-lg">
+            <thead>
+              <tr className="bg-blue-600 text-white">
+                <th className="px-4 py-2 border">ID</th>
+                <th className="px-4 py-2 border">Tên dịch vụ</th>
+                <th className="px-4 py-2 border">Kênh</th>
+                <th className="px-4 py-2 border">Thời gian</th>
+                <th className="px-4 py-2 border">Giá</th>
+              </tr>
+            </thead>
+            <tbody>
+              {services.map((service) => (
+                <tr key={service.id} className="hover:bg-gray-100">
+                  <td className="px-4 py-2 border text-center">{service.id}</td>
+                  <td className="px-4 py-2 border">{service.categoryName}</td>
+                  <td className="px-4 py-2 border">{service.serviceName}</td>
+                  <td className="px-4 py-2 border text-center">
+                    {service.time} phút
+                  </td>
+                  <td className="px-4 py-2 border text-right">
+                    {service.price}đ
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </ScrollArea>
       </div>
     </PageContainer>
   );
