@@ -1,9 +1,16 @@
 'use client';
 
+import { useSession } from 'next-auth/react';
 import PageContainer from '@/components/layout/page-container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function OverViewPage() {
+  const { data: session, status } = useSession();
+
+  if (status === 'loading') {
+    return <p>Loading...</p>;
+  }
+
   return (
     <PageContainer scrollable>
       <div className="space-y-2">
@@ -30,6 +37,9 @@ export default function OverViewPage() {
                   </p>
                   <p>
                     <strong>Định dạng phản hồi:</strong> JSON
+                  </p>
+                  <p>
+                    <strong>Token:</strong> {session?.accessToken || 'Bạn hãy đăng nhập lại'}
                   </p>
                 </div>
 
