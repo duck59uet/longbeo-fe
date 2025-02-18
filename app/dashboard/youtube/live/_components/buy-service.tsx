@@ -34,8 +34,8 @@ const formSchema = z.object({
   link: z.string(),
   quantity: z
     .string()
-    .refine((val) => !isNaN(Number(val)) && Number(val) >= 50, {
-      message: 'Số lượng phải lớn hơn 50'
+    .refine((val) => !isNaN(Number(val)) && Number(val) >= 20, {
+      message: 'Số lượng phải lớn hơn 20'
     }),
   amount: z.string(),
   service_id: z.string(),
@@ -58,7 +58,7 @@ export default function BuyServiceForm() {
       link: '',
       service_id: '',
       service_time_id: '',
-      quantity: '50',
+      quantity: '20',
       amount: '',
       note: ''
     }
@@ -309,9 +309,9 @@ export default function BuyServiceForm() {
               name="quantity"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">Số mắt</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">Số lượng</FormLabel>
                   <FormControl className="w-2/3">
-                    <Input type="number" placeholder="Số mắt" {...field} />
+                    <Input type="number" placeholder="Số lượng" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

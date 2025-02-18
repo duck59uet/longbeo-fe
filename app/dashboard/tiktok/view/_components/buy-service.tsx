@@ -17,13 +17,6 @@ import { useEffect, useState } from 'react';
 import { getServiceInfo } from '@/services/service';
 import { toast } from 'sonner';
 import { createOrder } from '@/services/order';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select';
 import { Modal } from '@/components/ui/modal';
 import { getServiceTimeInfo } from '@/services/serviceTime';
 
@@ -31,8 +24,8 @@ const formSchema = z.object({
   link: z.string(),
   quantity: z
     .string()
-    .refine((val) => !isNaN(Number(val)) && Number(val) >= 50, {
-      message: 'Số lượng phải lớn hơn 50'
+    .refine((val) => !isNaN(Number(val)) && Number(val) >= 20, {
+      message: 'Số lượng phải lớn hơn 20'
     }),
   amount: z.string(),
   service_id: z.string(),
@@ -55,7 +48,7 @@ export default function BuyServiceForm() {
       link: '',
       service_id: '',
       service_time_id: '',
-      quantity: '50',
+      quantity: '20',
       amount: '',
       note: ''
     }
@@ -278,7 +271,7 @@ export default function BuyServiceForm() {
                       type="number"
                       placeholder="Số lượng"
                       {...field}
-                      defaultValue={50}
+                      defaultValue={20}
                     />
                   </FormControl>
                   <FormMessage />
