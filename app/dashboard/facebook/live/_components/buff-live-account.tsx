@@ -7,8 +7,6 @@ import BuyServiceForm from './buy-service';
 import BuffOrderHistoryTable from './order-buff-history';
 
 export default function BuffLiveAccountPage() {
-  // const totalUsers = data.total_users;
-  // const employee: Employee[] = data.users;
 
   return (
     <PageContainer scrollable>
