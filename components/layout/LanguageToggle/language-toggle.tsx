@@ -27,6 +27,7 @@ export default function LanguageToggle() {
   const handleLanguageChange = (locale: Locale) => {
     sessionStorage.setItem('locale', locale);
     setCurrentLocale(locale);
+    window.location.reload();
   };
 
   return (

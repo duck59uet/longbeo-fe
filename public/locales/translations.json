@@ -1,83 +1,74 @@
 {
-    "en": {
-      "form": {
-        "linkOrder": "Link Order",
-        "orderPlaceholder": "Enter link or post ID",
-        "server": "Server",
-        "active": "Active",
-        "quantity": "Quantity",
-        "serviceTime": "Minutes",
-        "note": "Note",
-        "total": "Total",
-        "createProcess": "Create Process",
-        "noData": "No data"
-      },
-      "instructions": {
-        "instruction1": "Link: Username or Live link",
-        "instruction2": "Location: Global",
-        "instruction3": "Start: 0-2 minutes",
-        "instruction4": "No decrease",
-        "details": "Service details:",
-        "commonInfo": "General information:"
-      },
-      "modal": {
-        "notification": "Notification"
-      },
-      "toast": {
-        "close": "Close",
-        "warning": "Warning",
-        "warningContent": "Currently, FB is scanning ALL orders on Server 1 and Server 2. No refund will be provided under any circumstances. Please consider carefully before ordering. Only public Video/Live orders are allowed. We do not support refunds!",
-        "notification": "Notification",
-        "notificationContent": "Prohibited actions: 1. Misleading information, 2. Unethical or illegal actions, 3. Spreading false or harmful information, 4. Inappropriate content for children.",
-        "errorService": "Cannot load service information. Please try again later.",
-        "errorServiceTime": "Cannot load service time information. Please try again later.",
-        "orderSuccess": "Order created successfully",
-        "insufficientBalance": "Insufficient account balance"
-      },
-      "common": {
-        "english": "English",
-        "toggle_language": "Toggle language"
-      }
+  "en": {
+    "form": {
+      "linkOrder": "Link Order",
+      "orderPlaceholder": "Enter link or post ID to boost",
+      "quantity": "Quantity",
+      "serviceTime": "Minutes",
+      "note": "Note",
+      "total": "Total",
+      "createProcess": "Create Process"
     },
-    "vi": {
-      "form": {
-        "linkOrder": "Link order",
-        "orderPlaceholder": "Nhập link hoặc ID bài viết cần tăng",
-        "server": "Máy chủ",
-        "active": "Hoạt động",
-        "quantity": "Số mắt",
-        "serviceTime": "Số phút",
-        "note": "Ghi chú",
-        "total": "Thành tiền",
-        "createProcess": "Tạo tiến trình",
-        "noData": "Không có dữ liệu"
-      },
-      "instructions": {
-        "instruction1": "Liên kết: Tên người dùng hoặc Liên kết phát trực tiếp",
-        "instruction2": "Vị trí: Toàn cầu",
-        "instruction3": "Bắt đầu: 0-2 phút",
-        "instruction4": "Không giảm",
-        "details": "Chi tiết dịch vụ:",
-        "commonInfo": "Thông tin chung:"
-      },
-      "modal": {
-        "notification": "Thông báo"
-      },
-      "toast": {
-        "close": "Đóng",
-        "warning": "Lưu ý",
-        "warningContent": "Hiện tại FB đang quét TẤT CẢ đơn hàng buff mắt ở Máy chủ 1 và Máy chủ 2. KHÔNG hoàn tiền trong mọi trường hợp. Hãy cân nhắc trước khi đặt hàng. Chỉ tăng mắt cho Video/Livestream công khai. Chúng tôi KHÔNG hỗ trợ hoàn tiền!",
-        "notification": "Thông báo",
-        "notificationContent": "Nghiêm cấm: 1. Thông tin sai lệch, 2. Hành vi vi phạm đạo đức, 3. Phát tán thông tin gây hiểu nhầm, 4. Nội dung không phù hợp cho trẻ em.",
-        "errorService": "Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.",
-        "errorServiceTime": "Không thể tải thông tin thời gian dịch vụ. Vui lòng thử lại sau.",
-        "orderSuccess": "Đã tạo đơn hàng thành công",
-        "insufficientBalance": "Không đủ số dư trong tài khoản"
-      },
-      "common": {
-        "vietnamese": "Tiếng Việt",
-        "toggle_language": "Chuyển đổi ngôn ngữ"
-      }
+    "modal": {
+      "notification": "Notification"
+    },
+    "toast": {
+      "close": "Close",
+      "warning": "Warning",
+      "warningContent": "Currently, FB is scanning ALL orders on Server 1 and Server 2. No refunds under any circumstances. Please consider before ordering. Only public Video/Livestream orders are supported. We do NOT support refunds!",
+      "notification": "Notification",
+      "notificationContent": "Prohibitions:\n1. No misleading information.\n2. No unethical or illegal actions.\n3. No spreading false or harmful information.\n4. No inappropriate content for children.",
+      "errorService": "Unable to load service information. Please try again later.",
+      "errorServiceTime": "Unable to load service time information. Please try again later.",
+      "orderSuccess": "Order created successfully",
+      "insufficientBalance": "Insufficient account balance"
+    },
+    "instructions": [
+      "Start time: 0-5 minutes",
+      "100% simultaneous",
+      "Service time: As ordered",
+      "Example link: Facebook live link",
+      "# Do not place a second order on the same link before your current order is completed in the system."
+    ],
+    "common": {
+      "english": "English",
+      "toggle_language": "Toggle language"
+    }
+  },
+  "vi": {
+    "form": {
+      "linkOrder": "Link order",
+      "orderPlaceholder": "Nhập link hoặc ID bài viết cần tăng",
+      "quantity": "Số mắt",
+      "serviceTime": "Số phút",
+      "note": "Ghi chú",
+      "total": "Thành tiền",
+      "createProcess": "Tạo tiến trình"
+    },
+    "modal": {
+      "notification": "Thông báo"
+    },
+    "toast": {
+      "close": "Đóng",
+      "warning": "Lưu ý",
+      "warningContent": "Hiện tại FB đang quét TẤT CẢ đơn hàng buff mắt ở Máy sever 1 và sever 2 sẽ KHÔNG hoàn tiền trong mọi trường hợp (Kể cả KHÔNG lên mắt), các bạn cân nhắc trước khi đặt hàng. Chỉ tăng mắt cho Video/Livestream công khai, nếu cố tình đặt Video/Livestream KHÔNG công khai có thể KHÔNG lên đủ hoặc KHÔNG lên. Chúng tôi KHÔNG hỗ trợ hoàn tiền!",
+      "notification": "Thông báo",
+      "notificationContent": "Nghiêm Cấm:\n1. Cấm mọi hành vi sử dụng dịch vụ nhằm gây ra sự hiểu nhầm hoặc làm sai lệch thông tin, ảnh hưởng đến sự nhận thức của người dùng về các sản phẩm, dịch vụ hoặc thông tin được cung cấp.\n2. Cấm mọi hành vi sử dụng dịch vụ nhằm thực hiện các hành vi vi phạm đạo đức, chuẩn mực xã hội, hoặc vi phạm các quy định pháp luật hiện hành. Điều này bao gồm các hành vi như quấy rối, lừa đảo, hoặc xuyên tạc thông tin có chủ đích.\n3. Cấm việc chia sẻ, phát tán thông tin sai lệch, thông tin gây hiểu lầm hoặc thông tin có hại cho cộng đồng. Các hành vi này không chỉ gây ảnh hưởng xấu đến người nhận mà còn có thể dẫn đến các hành vi phạm pháp khác.\n4. Cấm việc sử dụng dịch vụ để thực hiện các hành vi không phù hợp trong việc giáo dục trẻ em, như đưa vào giảng dạy các thông tin sai lệch, không phù hợp về văn hóa, đạo đức, hoặc pháp luật.",
+      "errorService": "Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.",
+      "errorServiceTime": "Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.",
+      "orderSuccess": "Tạo đơn hàng thành công",
+      "insufficientBalance": "Không đủ số dư trong tài khoản"
+    },
+    "instructions": [
+      "Thời gian bắt đầu: 0-5 phút",
+      "Đồng thời 100%",
+      "Thời gian phục vụ: Theo thời gian đặt",
+      "Liên kết ví dụ: Liên kết phát trực tiếp trên Facebook",
+      "# Không đặt đơn hàng thứ hai trên cùng một liên kết trước khi đơn hàng của bạn được hoàn tất trong hệ thống."
+    ],
+    "common": {
+      "vietnamese": "Tiếng Việt",
+      "toggle_language": "Chuyển đổi ngôn ngữ"
     }
   }
-  
+}
