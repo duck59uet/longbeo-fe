@@ -5,10 +5,20 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import BuyServiceForm from './buy-service';
 import BuffOrderHistoryTable from './order-buff-history';
+import { useEffect, useState } from 'react';
+import translations from '@/public/locales/translations.json';
 
 export default function BuffLiveAccountPage() {
-  // const totalUsers = data.total_users;
-  // const employee: Employee[] = data.users;
+  const [locale, setLocale] = useState<'en' | 'vi'>('vi');
+    useEffect(() => {
+      const storedLocale = sessionStorage.getItem('locale');
+      if (storedLocale === 'en' || storedLocale === 'vi') {
+        setLocale(storedLocale);
+      } else {
+        sessionStorage.setItem('locale', 'vi');
+        setLocale('vi');
+      }
+    }, []);
 
   return (
     <PageContainer scrollable>
@@ -23,13 +33,13 @@ export default function BuffLiveAccountPage() {
                       value="buy-service"
                       className="text-xl font-sans flex-1 bg-transparent border-none"
                     >
-                      Mua dịch vụ
+                      {translations[locale].common.newOrder}
                     </TabsTrigger>
                     <TabsTrigger
                       value="history"
                       className="text-xl font-sans flex-1 bg-transparent border-none"
                     >
-                      Lịch sử đơn
+                      {translations[locale].common.orderHistory}
                     </TabsTrigger>
                   </TabsList>
                   <TabsContent value="buy-service" className="space-y-4">

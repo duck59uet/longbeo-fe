@@ -92,24 +92,6 @@ export default function BuyServiceForm() {
 
   useEffect(() => {
     if (!hasShownToast) {
-      const toastId1 = toast(
-        <div className="toast-custom" onClick={() => toast.dismiss(toastId1)}>
-          <button
-            onClick={() => toast.dismiss(toastId1)}
-            className="absolute top-2 right-2 text-sm text-gray-500"
-          >
-            {translations[locale].toast.close}
-          </button>
-          <h4 className="text-lg font-semibold text-orange-800">
-            {translations[locale].toast.warning}
-          </h4>
-          <p className="text-sm text-orange-700">
-            {translations[locale].toast.warningContent}
-          </p>
-        </div>,
-        { duration: Infinity }
-      );
-
       const toastId2 = toast(
         <div className="toast-custom" onClick={() => toast.dismiss(toastId2)}>
           <button
