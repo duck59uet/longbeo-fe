@@ -17,13 +17,6 @@ import { useEffect, useState } from 'react';
 import { getServiceInfo } from '@/services/service';
 import { toast } from 'sonner';
 import { createOrder } from '@/services/order';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select';
 import { Modal } from '@/components/ui/modal';
 import { CardContent } from '@/components/ui/card';
 import { TriangleAlert } from 'lucide-react';
@@ -125,11 +118,34 @@ export default function BuyServiceForm() {
     fetchServiceInfo();
   }, []);
 
+  useEffect(() => {
+    async function fetchServiceInfo() {
+      try {
+        const data = await getServiceInfo(CATEGORY_ID);
+        setServicesData(data.Data);
+        if (data.Data && data.Data.length > 0) {
+          const firstServiceId = data.Data[0].id.toString();
+          form.setValue('service_id', firstServiceId);
+          fetchServiceTimeInfo(Number(firstServiceId));
+        }
+      } catch (error) {
+        toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
+      }
+    }
+
+    fetchServiceInfo();
+  }, []);
+
   async function fetchServiceTimeInfo(serviceId: number) {
     try {
       const data = await getServiceTimeInfo(serviceId);
       const serviceTimes = Array.isArray(data.Data) ? data.Data : [];
       setServiceTimesData(serviceTimes);
+      if (serviceTimes.length > 0) {
+        form.setValue('service_time_id', serviceTimes[0].id.toString());
+      } else {
+        form.setValue('service_time_id', '');
+      }
     } catch (error) {
       toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
       setServiceTimesData([]);
@@ -242,19 +258,19 @@ export default function BuyServiceForm() {
                 <div className="flex items-center space-x-2 mb-4">
                   <TriangleAlert className="w-6 h-6 text-red-500" />
                   <span className="text-red-500 font-semibold">
-                    Chi tiết dịch vụ:
+                    {translations[locale].common.serviceDetail}:
                   </span>
                 </div>
                 <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
-                  {instructions.map((text, index) => (
+                  {translations[locale].instaInstructions.map((text, index) => (
                     <li key={index}>- {text}</li>
                   ))}
                 </ul>
                 <span className="text-red-500 font-semibold">
-                  Thông tin chung:
+                  {translations[locale].common.commonInfo}:
                 </span>
                 <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
-                  {instructions1.map((text, index) => (
+                  {translations[locale].instaInstructions1.map((text, index) => (
                     <li key={index}>- {text}</li>
                   ))}
                 </ul>
@@ -268,40 +284,6 @@ export default function BuyServiceForm() {
                   <FormLabel className="w-1/3 text-lg">{translations[locale].form.quantity}</FormLabel>
                   <FormControl className="w-2/3">
                     <Input type="number" placeholder={translations[locale].form.quantity} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="service_time_id"
-              render={({ field }) => (
-                <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">{translations[locale].form.serviceTime}</FormLabel>
-                  <FormControl className="w-2/3">
-                    <Select
-                      onValueChange={(value) => field.onChange(value)}
-                      value={field.value}
-                    >
-                      <SelectTrigger className="w-2/3">
-                        <SelectValue placeholder={translations[locale].form.serviceTime} />
-                      </SelectTrigger>
-                      <SelectContent className="w-full">
-                        {Array.isArray(servicesTimeData) &&
-                        servicesTimeData.length > 0 ? (
-                          servicesTimeData.map((time: any, index: number) => (
-                            <SelectItem key={index} value={time.id.toString()}>
-                              {time.time} {translations[locale].common.minutes}
-                            </SelectItem>
-                          ))
-                        ) : (
-                          <div className="p-2 text-gray-500">
-                            {translations[locale].common.noData}
-                          </div>
-                        )}
-                      </SelectContent>
-                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

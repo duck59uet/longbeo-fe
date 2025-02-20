@@ -30,6 +30,17 @@
       "Example link: Facebook live link",
       "# Do not place a second order on the same link before your current order is completed in the system."
     ],
+    "instaInstructions": [
+      "Link: Username or live link",
+      "Location: Global",
+      "Start: 0-2 minutes",
+      "No decrease"
+    ],
+    "instaInstructions1": [
+      "When the service is busy, the process start time will vary.",
+      "Do not place a second order using the same link until your current order is completed in the system.",
+      "In case of any issues with the service, please contact support."
+    ],
     "common": {
       "english": "English",
       "toggle_language": "Toggle language",
@@ -39,7 +50,8 @@
       "active": "Active",
       "newOrder": "New order",
       "orderHistory": "Order history",
-      "noData": "No data"
+      "noData": "No data",
+      "commonInfo": "Common info"
     }
   },
   "vi": {
@@ -73,6 +85,17 @@
       "Liên kết ví dụ: Liên kết phát trực tiếp trên Facebook",
       "# Không đặt đơn hàng thứ hai trên cùng một liên kết trước khi đơn hàng của bạn được hoàn tất trong hệ thống."
     ],
+    "instaInstructions": [
+      "Liên kết: Tên người dùng hoặc Liên kết phát trực tiếp",
+      "Vị trí: Toàn cầu",
+      "Bắt đầu: 0-2 phút",
+      "Không giảm"
+    ],
+    "instaInstructions1": [
+      "Khi dịch vụ bận, tốc độ bắt đầu của quy trình sẽ thay đổi.",
+      "Không đặt đơn hàng thứ hai thông qua cùng một liên kết trước khi đơn hàng của bạn được hoàn tất trong hệ thống.",
+      "Trong trường hợp có bất kỳ vấn đề nào với dịch vụ, vui lòng liên hệ với bộ phận hỗ trợ."
+    ],
     "common": {
       "vietnamese": "Tiếng Việt",
       "toggle_language": "Chuyển đổi ngôn ngữ",
@@ -82,7 +105,8 @@
       "active": "Hoạt động",
       "newOrder": "Đơn hàng mới",
       "orderHistory": "Lịch sử đơn",
-      "noData": "Không có dữ liệu"
+      "noData": "Không có dữ liệu",
+      "commonInfo": "Thông tin chung"
     }
   }
 }

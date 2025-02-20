@@ -30,7 +30,6 @@ import { Modal } from '@/components/ui/modal';
 import { CardContent } from '@/components/ui/card';
 import { TriangleAlert } from 'lucide-react';
 import { getServiceTimeInfo } from '@/services/serviceTime';
-
 import translations from '@/public/locales/translations.json';
 
 const formSchema = z.object({
