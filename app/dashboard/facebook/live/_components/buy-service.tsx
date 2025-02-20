@@ -9,7 +9,7 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -24,14 +24,13 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from '@/components/ui/select';
 import { Modal } from '@/components/ui/modal';
 import { CardContent } from '@/components/ui/card';
 import { TriangleAlert } from 'lucide-react';
 import { getServiceTimeInfo } from '@/services/serviceTime';
 
-// Import translations từ thư mục src (không phải public)
 import translations from '@/public/locales/translations.json';
 
 const formSchema = z.object({
@@ -39,12 +38,12 @@ const formSchema = z.object({
   quantity: z
     .string()
     .refine((val) => !isNaN(Number(val)) && Number(val) >= 20, {
-      message: 'Số lượng phải lớn hơn 20',
+      message: 'Số lượng phải lớn hơn 20'
     }),
   amount: z.string(),
   service_id: z.string(),
   service_time_id: z.string(),
-  note: z.string().optional().nullable(),
+  note: z.string().optional().nullable()
 });
 
 type BuyServiceFormValues = z.infer<typeof formSchema>;
@@ -76,11 +75,10 @@ export default function BuyServiceForm() {
       service_time_id: '',
       quantity: '20',
       amount: '',
-      note: '',
-    },
+      note: ''
+    }
   });
 
-  // Hiển thị toast khi component mount
   useEffect(() => {
     if (!hasShownToast) {
       const toastId1 = toast(
@@ -123,7 +121,6 @@ export default function BuyServiceForm() {
     }
   }, [hasShownToast, locale]);
 
-  // Lấy thông tin dịch vụ
   useEffect(() => {
     async function fetchServiceInfo() {
       try {
@@ -171,7 +168,7 @@ export default function BuyServiceForm() {
       const response = await createOrder({
         link: values.link,
         service: Number(values.service_time_id),
-        quantity: Number(values.quantity),
+        quantity: Number(values.quantity)
       });
 
       if (response.ErrorCode === 'SUCCESSFUL') {
@@ -197,7 +194,6 @@ export default function BuyServiceForm() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-4">
           <div className="grid grid-cols-1 gap-6">
-            {/* Link order */}
             <FormField
               control={form.control}
               name="link"
@@ -216,13 +212,14 @@ export default function BuyServiceForm() {
                 </FormItem>
               )}
             />
-            {/* Phần Máy chủ (giữ nguyên) */}
             <FormField
               control={form.control}
               name="service_id"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">Máy chủ</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">
+                    {translations[locale].common.server}
+                  </FormLabel>
                   <FormControl className="w-2/3">
                     <div className="space-y-2">
                       <RadioGroup
@@ -245,7 +242,7 @@ export default function BuyServiceForm() {
                               {service?.price} đ
                             </span>
                             <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sm">
-                              Hoạt động
+                              {translations[locale].common.active}
                             </span>
                           </div>
                         ))}
@@ -262,7 +259,7 @@ export default function BuyServiceForm() {
                 <div className="flex items-center space-x-2 mb-4">
                   <TriangleAlert className="w-6 h-6 text-red-500" />
                   <span className="text-red-500 font-semibold">
-                    Chi tiết dịch vụ:
+                    {translations[locale].common.serviceDetail}:
                   </span>
                 </div>
                 <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans">
@@ -308,14 +305,16 @@ export default function BuyServiceForm() {
                       value={field.value}
                     >
                       <SelectTrigger className="w-2/3">
-                        <SelectValue placeholder={translations[locale].form.serviceTime} />
+                        <SelectValue
+                          placeholder={translations[locale].form.serviceTime}
+                        />
                       </SelectTrigger>
                       <SelectContent className="w-full">
                         {Array.isArray(servicesTimeData) &&
                         servicesTimeData.length > 0 ? (
                           servicesTimeData.map((time: any, index: number) => (
                             <SelectItem key={index} value={time.id.toString()}>
-                              {time.time} phút
+                              {time.time} {translations[locale].common.minutes}
                             </SelectItem>
                           ))
                         ) : (

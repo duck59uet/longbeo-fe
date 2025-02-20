@@ -45,156 +45,302 @@ export type Product = {
   updated_at: string;
 };
 
-export const navItems: NavItem[] = [
-  {
-    title: 'Trang chủ',
-    url: '/dashboard/overview',
-    icon: 'dashboard',
-    isActive: false,
-    shortcut: ['d', 'd'],
-    items: [] // Empty array as there are no child items for Dashboard
-  },
-  {
-    title: 'Tài khoản của tôi',
-    url: '/dashboard/myaccount',
-    icon: 'user',
-    shortcut: ['e', 'e'],
-    isActive: false,
-    items: [] // No child items
-  },
-  {
-    title: 'Nạp tiền tài khoản',
-    url: '/dashboard/topup',
-    icon: 'user',
-    shortcut: ['t', 't'],
-    isActive: false,
-    items: [] // No child items
-  },
-  {
-    title: 'Cấp bậc tài khoán',
-    url: '/dashboard/tier', 
-    icon: 'billing',
-    isActive: false,
-    items: []
-  },
-  {
-    title: 'Facebook',
-    url: '#', // Placeholder as there is no direct link for the parent
-    icon: 'facebook',
-    isActive: true,
-
-    items: [
+export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
+  if (locale === 'en') {
+    return [
       {
-        title: 'Tăng mắt live Facebook',
-        url: '/dashboard/facebook/live',
-        icon: 'userPen',
-        shortcut: ['matF', 'matF']
+        title: 'Dashboard',
+        url: '/dashboard/overview',
+        icon: 'dashboard',
+        isActive: false,
+        shortcut: ['d', 'd'],
+        items: []
       },
       {
-        title: 'Tăng lượt xem video Facebook',
-        url: '/dashboard/facebook/view',
-        icon: 'userPen',
+        title: 'My Account',
+        url: '/dashboard/myaccount',
+        icon: 'user',
+        shortcut: ['e', 'e'],
+        isActive: false,
+        items: []
       },
       {
-        title: 'Tăng Reel Facebook',
-        url: '/dashboard/facebook/viewReel',
-        icon: 'userPen',
-      },
-    ]
-  },
-  {
-    title: 'Tiktok',
-    url: '#', // Placeholder as there is no direct link for the parent
-    icon: 'tiktok',
-    isActive: true,
-
-    items: [
-      {
-        title: 'Tăng mắt tiktok',
-        url: '/dashboard/tiktok/live',
-        icon: 'userPen',
-        shortcut: ['matT', 'matT']
+        title: 'Top-up Account',
+        url: '/dashboard/topup',
+        icon: 'user',
+        shortcut: ['t', 't'],
+        isActive: false,
+        items: []
       },
       {
-        title: 'Tăng view tiktok',
-        url: '/dashboard/tiktok/view',
-        icon: 'userPen',
-      },
-    ]
-  },
-  {
-    title: 'Youtube',
-    url: '#', // Placeholder as there is no direct link for the parent
-    icon: 'youtube',
-    isActive: true,
-
-    items: [
-      {
-        title: 'Tăng mắt youtube',
-        url: '/dashboard/youtube/live',
-        icon: 'userPen',
-        shortcut: ['matY', 'matY']
+        title: 'Account Tier',
+        url: '/dashboard/tier',
+        icon: 'billing',
+        isActive: false,
+        items: []
       },
       {
-        title: 'Tăng view youtube',
-        url: '/dashboard/youtube/view',
-        icon: 'userPen',
-      },
-    ]
-  },
-  {
-    title: 'Shopee',
-    url: '#', // Placeholder as there is no direct link for the parent
-    icon: 'shopee',
-    isActive: true,
-
-    items: [
-      {
-        title: 'Tăng mắt shopee',
-        url: '/dashboard/shopee/live',
-        icon: 'userPen',
-        shortcut: ['matS', 'matS']
-      },
-    ]
-  },
-  {
-    title: 'Instagram',
-    url: '#', // Placeholder as there is no direct link for the parent
-    icon: 'instagram',
-    isActive: true,
-
-    items: [
-      {
-        title: 'Tăng mắt instagram',
-        url: '/dashboard/instagram/live',
-        icon: 'userPen',
-        shortcut: ['matI', 'matI']
+        title: 'Facebook',
+        url: '#',
+        icon: 'facebook',
+        isActive: true,
+        items: [
+          {
+            title: 'Boost Facebook Live',
+            url: '/dashboard/facebook/live',
+            icon: 'userPen',
+            shortcut: ['matF', 'matF']
+          },
+          {
+            title: 'Boost Facebook Video Views',
+            url: '/dashboard/facebook/view',
+            icon: 'userPen'
+          },
+          {
+            title: 'Boost Facebook Reels',
+            url: '/dashboard/facebook/viewReel',
+            icon: 'userPen'
+          }
+        ]
       },
       {
-        title: 'Tăng view instagram',
-        url: '/dashboard/instagram/view',
-        icon: 'userPen',
+        title: 'TikTok',
+        url: '#',
+        icon: 'tiktok',
+        isActive: true,
+        items: [
+          {
+            title: 'Boost TikTok Likes',
+            url: '/dashboard/tiktok/live',
+            icon: 'userPen',
+            shortcut: ['matT', 'matT']
+          },
+          {
+            title: 'Boost TikTok Views',
+            url: '/dashboard/tiktok/view',
+            icon: 'userPen'
+          }
+        ]
       },
-    ]
-  },
-  {
-    title: 'Tài liệu API',
-    url: '#', 
-    icon: 'book',
-    isActive: true,
-
-    items: [
       {
-        title: 'Tài liệu',
-        url: '/dashboard/api/docs',
-        icon: 'userPen',
-        shortcut: ['matI', 'matI']
+        title: 'YouTube',
+        url: '#',
+        icon: 'youtube',
+        isActive: true,
+        items: [
+          {
+            title: 'Boost YouTube Likes',
+            url: '/dashboard/youtube/live',
+            icon: 'userPen',
+            shortcut: ['matY', 'matY']
+          },
+          {
+            title: 'Boost YouTube Views',
+            url: '/dashboard/youtube/view',
+            icon: 'userPen'
+          }
+        ]
       },
       {
-        title: 'Danh sách service',
-        url: '/dashboard/api/listService',
-        icon: 'userPen',
+        title: 'Shopee',
+        url: '#',
+        icon: 'shopee',
+        isActive: true,
+        items: [
+          {
+            title: 'Boost Shopee Likes',
+            url: '/dashboard/shopee/live',
+            icon: 'userPen',
+            shortcut: ['matS', 'matS']
+          }
+        ]
       },
-    ]
-  },
-];
+      {
+        title: 'Instagram',
+        url: '#',
+        icon: 'instagram',
+        isActive: true,
+        items: [
+          {
+            title: 'Boost Instagram Likes',
+            url: '/dashboard/instagram/live',
+            icon: 'userPen',
+            shortcut: ['matI', 'matI']
+          },
+          {
+            title: 'Boost Instagram Views',
+            url: '/dashboard/instagram/view',
+            icon: 'userPen'
+          }
+        ]
+      },
+      {
+        title: 'API Documentation',
+        url: '#',
+        icon: 'book',
+        isActive: true,
+        items: [
+          {
+            title: 'Documentation',
+            url: '/dashboard/api/docs',
+            icon: 'userPen',
+            shortcut: ['doc', 'doc']
+          },
+          {
+            title: 'Service List',
+            url: '/dashboard/api/listService',
+            icon: 'userPen'
+          }
+        ]
+      }
+    ];
+  } else {
+    return [
+      {
+        title: 'Trang chủ',
+        url: '/dashboard/overview',
+        icon: 'dashboard',
+        isActive: false,
+        shortcut: ['d', 'd'],
+        items: []
+      },
+      {
+        title: 'Tài khoản của tôi',
+        url: '/dashboard/myaccount',
+        icon: 'user',
+        shortcut: ['e', 'e'],
+        isActive: false,
+        items: []
+      },
+      {
+        title: 'Nạp tiền tài khoản',
+        url: '/dashboard/topup',
+        icon: 'user',
+        shortcut: ['t', 't'],
+        isActive: false,
+        items: []
+      },
+      {
+        title: 'Cấp bậc tài khoản',
+        url: '/dashboard/tier',
+        icon: 'billing',
+        isActive: false,
+        items: []
+      },
+      {
+        title: 'Facebook',
+        url: '#',
+        icon: 'facebook',
+        isActive: true,
+        items: [
+          {
+            title: 'Tăng mắt live Facebook',
+            url: '/dashboard/facebook/live',
+            icon: 'userPen',
+            shortcut: ['matF', 'matF']
+          },
+          {
+            title: 'Tăng lượt xem video Facebook',
+            url: '/dashboard/facebook/view',
+            icon: 'userPen'
+          },
+          {
+            title: 'Tăng Reel Facebook',
+            url: '/dashboard/facebook/viewReel',
+            icon: 'userPen'
+          }
+        ]
+      },
+      {
+        title: 'Tiktok',
+        url: '#',
+        icon: 'tiktok',
+        isActive: true,
+        items: [
+          {
+            title: 'Tăng mắt tiktok',
+            url: '/dashboard/tiktok/live',
+            icon: 'userPen',
+            shortcut: ['matT', 'matT']
+          },
+          {
+            title: 'Tăng view tiktok',
+            url: '/dashboard/tiktok/view',
+            icon: 'userPen'
+          }
+        ]
+      },
+      {
+        title: 'Youtube',
+        url: '#',
+        icon: 'youtube',
+        isActive: true,
+        items: [
+          {
+            title: 'Tăng mắt youtube',
+            url: '/dashboard/youtube/live',
+            icon: 'userPen',
+            shortcut: ['matY', 'matY']
+          },
+          {
+            title: 'Tăng view youtube',
+            url: '/dashboard/youtube/view',
+            icon: 'userPen'
+          }
+        ]
+      },
+      {
+        title: 'Shopee',
+        url: '#',
+        icon: 'shopee',
+        isActive: true,
+        items: [
+          {
+            title: 'Tăng mắt shopee',
+            url: '/dashboard/shopee/live',
+            icon: 'userPen',
+            shortcut: ['matS', 'matS']
+          }
+        ]
+      },
+      {
+        title: 'Instagram',
+        url: '#',
+        icon: 'instagram',
+        isActive: true,
+        items: [
+          {
+            title: 'Tăng mắt instagram',
+            url: '/dashboard/instagram/live',
+            icon: 'userPen',
+            shortcut: ['matI', 'matI']
+          },
+          {
+            title: 'Tăng view instagram',
+            url: '/dashboard/instagram/view',
+            icon: 'userPen'
+          }
+        ]
+      },
+      {
+        title: 'Tài liệu API',
+        url: '#',
+        icon: 'book',
+        isActive: true,
+        items: [
+          {
+            title: 'Tài liệu',
+            url: '/dashboard/api/docs',
+            icon: 'userPen',
+            shortcut: ['doc', 'doc']
+          },
+          {
+            title: 'Danh sách service',
+            url: '/dashboard/api/listService',
+            icon: 'userPen'
+          }
+        ]
+      }
+    ];
+  }
+}

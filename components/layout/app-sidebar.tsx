@@ -25,7 +25,7 @@ import {
   SidebarRail,
   useSidebar
 } from '@/components/ui/sidebar';
-import { navItems } from '@/constants/data';
+import { getNavItems } from '@/constants/data';
 import { Icons } from '../icons';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { ScrollArea } from '../ui/scroll-area';
@@ -42,6 +42,19 @@ export default function AppSidebar() {
   // Lấy hàm setOpenMobile từ context để điều khiển trạng thái mở/đóng của Sidebar trên mobile.
   const { setOpenMobile } = useSidebar();
   const collapsible = isDesktop ? 'none' : 'icon';
+
+  const [locale, setLocale] = React.useState<'en' | 'vi'>('vi');
+  React.useEffect(() => {
+    const storedLocale = sessionStorage.getItem('locale');
+    if (storedLocale === 'en' || storedLocale === 'vi') {
+      setLocale(storedLocale);
+    } else {
+      sessionStorage.setItem('locale', 'vi');
+      setLocale('vi');
+    }
+  }, []);
+
+  const navItems = getNavItems(locale);
 
   return (
     <Sidebar collapsible={collapsible}>

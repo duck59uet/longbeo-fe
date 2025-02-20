@@ -1,5 +1,5 @@
 'use client';
-import { navItems } from '@/constants/data';
+import { getNavItems } from '@/constants/data';
 import {
   KBarAnimator,
   KBarPortal,
@@ -8,7 +8,7 @@ import {
   KBarSearch
 } from 'kbar';
 import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import RenderResults from './render-result';
 import useThemeSwitching from './use-theme-switching';
 
@@ -19,10 +19,23 @@ export default function KBar({ children }: { children: React.ReactNode }) {
     router.push(url);
   };
 
+  const [locale, setLocale] = useState<'en' | 'vi'>('vi');
+    useEffect(() => {
+      const storedLocale = sessionStorage.getItem('locale');
+      if (storedLocale === 'en' || storedLocale === 'vi') {
+        setLocale(storedLocale);
+      } else {
+        sessionStorage.setItem('locale', 'vi');
+        setLocale('vi');
+      }
+    }, []);
+
+  const navItems = getNavItems(locale);
+
   // These action are for the navigation
   const actions = useMemo(
     () =>
-      navItems.flatMap((navItem) => {
+      navItems.flatMap((navItem: any) => {
         // Only include base action if the navItem has a real URL and is not just a container
         const baseAction =
           navItem.url !== '#'
@@ -39,7 +52,7 @@ export default function KBar({ children }: { children: React.ReactNode }) {
 
         // Map child items into actions
         const childActions =
-          navItem.items?.map((childItem) => ({
+          navItem.items?.map((childItem: any) => ({
             id: `${childItem.title.toLowerCase()}Action`,
             name: childItem.title,
             shortcut: childItem.shortcut,

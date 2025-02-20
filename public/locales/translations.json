@@ -32,7 +32,13 @@
     ],
     "common": {
       "english": "English",
-      "toggle_language": "Toggle language"
+      "toggle_language": "Toggle language",
+      "server": "Server",
+      "minutes": "minutes",
+      "serviceDetail": "Service detail",
+      "active": "Active",
+      "newOrder": "New order",
+      "orderHistory": "Order history"
     }
   },
   "vi": {
@@ -68,7 +74,13 @@
     ],
     "common": {
       "vietnamese": "Tiếng Việt",
-      "toggle_language": "Chuyển đổi ngôn ngữ"
+      "toggle_language": "Chuyển đổi ngôn ngữ",
+      "server": "Máy chủ",
+      "minutes": "phút",
+      "serviceDetail": "Chi tiết dịch vụ",
+      "active": "Hoạt động",
+      "newOrder": "Đơn hàng mới",
+      "orderHistory": "Lịch sử đơn"
     }
   }
 }

@@ -17,17 +17,12 @@ import { useEffect, useState } from 'react';
 import { getServiceInfo } from '@/services/service';
 import { toast } from 'sonner';
 import { createOrder } from '@/services/order';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select';
 import { Modal } from '@/components/ui/modal';
 import { CardContent } from '@/components/ui/card';
 import { TriangleAlert } from 'lucide-react';
 import { getServiceTimeInfo } from '@/services/serviceTime';
+import translations from '@/public/locales/translations.json';
+
 
 const formSchema = z.object({
   link: z.string(),
@@ -63,6 +58,17 @@ export default function BuyServiceForm() {
     }
   });
 
+  const [locale, setLocale] = useState<'en' | 'vi'>('vi');
+  useEffect(() => {
+    const storedLocale = sessionStorage.getItem('locale');
+    if (storedLocale === 'en' || storedLocale === 'vi') {
+      setLocale(storedLocale);
+    } else {
+      sessionStorage.setItem('locale', 'vi');
+      setLocale('vi');
+    }
+  }, []);
+
   const instructions = [
     'Thời gian bắt đầu: 0-5 phút',
     'Đồng thời 100%',
@@ -74,73 +80,44 @@ export default function BuyServiceForm() {
   useEffect(() => {
     if (!hasShownToast) {
       const toastId1 = toast(
-        <div
-          className="toast-custom"
-          onClick={() => toast.dismiss(toastId1)} // Loại bỏ khi click
-        >
+        <div className="toast-custom" onClick={() => toast.dismiss(toastId1)}>
           <button
-            onClick={() => toast.dismiss(toastId1)} // Đóng khi nhấn nút
+            onClick={() => toast.dismiss(toastId1)}
             className="absolute top-2 right-2 text-sm text-gray-500"
           >
-            Đóng
+            {translations[locale].toast.close}
           </button>
-          <h4 className="text-lg font-semibold text-orange-800">Lưu ý</h4>
+          <h4 className="text-lg font-semibold text-orange-800">
+            {translations[locale].toast.warning}
+          </h4>
           <p className="text-sm text-orange-700">
-            Hiện tại FB đang quét TẤT CẢ đơn hàng buff mắt ở Máy sever 1 và
-            sever 2 sẽ KHÔNG hoàn tiền trong mọi trường hợp (Kể cả KHÔNG lên
-            mắt), các bạn cân nhắc trước khi đặt hàng. Chỉ tăng mắt cho
-            Video/Livestream công khai, nếu cố tình đặt Video/Livestream KHÔNG
-            công khai có thể KHÔNG lên đủ hoặc KHÔNG lên. Chúng tôi KHÔNG hỗ trợ
-            hoàn tiền!
+            {translations[locale].toast.warningContent}
           </p>
         </div>,
-        {
-          duration: Infinity // Không tự động đóng
-        }
+        { duration: Infinity }
       );
 
       const toastId2 = toast(
-        <div
-          className="toast-custom"
-          onClick={() => toast.dismiss(toastId2)} // Loại bỏ khi click
-        >
+        <div className="toast-custom" onClick={() => toast.dismiss(toastId2)}>
           <button
-            onClick={() => toast.dismiss(toastId2)} // Đóng khi nhấn nút
+            onClick={() => toast.dismiss(toastId2)}
             className="absolute top-2 right-2 text-sm text-gray-500"
           >
-            Đóng
+            {translations[locale].toast.close}
           </button>
-          <h4 className="text-lg font-semibold text-orange-800">Thông báo</h4>
+          <h4 className="text-lg font-semibold text-orange-800">
+            {translations[locale].toast.notification}
+          </h4>
           <p className="text-sm text-orange-700">
-            Nghiêm Cấm:
-            <br />
-            1. Cấm mọi hành vi sử dụng dịch vụ nhằm gây ra sự hiểu nhầm hoặc làm
-            sai lệch thông tin, ảnh hưởng đến sự nhận thức của người dùng về các
-            sản phẩm, dịch vụ hoặc thông tin được cung cấp.
-            <br />
-            2. Cấm mọi hành vi sử dụng dịch vụ nhằm thực hiện các hành vi vi
-            phạm đạo đức, chuẩn mực xã hội, hoặc vi phạm các quy định pháp luật
-            hiện hành. Điều này bao gồm các hành vi như quấy rối, lừa đảo, hoặc
-            xuyên tạc thông tin có chủ đích.
-            <br />
-            3. Cấm việc chia sẻ, phát tán thông tin sai lệch, thông tin gây hiểu
-            lầm hoặc thông tin có hại cho cộng đồng. Các hành vi này không chỉ
-            gây ảnh hưởng xấu đến người nhận mà còn có thể dẫn đến các hành vi
-            phạm pháp khác.
-            <br />
-            4. Cấm việc sử dụng dịch vụ để thực hiện các hành vi không phù hợp
-            trong việc giáo dục trẻ em, như đưa vào giảng dạy các thông tin sai
-            lệch, không phù hợp về văn hóa, đạo đức, hoặc pháp luật.
+            {translations[locale].toast.notificationContent}
           </p>
         </div>,
-        {
-          duration: Infinity
-        }
+        { duration: Infinity }
       );
 
       setHasShownToast(true);
     }
-  }, [hasShownToast]);
+  }, [hasShownToast, locale]);
 
   useEffect(() => {
     async function fetchServiceInfo() {
@@ -226,10 +203,10 @@ export default function BuyServiceForm() {
               name="link"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">Link order</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">{translations[locale].form.linkOrder}</FormLabel>
                   <FormControl className="w-2/3">
                     <Input
-                      placeholder="Nhập link hoặc ID bài viết cần tăng"
+                      placeholder={translations[locale].form.orderPlaceholder}
                       {...field}
                     />
                   </FormControl>
@@ -242,7 +219,7 @@ export default function BuyServiceForm() {
               name="service_id"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">Máy chủ</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">{translations[locale].common.server}</FormLabel>
                   <FormControl className="w-2/3">
                     <div className="space-y-2">
                       <RadioGroup
@@ -265,7 +242,7 @@ export default function BuyServiceForm() {
                               {service?.price} đ
                             </span>
                             <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sm">
-                              Hoạt động
+                              {translations[locale].common.active}
                             </span>
                           </div>
                         ))}
@@ -277,16 +254,15 @@ export default function BuyServiceForm() {
               )}
             />
             <CardContent className="w-full rounded-lg p-4 py-2 mb-2">
-              {/* Hướng dẫn */}
               <div className="bg-blue-100 p-4 rounded-lg">
                 <div className="flex items-center space-x-2 mb-4">
                   <TriangleAlert className="w-6 h-6 text-red-500" />
                   <span className="text-red-500 font-semibold">
-                    Chi tiết dịch vụ:
+                    {translations[locale].common.serviceDetail}:
                   </span>
                 </div>
                 <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans">
-                  {instructions.map((text, index) => (
+                  {translations[locale].instructions.map((text, index) => (
                     <li key={index}>- {text}</li>
                   ))}
                 </ul>
@@ -297,11 +273,11 @@ export default function BuyServiceForm() {
               name="quantity"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">Số lượng</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">{translations[locale].form.quantity}</FormLabel>
                   <FormControl className="w-2/3">
                     <Input
                       type="number"
-                      placeholder="Số lượng"
+                      placeholder={translations[locale].form.quantity}
                       {...field}
                       defaultValue={20}
                     />
@@ -315,10 +291,10 @@ export default function BuyServiceForm() {
               name="note"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3 md-9">
-                  <FormLabel className="w-1/3 text-lg">Ghi chú</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">{translations[locale].form.note}</FormLabel>
                   <FormControl className="w-2/3">
                     <Textarea
-                      placeholder="Ghi chú"
+                      placeholder={translations[locale].form.note}
                       rows={4}
                       {...field}
                       value={field.value ?? ''}
@@ -330,7 +306,7 @@ export default function BuyServiceForm() {
             />
           </div>
           <div className="flex items-center space-x-3">
-            <FormLabel className="w-1/3 text-lg">Thành tiền</FormLabel>
+            <FormLabel className="w-1/3 text-lg">{translations[locale].form.total}</FormLabel>
             <span className="text-lg font-semibold text-red-500">
               {servicesTimeData.find(
                 (serviceTime: any) =>
@@ -348,7 +324,7 @@ export default function BuyServiceForm() {
             type="submit"
             className="w-full bg-[#4680FF] text-white hover:bg-[#2E5BFF]"
           >
-            Tạo tiến trình
+            {translations[locale].form.createProcess}
           </Button>
         </form>
       </Form>
