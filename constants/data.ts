@@ -110,7 +110,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         isActive: true,
         items: [
           {
-            title: 'Boost TikTok Likes',
+            title: 'Boost TikTok Live',
             url: '/dashboard/tiktok/live',
             icon: 'userPen',
             shortcut: ['matT', 'matT']
@@ -129,7 +129,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         isActive: true,
         items: [
           {
-            title: 'Boost YouTube Likes',
+            title: 'Boost YouTube Live',
             url: '/dashboard/youtube/live',
             icon: 'userPen',
             shortcut: ['matY', 'matY']
@@ -148,7 +148,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         isActive: true,
         items: [
           {
-            title: 'Boost Shopee Likes',
+            title: 'Boost Shopee Live',
             url: '/dashboard/shopee/live',
             icon: 'userPen',
             shortcut: ['matS', 'matS']
@@ -162,7 +162,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         isActive: true,
         items: [
           {
-            title: 'Boost Instagram Likes',
+            title: 'Boost Instagram Live',
             url: '/dashboard/instagram/live',
             icon: 'userPen',
             shortcut: ['matI', 'matI']
