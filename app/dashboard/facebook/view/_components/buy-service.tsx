@@ -23,7 +23,6 @@ import { TriangleAlert } from 'lucide-react';
 import { getServiceTimeInfo } from '@/services/serviceTime';
 import translations from '@/public/locales/translations.json';
 
-
 const formSchema = z.object({
   link: z.string(),
   quantity: z
@@ -68,14 +67,6 @@ export default function BuyServiceForm() {
       setLocale('vi');
     }
   }, []);
-
-  const instructions = [
-    'Thời gian bắt đầu: 0-5 phút',
-    'Đồng thời 100%',
-    'Thời gian phục vụ: Theo thời gian đặt',
-    'Liên kết ví dụ: Liên kết phát trực tiếp trên Facebook',
-    '# Không đặt đơn hàng thứ hai trên cùng một liên kết trước khi đơn hàng của bạn được hoàn tất trong hệ thống.'
-  ];
 
   useEffect(() => {
     if (!hasShownToast) {
@@ -331,7 +322,7 @@ export default function BuyServiceForm() {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Thông báo"
+        title={translations[locale].modal.notification}
         description={''}
       >
         {modalMessage}

@@ -1,11 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import BuffHistoryTable from './buff-history-table';
 import { getOrder } from '@/services/order';
 import { DataTable as OrderTable } from '@/components/ui/table/data-table';
 import PageContainer from '@/components/layout/page-container';
-import { Card } from '@/components/ui/card';
 import { columns } from './columns';
 
 export default function BuffOrderHistoryTable() {
