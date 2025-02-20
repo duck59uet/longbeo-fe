@@ -1,5 +1,10 @@
 {
   "en": {
+    "balance": {
+      "topup": "Top-up",
+      "balance": "Balance",
+      "orderSpent": "Spent"
+    },
     "form": {
       "linkOrder": "Link Order",
       "orderPlaceholder": "Enter link or post ID to boost",
@@ -51,10 +56,34 @@
       "newOrder": "New order",
       "orderHistory": "Order history",
       "noData": "No data",
-      "commonInfo": "Common info"
+      "commonInfo": "Common info",
+      "errorOccurred": "An error occurred",
+      "balance": "Balance",
+      "totalSpent": "Total spent",
+      "totalTopup": "Total topup",
+      "greeting": "Hello, welcome back 👋",
+      "memberShipLevel": "Level",
+      "member": "Member"
+    },
+    "overviewPage": {
+      "tabs": {
+        "info": "Information",
+        "changePassword": "Change Password",
+        "accountConfig": "Account Configuration"
+      },
+      "card": {
+        "userInfo": "User Information",
+        "balance": "Financial Info",
+        "changePassword": "Change Password"
+      }
     }
   },
   "vi": {
+    "balance": {
+      "topup": "Đã nạp",
+      "balance": "Số dư",
+      "orderSpent": "Đã tiêu"
+    },
     "form": {
       "linkOrder": "Link order",
       "orderPlaceholder": "Nhập link hoặc ID bài viết cần tăng",
@@ -106,7 +135,26 @@
       "newOrder": "Đơn hàng mới",
       "orderHistory": "Lịch sử đơn",
       "noData": "Không có dữ liệu",
-      "commonInfo": "Thông tin chung"
+      "commonInfo": "Thông tin chung",
+      "errorOccurred": "Đã xảy ra lỗi",
+      "balance": "Số dư",
+      "totalSpent": "Tổng tiền đã tiêu",
+      "totalTopup": "Tổng tiền nạp",
+      "greeting": "Xin chào, chào mừng bạn quay lại 👋",
+      "memberShipLevel": "Cấp bậc",
+      "member": "Thành viên"
+    },
+    "overviewPage": {
+      "tabs": {
+        "info": "Thông tin",
+        "changePassword": "Thay đổi mật khẩu",
+        "accountConfig": "Cấu hình tài khoản"
+      },
+      "card": {
+        "userInfo": "Thông Tin Tài Khoản",
+        "balance": "Tài chính",
+        "changePassword": "Thay Đổi Mật Khẩu"
+      }
     }
   }
 }

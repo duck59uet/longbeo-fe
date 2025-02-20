@@ -43,6 +43,7 @@ export default function BuyServiceForm() {
   const [servicesTimeData, setServiceTimesData] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const [localeLoaded, setLocaleLoaded] = useState(false);
   const form = useForm<BuyServiceFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,10 +64,11 @@ export default function BuyServiceForm() {
       sessionStorage.setItem('locale', 'vi');
       setLocale('vi');
     }
+    setLocaleLoaded(true);
   }, []);
 
   useEffect(() => {
-    if (!hasShownToast) {
+    if (localeLoaded && !hasShownToast) {
       const toastId2 = toast(
         <div className="toast-custom" onClick={() => toast.dismiss(toastId2)}>
           <button
@@ -87,7 +89,7 @@ export default function BuyServiceForm() {
 
       setHasShownToast(true);
     }
-  }, [hasShownToast, locale]);
+  }, [hasShownToast, locale, localeLoaded]);
 
   useEffect(() => {
     async function fetchServiceInfo() {

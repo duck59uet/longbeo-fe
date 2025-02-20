@@ -1,4 +1,5 @@
 'use client';
+
 import * as React from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -20,29 +21,79 @@ const formSchema = z.object({
   fullname: z.string().min(2, {
     message: 'Name must be at least 2 characters.'
   }),
-  username: z.string({
-    required_error: 'Please select a country.'
-  }),
+  username: z.string({ required_error: 'Please select a country.' }),
   email: z.string().email({
     message: 'Please enter a valid email address.'
   }),
   createdAt: z.string().optional(),
   avatar: z.string().optional().nullable(),
   facebook: z.string().optional().nullable(),
-  level: z.string().optional().nullable(),
+  level: z.string().optional().nullable()
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
 
+// Object chứa các bản dịch cho tiếng Anh và tiếng Việt
+const translations = {
+  en: {
+    form: {
+      fullname: "Full name",
+      email: "Email",
+      username: "Username",
+      level: "Level",
+      createdAt: "Joined at",
+      avatar: "Avatar URL",
+      facebook: "Facebook link",
+      update: "Update Info"
+    },
+    toast: {
+      updateSuccess: "User info updated successfully",
+      updateError: "Failed to update user info"
+    }
+  },
+  vi: {
+    form: {
+      fullname: "Họ và tên",
+      email: "Email",
+      username: "Tài khoản",
+      level: "Cấp độ",
+      createdAt: "Thời gian tham gia",
+      avatar: "Link ảnh đại diện",
+      facebook: "Link facebook",
+      update: "Cập nhật thông tin"
+    },
+    toast: {
+      updateSuccess: "Cập nhật thông tin thành công",
+      updateError: "Cập nhật thông tin thất bại"
+    }
+  }
+};
+
 export default function UserForm() {
   const [loading, setLoading] = React.useState(true);
   const [userInfo, setUserInfo] = React.useState<UserFormValue | null>(null);
-  const form = useForm<z.infer<typeof formSchema>>({
+  
+  // Lấy ngôn ngữ từ sessionStorage, mặc định là 'vi'
+  const [locale, setLocale] = React.useState<'en' | 'vi'>('vi');
+  React.useEffect(() => {
+    const storedLocale = sessionStorage.getItem('locale');
+    if (storedLocale === 'en' || storedLocale === 'vi') {
+      setLocale(storedLocale);
+    } else {
+      sessionStorage.setItem('locale', 'vi');
+      setLocale('vi');
+    }
+  }, []);
+
+  // Alias để truy cập dễ các chuỗi dịch
+  const currentTranslations = translations[locale];
+
+  const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullname: '',
       avatar: '',
-      facebook: '',
+      facebook: ''
     }
   });
 
@@ -51,7 +102,7 @@ export default function UserForm() {
       try {
         const response = await getInfo();
         setUserInfo(response.Data);
-        form.reset(response.Data); 
+        form.reset(response.Data);
       } catch (error) {
         console.error('Failed to fetch user info:', error);
       } finally {
@@ -60,9 +111,9 @@ export default function UserForm() {
     };
 
     fetchUserInfo();
-  }, []);
+  }, [form]);
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: UserFormValue) {
     try {
       const response = await updateInfo({
         fullname: values.fullname,
@@ -70,12 +121,12 @@ export default function UserForm() {
         facebook: values.facebook || ''
       });
       if (response.ErrorCode === 'SUCCESSFUL') {
-        toast.success('Cập nhật thông tin thành công');
+        toast.success(currentTranslations.toast.updateSuccess);
       } else {
-        toast.error('Cập nhật thông tin thất bại');
+        toast.error(currentTranslations.toast.updateError);
       }
     } catch (error) {
-      toast.error('Cập nhật thông tin thất bại');
+      toast.error(currentTranslations.toast.updateError);
     }
   }
 
@@ -88,9 +139,9 @@ export default function UserForm() {
             name="fullname"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Họ và tên</FormLabel>
+                <FormLabel>{currentTranslations.form.fullname}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Họ và tên" {...field} />
+                  <Input placeholder={currentTranslations.form.fullname} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -101,14 +152,9 @@ export default function UserForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{currentTranslations.form.email}</FormLabel>
                 <FormControl>
-                  <Input
-                    disabled={true}
-                    type="email"
-                    placeholder="Enter your email"
-                    {...field}
-                  />
+                  <Input disabled type="email" placeholder="Enter your email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -119,9 +165,9 @@ export default function UserForm() {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Tài khoản</FormLabel>
+                <FormLabel>{currentTranslations.form.username}</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} disabled={true}/>
+                  <Input placeholder="" {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -132,9 +178,9 @@ export default function UserForm() {
             name="level"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Cấp độ</FormLabel>
+                <FormLabel>{currentTranslations.form.level}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Thành viên" {...field} value={field.value || ''} disabled={true}/>
+                  <Input placeholder="Member" {...field} value={field.value || ''} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -145,9 +191,9 @@ export default function UserForm() {
             name="createdAt"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Thời gian tham gia</FormLabel>
+                <FormLabel>{currentTranslations.form.createdAt}</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} disabled={true}/>
+                  <Input placeholder="" {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -158,7 +204,7 @@ export default function UserForm() {
             name="avatar"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Link ảnh đại diện</FormLabel>
+                <FormLabel>{currentTranslations.form.avatar}</FormLabel>
                 <FormControl>
                   <Input placeholder="" {...field} value={field.value || ''} />
                 </FormControl>
@@ -168,19 +214,19 @@ export default function UserForm() {
           />
         </div>
         <FormField
-            control={form.control}
-            name="facebook"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Link facebook</FormLabel>
-                <FormControl>
-                  <Input placeholder="Link facebook" {...field} value={field.value || ''} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        <Button type="submit">Cập nhật thông tin</Button>
+          control={form.control}
+          name="facebook"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{currentTranslations.form.facebook}</FormLabel>
+              <FormControl>
+                <Input placeholder={currentTranslations.form.facebook} {...field} value={field.value || ''} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">{currentTranslations.form.update}</Button>
       </form>
     </Form>
   );

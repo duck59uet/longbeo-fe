@@ -54,6 +54,7 @@ export default function BuyServiceForm() {
   const [servicesTimeData, setServiceTimesData] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const [localeLoaded, setLocaleLoaded] = useState(false);
 
   const [locale, setLocale] = useState<'en' | 'vi'>('vi');
   useEffect(() => {
@@ -64,6 +65,7 @@ export default function BuyServiceForm() {
       sessionStorage.setItem('locale', 'vi');
       setLocale('vi');
     }
+    setLocaleLoaded(true);
   }, []);
 
   const form = useForm<BuyServiceFormValues>({
@@ -79,7 +81,7 @@ export default function BuyServiceForm() {
   });
 
   useEffect(() => {
-    if (!hasShownToast) {
+    if (localeLoaded && !hasShownToast) {
       const toastId1 = toast(
         <div className="toast-custom" onClick={() => toast.dismiss(toastId1)}>
           <button
@@ -118,7 +120,7 @@ export default function BuyServiceForm() {
 
       setHasShownToast(true);
     }
-  }, [hasShownToast, locale]);
+  }, [hasShownToast, locale, localeLoaded]);
 
   useEffect(() => {
     async function fetchServiceInfo() {

@@ -2,8 +2,6 @@ import { config } from '@/const';
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
 
-const secret = process.env.NEXTAUTH_SECRET;
-
 const authInstance = axios.create({
   baseURL: config.API_ENDPOINT_URL
 });

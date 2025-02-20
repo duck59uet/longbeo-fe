@@ -13,9 +13,38 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { changePassword, getInfo, updateInfo } from '@/services/myaccount';
+import { changePassword } from '@/services/myaccount';
 import { toast } from 'sonner';
 
+// Object chứa bản dịch cho Change Password Form
+const translations = {
+  en: {
+    form: {
+      oldPassword: "Old Password",
+      newPassword: "New Password",
+      confirmPassword: "Confirm New Password",
+      update: "Change Password"
+    },
+    toast: {
+      updateSuccess: "Password updated successfully",
+      updateError: "Failed to update password"
+    }
+  },
+  vi: {
+    form: {
+      oldPassword: "Mật khẩu cũ",
+      newPassword: "Mật khẩu mới",
+      confirmPassword: "Nhập lại mật khẩu mới",
+      update: "Thay đổi mật khẩu"
+    },
+    toast: {
+      updateSuccess: "Cập nhật mật khẩu thành công",
+      updateError: "Cập nhật mật khẩu thất bại"
+    }
+  }
+};
+
+// Schema xác thực (validation messages được định nghĩa cố định)
 const formSchema = z
   .object({
     oldPassword: z.string({
@@ -29,33 +58,50 @@ const formSchema = z
     })
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
-    path: ['confirmPassword'], // Đường dẫn của lỗi
+    path: ['confirmPassword'],
     message: 'Mật khẩu không trùng khớp.'
   });
 
+type UserFormValue = z.infer<typeof formSchema>;
+
 export default function ChangePasswordForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
+  // Lấy ngôn ngữ từ sessionStorage, mặc định là 'vi'
+  const [locale, setLocale] = React.useState<'en' | 'vi'>('vi');
+  React.useEffect(() => {
+    const storedLocale = sessionStorage.getItem('locale');
+    if (storedLocale === 'en' || storedLocale === 'vi') {
+      setLocale(storedLocale);
+    } else {
+      sessionStorage.setItem('locale', 'vi');
+      setLocale('vi');
+    }
+  }, []);
+
+  const currentTranslations = translations[locale];
+
+  const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       oldPassword: '',
-      newPassword: ''
+      newPassword: '',
+      confirmPassword: ''
     }
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: UserFormValue) {
     try {
       const response = await changePassword({
         oldPassword: values.oldPassword,
-        newPassword: values.newPassword || '',
+        newPassword: values.newPassword || ''
       });
       if (response.ErrorCode === 'SUCCESSFUL') {
-        toast.success('Cập nhật mật khẩu thành công');
+        toast.success(currentTranslations.toast.updateSuccess);
         form.reset();
       } else {
-        toast.error('Cập nhật mật khẩu thất bại');
+        toast.error(currentTranslations.toast.updateError);
       }
     } catch (error) {
-      toast.error('Cập nhật mật khẩu thất bại');
+      toast.error(currentTranslations.toast.updateError);
     }
   }
 
@@ -67,11 +113,11 @@ export default function ChangePasswordForm() {
           name="oldPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Mật khẩu cũ</FormLabel>
+              <FormLabel>{currentTranslations.form.oldPassword}</FormLabel>
               <FormControl>
                 <Input
                   type="password"
-                  placeholder="Mật khẩu cũ"
+                  placeholder={currentTranslations.form.oldPassword}
                   {...field}
                   value={field.value || ''}
                 />
@@ -85,11 +131,11 @@ export default function ChangePasswordForm() {
           name="newPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Mật khẩu mới</FormLabel>
+              <FormLabel>{currentTranslations.form.newPassword}</FormLabel>
               <FormControl>
                 <Input
                   type="password"
-                  placeholder="Mật khẩu mới"
+                  placeholder={currentTranslations.form.newPassword}
                   {...field}
                   value={field.value || ''}
                 />
@@ -103,11 +149,11 @@ export default function ChangePasswordForm() {
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nhập lại mật khẩu mới</FormLabel>
+              <FormLabel>{currentTranslations.form.confirmPassword}</FormLabel>
               <FormControl>
                 <Input
                   type="password"
-                  placeholder="Nhập lại mật khẩu mới"
+                  placeholder={currentTranslations.form.confirmPassword}
                   {...field}
                   value={field.value || ''}
                 />
@@ -116,7 +162,9 @@ export default function ChangePasswordForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Thay đổi mật khẩu</Button>
+        <Button type="submit">
+          {currentTranslations.form.update}
+        </Button>
       </form>
     </Form>
   );
