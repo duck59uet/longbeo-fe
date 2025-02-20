@@ -75,21 +75,6 @@ export default function BuyServiceForm() {
     }
   }, []);
 
-  const instructions = [
-    'Liên kết: Liên kết phát trực tiếp Shopee',
-    'Vị trí: Toàn cầu',
-    'Bắt đầu: 0-5 phút',
-    'Thời gian: 15 phút',
-    'Không thả',
-    'Không nạp lại'
-  ];
-
-  const instructions1 = [
-    'Khi dịch vụ bận, tốc độ bắt đầu của quy trình sẽ thay đổi.',
-    'Không đặt đơn hàng thứ hai thông qua cùng một liên kết trước khi đơn hàng của bạn được hoàn tất trong hệ thống.',
-    'Trong trường hợp có bất kỳ vấn đề nào với dịch vụ, vui lòng liên hệ với bộ phận hỗ trợ.',
-  ];
-
   useEffect(() => {
     if (!hasShownToast) {
       const toastId2 = toast(
@@ -251,13 +236,13 @@ export default function BuyServiceForm() {
                   <span className="text-red-500 font-semibold">{translations[locale].common.serviceDetail}:</span>
                 </div>
                 <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
-                  {instructions.map((text, index) => (
+                  {translations[locale].instructions.map((text, index) => (
                     <li key={index}>- {text}</li>
                   ))}
                 </ul>
                 <span className="text-red-500 font-semibold">{translations[locale].common.commonInfo}:</span>
                 <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
-                  {instructions1.map((text, index) => (
+                  {translations[locale].instaInstructions1.map((text, index) => (
                     <li key={index}>- {text}</li>
                   ))}
                 </ul>
