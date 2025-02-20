@@ -38,7 +38,8 @@
       "serviceDetail": "Service detail",
       "active": "Active",
       "newOrder": "New order",
-      "orderHistory": "Order history"
+      "orderHistory": "Order history",
+      "noData": "No data"
     }
   },
   "vi": {
@@ -80,7 +81,8 @@
       "serviceDetail": "Chi tiết dịch vụ",
       "active": "Hoạt động",
       "newOrder": "Đơn hàng mới",
-      "orderHistory": "Lịch sử đơn"
+      "orderHistory": "Lịch sử đơn",
+      "noData": "Không có dữ liệu"
     }
   }
 }

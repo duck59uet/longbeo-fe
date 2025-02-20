@@ -16,7 +16,7 @@ export default function Header() {
           <SearchInput />
         </div>
         <UserNav />
-        <ThemeToggle />
+        {/* <ThemeToggle /> */}
         <LanguageToggle />
       </div>
     </header>

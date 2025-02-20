@@ -319,7 +319,7 @@ export default function BuyServiceForm() {
                           ))
                         ) : (
                           <div className="p-2 text-gray-500">
-                            Không có dữ liệu thời gian
+                            {translations[locale].common.noData}
                           </div>
                         )}
                       </SelectContent>

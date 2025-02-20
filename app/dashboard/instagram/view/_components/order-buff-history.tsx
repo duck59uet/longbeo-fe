@@ -35,7 +35,6 @@ export default function BuffOrderHistoryTable() {
     setLimit(newLimit);
   };
 
-  // console.log(data);
   return (
     <PageContainer scrollable>
       <div className="space-y-2">

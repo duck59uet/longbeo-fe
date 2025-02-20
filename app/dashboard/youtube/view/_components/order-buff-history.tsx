@@ -1,12 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import BuffHistoryTable from './buff-history-table';
 import { getOrder } from '@/services/order';
 import { DataTable as OrderTable } from '@/components/ui/table/data-table';
 import PageContainer from '@/components/layout/page-container';
-import { Card } from '@/components/ui/card';
-import { columns } from './columns';
+import { getColumns } from './columns';
 
 export default function BuffOrderHistoryTable() {
   const [data, setData] = useState([]);
@@ -14,6 +12,19 @@ export default function BuffOrderHistoryTable() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const CATEGORY_ID = 7;
+  const [locale, setLocale] = useState<'en' | 'vi'>('vi');
+
+  useEffect(() => {
+    const storedLocale = sessionStorage.getItem('locale');
+    if (storedLocale === 'en' || storedLocale === 'vi') {
+      setLocale(storedLocale);
+    } else {
+      sessionStorage.setItem('locale', 'vi');
+      setLocale('vi');
+    }
+  }, []);
+
+  const columns = getColumns(locale);
 
   const fetchData = async (page: any, limit: any) => {
     try {
