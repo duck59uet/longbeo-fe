@@ -1,42 +1,41 @@
 'use client';
+
 import { BuffHistory } from '@/constants/data';
 import { ColumnDef } from '@tanstack/react-table';
 
-export const columns: ColumnDef<BuffHistory>[] = [
-  {
-    accessorKey: 'order_link',
-    header: 'Link đơn'
-  },
-  {
-    accessorKey: 'service_name',
-    header: 'Máy chủ'
-  },
-  {
-    accessorKey: 'service_price',
-    header: 'Giá'
-  },
-  {
-    accessorKey: 'order_quantity',
-    header: 'Số lượng'
-  },
-  {
-    accessorKey: 'order_createdAt',
-    header: 'Bắt đầu'
-  },
-  // {
-  //   accessorKey: 'order_amount',
-  //   header: 'Số phút'
-  // },
-  {
-    accessorKey: 'order_price',
-    header: 'Thành tiền'
-  },
-  {
-    accessorKey: 'order_discount',
-    header: 'Giảm giá'
-  },
-  {
-    accessorKey: 'order_note',
-    header: 'Ghi chú'
-  }
-];
+export function getColumns(locale: 'en' | 'vi'): ColumnDef<BuffHistory>[] {
+  return [
+    {
+      accessorKey: 'order_link',
+      header: locale === 'en' ? 'Order Link' : 'Link đơn'
+    },
+    {
+      accessorKey: 'service_name',
+      header: locale === 'en' ? 'Server' : 'Máy chủ'
+    },
+    {
+      accessorKey: 'service_price',
+      header: locale === 'en' ? 'Price' : 'Giá'
+    },
+    {
+      accessorKey: 'order_quantity',
+      header: locale === 'en' ? 'Quantity' : 'Số lượng'
+    },
+    {
+      accessorKey: 'order_createdAt',
+      header: locale === 'en' ? 'Start Time' : 'Bắt đầu'
+    },
+    {
+      accessorKey: 'order_price',
+      header: locale === 'en' ? 'Total' : 'Thành tiền'
+    },
+    {
+      accessorKey: 'order_discount',
+      header: locale === 'en' ? 'Discount' : 'Giảm giá'
+    },
+    {
+      accessorKey: 'order_note',
+      header: locale === 'en' ? 'Note' : 'Ghi chú'
+    }
+  ];
+}

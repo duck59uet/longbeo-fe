@@ -68,19 +68,6 @@ export default function BuyServiceForm() {
     }
   }, []);
 
-  const instructions = [
-    'Liên kết: Tên người dùng hoặc Liên kết phát trực tiếp',
-    'Vị trí: Toàn cầu',
-    'Bắt đầu: 0-2 phút',
-    'Không giảm'
-  ];
-
-  const instructions1 = [
-    'Khi dịch vụ bận, tốc độ bắt đầu của quy trình sẽ thay đổi.',
-    'Không đặt đơn hàng thứ hai thông qua cùng một liên kết trước khi đơn hàng của bạn được hoàn tất trong hệ thống.',
-    'Trong trường hợp có bất kỳ vấn đề nào với dịch vụ, vui lòng liên hệ với bộ phận hỗ trợ.'
-  ];
-
   useEffect(() => {
     if (!hasShownToast) {
       const toastId2 = toast(
@@ -110,26 +97,13 @@ export default function BuyServiceForm() {
       try {
         const data = await getServiceInfo(CATEGORY_ID);
         setServicesData(data.Data);
-      } catch (error) {
-        toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
-      }
-    }
-
-    fetchServiceInfo();
-  }, []);
-
-  useEffect(() => {
-    async function fetchServiceInfo() {
-      try {
-        const data = await getServiceInfo(CATEGORY_ID);
-        setServicesData(data.Data);
         if (data.Data && data.Data.length > 0) {
           const firstServiceId = data.Data[0].id.toString();
           form.setValue('service_id', firstServiceId);
           fetchServiceTimeInfo(Number(firstServiceId));
         }
       } catch (error) {
-        toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
+        toast.error(translations[locale].toast.errorService);
       }
     }
 
@@ -147,7 +121,7 @@ export default function BuyServiceForm() {
         form.setValue('service_time_id', '');
       }
     } catch (error) {
-      toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
+      toast.error(translations[locale].toast.errorServiceTime);
       setServiceTimesData([]);
     }
   }
@@ -175,19 +149,19 @@ export default function BuyServiceForm() {
       });
 
       if (response.ErrorCode === 'SUCCESSFUL') {
-        setModalMessage('Tạo đơn hàng thành công');
+        setModalMessage(translations[locale].toast.orderSuccess);
         setIsModalOpen(true);
-        toast.success('Đã tạo đơn hàng thành công');
+        toast.success(translations[locale].toast.orderSuccess);
         form.reset();
       }
 
       if (response.ErrorCode === 'E004' || response.ErrorCode === 'E500') {
-        setModalMessage('Không đủ số dư trong tài khoản');
+        setModalMessage(translations[locale].toast.insufficientBalance);
         setIsModalOpen(true);
       }
     } catch (error) {
       console.error('Error creating order:', error);
-      setModalMessage('Không đủ số dư trong tài khoản');
+      setModalMessage(translations[locale].toast.insufficientBalance);
       setIsModalOpen(true);
     }
   };

@@ -167,19 +167,19 @@ export default function BuyServiceForm() {
       });
 
       if (response.ErrorCode === 'SUCCESSFUL') {
-        setModalMessage('Tạo đơn hàng thành công');
+        setModalMessage(translations[locale].toast.orderSuccess);
         setIsModalOpen(true);
-        toast.success('Đã tạo đơn hàng thành công');
+        toast.success(translations[locale].toast.orderSuccess);
         form.reset();
       }
 
       if (response.ErrorCode === 'E004' || response.ErrorCode === 'E500') {
-        setModalMessage('Không đủ số dư trong tài khoản');
+        setModalMessage(translations[locale].toast.insufficientBalance);
         setIsModalOpen(true);
       }
     } catch (error) {
       console.error('Error creating order:', error);
-      setModalMessage('Không đủ số dư trong tài khoản');
+      setModalMessage(translations[locale].toast.insufficientBalance);
       setIsModalOpen(true);
     }
   };
