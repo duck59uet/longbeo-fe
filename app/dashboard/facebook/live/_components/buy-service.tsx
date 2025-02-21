@@ -237,10 +237,11 @@ export default function BuyServiceForm() {
                           >
                             <RadioGroupItem value={service?.id.toString()} />
                             <span className="font-sx text-gray-700">
-                              {service?.name}
+                              {locale === 'vi' ? service?.name : service?.enName}
                             </span>
                             <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-sx">
-                              {service?.price} đ
+                              {locale === 'vi' ? service?.price : service?.enPrice}
+                              {translations[locale].common.currency}
                             </span>
                             <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sx">
                               {translations[locale].common.active}
