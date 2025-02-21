@@ -363,7 +363,7 @@ export default function BuyServiceForm() {
               {translations[locale].form.total}
             </FormLabel>
             <span className="text-lg font-semibold text-red-500">
-              {(servicesTimeData.find(
+              {((servicesTimeData.find(
                 (serviceTime: any) =>
                   serviceTime.id === Number(form.watch('service_time_id'))
               )?.time || 0) *
@@ -376,7 +376,7 @@ export default function BuyServiceForm() {
                   : servicesData.find(
                       (service: any) =>
                         service.id === Number(form.watch('service_id'))
-                    )?.enPrice || 0)}{' '}
+                    )?.enPrice || 0)).toFixed(5)}{' '}
               {translations[locale].common.currency}
             </span>
           </div>
