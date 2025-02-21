@@ -237,10 +237,14 @@ export default function BuyServiceForm() {
                           >
                             <RadioGroupItem value={service?.id.toString()} />
                             <span className="font-sx text-gray-700">
-                              {locale === 'vi' ? service?.name : service?.enName}
+                              {locale === 'vi'
+                                ? service?.name
+                                : service?.enName}
                             </span>
                             <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-sx">
-                              {locale === 'vi' ? service?.price : service?.enPrice}
+                              {locale === 'vi'
+                                ? service?.price
+                                : service?.enPrice}
                               {translations[locale].common.currency}
                             </span>
                             <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sx">
@@ -359,16 +363,21 @@ export default function BuyServiceForm() {
               {translations[locale].form.total}
             </FormLabel>
             <span className="text-lg font-semibold text-red-500">
-              {servicesTimeData.find(
+              {(servicesTimeData.find(
                 (serviceTime: any) =>
                   serviceTime.id === Number(form.watch('service_time_id'))
-              )?.time *
+              )?.time || 0) *
                 Number(form.watch('quantity')) *
-                servicesData.find(
-                  (service: any) =>
-                    service.id === Number(form.watch('service_id'))
-                )?.price || 0}{' '}
-              đ
+                (locale === 'vi'
+                  ? servicesData.find(
+                      (service: any) =>
+                        service.id === Number(form.watch('service_id'))
+                    )?.price || 0
+                  : servicesData.find(
+                      (service: any) =>
+                        service.id === Number(form.watch('service_id'))
+                    )?.enPrice || 0)}{' '}
+              {translations[locale].common.currency}
             </span>
           </div>
           <Button

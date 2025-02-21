@@ -121,27 +121,27 @@ export default function BuyServiceForm() {
   }, []);
 
   async function fetchServiceTimeInfo(serviceId: number) {
-      try {
-        const data = await getServiceTimeInfo(serviceId);
-        const serviceTimes = Array.isArray(data.Data) ? data.Data : [];
-        setServiceTimesData(serviceTimes);
-      } catch (error) {
-        toast.error(translations[locale].toast.errorServiceTime);
-        setServiceTimesData([]);
-      }
+    try {
+      const data = await getServiceTimeInfo(serviceId);
+      const serviceTimes = Array.isArray(data.Data) ? data.Data : [];
+      setServiceTimesData(serviceTimes);
+    } catch (error) {
+      toast.error(translations[locale].toast.errorServiceTime);
+      setServiceTimesData([]);
     }
-  
-    const handleServiceChange = (value: string) => {
-      form.setValue('service_id', value);
-      fetchServiceTimeInfo(Number(value));
-    };
+  }
+
+  const handleServiceChange = (value: string) => {
+    form.setValue('service_id', value);
+    fetchServiceTimeInfo(Number(value));
+  };
 
   const onSubmit = async (values: BuyServiceFormValues) => {
     try {
       const selectedServiceTime = servicesTimeData.find(
         (time: any) => time.id.toString() === values.service_time_id
       );
-  
+
       if (!selectedServiceTime) {
         toast.error('Dữ liệu thời gian dịch vụ không hợp lệ.');
         return;
@@ -150,7 +150,7 @@ export default function BuyServiceForm() {
       const response = await createOrder({
         link: values.link,
         service: Number(values.service_time_id),
-        quantity: Number(values.quantity),
+        quantity: Number(values.quantity)
       });
 
       if (response.ErrorCode === 'SUCCESSFUL') {
@@ -181,7 +181,9 @@ export default function BuyServiceForm() {
               name="link"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">{translations[locale].form.linkOrder}</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">
+                    {translations[locale].form.linkOrder}
+                  </FormLabel>
                   <FormControl className="w-2/3">
                     <Input
                       placeholder={translations[locale].form.orderPlaceholder}
@@ -197,7 +199,9 @@ export default function BuyServiceForm() {
               name="service_id"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">{translations[locale].common.server}</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">
+                    {translations[locale].common.server}
+                  </FormLabel>
                   <FormControl className="w-2/3">
                     <div className="space-y-2">
                       <RadioGroup
@@ -214,10 +218,15 @@ export default function BuyServiceForm() {
                           >
                             <RadioGroupItem value={service?.id.toString()} />
                             <span className="font-medium text-gray-700">
-                              {locale === 'vi' ? service?.name : service?.enName}
+                              {locale === 'vi'
+                                ? service?.name
+                                : service?.enName}
                             </span>
                             <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-sm">
-                              {locale === 'vi' ? service?.price : service?.enPrice} {translations[locale].common.currency}
+                              {locale === 'vi'
+                                ? service?.price
+                                : service?.enPrice}{' '}
+                              {translations[locale].common.currency}
                             </span>
                             <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sm">
                               {translations[locale].common.active}
@@ -236,18 +245,24 @@ export default function BuyServiceForm() {
               <div className="bg-blue-100 p-4 rounded-lg">
                 <div className="flex items-center space-x-2 mb-4">
                   <TriangleAlert className="w-6 h-6 text-red-500" />
-                  <span className="text-red-500 font-semibold">{translations[locale].common.serviceDetail}:</span>
+                  <span className="text-red-500 font-semibold">
+                    {translations[locale].common.serviceDetail}:
+                  </span>
                 </div>
                 <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
                   {translations[locale].instructions.map((text, index) => (
                     <li key={index}>- {text}</li>
                   ))}
                 </ul>
-                <span className="text-red-500 font-semibold">{translations[locale].common.commonInfo}:</span>
+                <span className="text-red-500 font-semibold">
+                  {translations[locale].common.commonInfo}:
+                </span>
                 <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans mb-4">
-                  {translations[locale].instaInstructions1.map((text, index) => (
-                    <li key={index}>- {text}</li>
-                  ))}
+                  {translations[locale].instaInstructions1.map(
+                    (text, index) => (
+                      <li key={index}>- {text}</li>
+                    )
+                  )}
                 </ul>
               </div>
             </CardContent>
@@ -256,9 +271,15 @@ export default function BuyServiceForm() {
               name="quantity"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">{translations[locale].form.quantity}</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">
+                    {translations[locale].form.quantity}
+                  </FormLabel>
                   <FormControl className="w-2/3">
-                    <Input type="number" placeholder={translations[locale].form.quantity} {...field} />
+                    <Input
+                      type="number"
+                      placeholder={translations[locale].form.quantity}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -269,14 +290,18 @@ export default function BuyServiceForm() {
               name="service_time_id"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">{translations[locale].form.serviceTime}</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">
+                    {translations[locale].form.serviceTime}
+                  </FormLabel>
                   <FormControl className="w-2/3">
                     <Select
                       onValueChange={(value) => field.onChange(value)}
                       value={field.value}
                     >
                       <SelectTrigger className="w-2/3">
-                        <SelectValue placeholder={translations[locale].form.serviceTime} />
+                        <SelectValue
+                          placeholder={translations[locale].form.serviceTime}
+                        />
                       </SelectTrigger>
                       <SelectContent className="w-full">
                         {Array.isArray(servicesTimeData) &&
@@ -303,7 +328,9 @@ export default function BuyServiceForm() {
               name="note"
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-3 md-9">
-                  <FormLabel className="w-1/3 text-lg">{translations[locale].form.note}</FormLabel>
+                  <FormLabel className="w-1/3 text-lg">
+                    {translations[locale].form.note}
+                  </FormLabel>
                   <FormControl className="w-2/3">
                     <Textarea
                       placeholder={translations[locale].form.note}
@@ -318,18 +345,25 @@ export default function BuyServiceForm() {
             />
           </div>
           <div className="flex items-center space-x-3">
-            <FormLabel className="w-1/3 text-lg">{translations[locale].form.total}</FormLabel>
+            <FormLabel className="w-1/3 text-lg">
+              {translations[locale].form.total}
+            </FormLabel>
             <span className="text-lg font-semibold text-red-500">
-              {servicesTimeData.find(
-                  (serviceTime: any) =>
-                    serviceTime.id === Number(form.watch('service_time_id'))
-                )?.time *
+              {(servicesTimeData.find(
+                (serviceTime: any) =>
+                  serviceTime.id === Number(form.watch('service_time_id'))
+              )?.time || 0) *
                 Number(form.watch('quantity')) *
-                servicesData.find(
-                  (service: any) =>
-                    service.id === Number(form.watch('service_id'))
-                )?.price || 0}{' '}
-              đ
+                (locale === 'vi'
+                  ? servicesData.find(
+                      (service: any) =>
+                        service.id === Number(form.watch('service_id'))
+                    )?.price || 0
+                  : servicesData.find(
+                      (service: any) =>
+                        service.id === Number(form.watch('service_id'))
+                    )?.enPrice || 0)}{' '}
+              {translations[locale].common.currency}
             </span>
           </div>
           <Button
