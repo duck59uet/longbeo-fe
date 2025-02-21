@@ -1,7 +1,6 @@
-import { NextAuthConfig, Session } from 'next-auth';
+import { NextAuthConfig } from 'next-auth';
 import CredentialProvider from 'next-auth/providers/credentials';
 import { loginUser } from './services/login';
-import { toast } from 'sonner';
 declare module 'next-auth' {
   interface Session {
     accessToken?: string;
@@ -38,11 +37,13 @@ const authConfig = {
     async jwt({ token, user }) {
       if (user) {
         token.accessToken = (user as any).token;
+        token.user = { ...user };
       }
       return token;
     },
     async session({ session, token }) {
       session.accessToken = token.accessToken as string;
+      session.user = token.user as any;
       return session;
     }
   },
