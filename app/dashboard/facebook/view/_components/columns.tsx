@@ -36,6 +36,10 @@ export function getColumns(locale: 'en' | 'vi'): ColumnDef<BuffHistory>[] {
     {
       accessorKey: 'order_note',
       header: locale === 'en' ? 'Note' : 'Ghi chú'
+    },
+    {
+      accessorKey: 'order_status',
+      header: locale === 'en' ? 'Status' : 'Trạng thái',
     }
   ];
 }

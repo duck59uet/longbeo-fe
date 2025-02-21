@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 
 export default function OverViewPage() {
-  // Lấy locale từ sessionStorage, mặc định là 'vi'
   const [locale, setLocale] = useState<'en' | 'vi'>('vi');
   useEffect(() => {
     const storedLocale = sessionStorage.getItem('locale');
@@ -18,7 +17,6 @@ export default function OverViewPage() {
     }
   }, []);
 
-  // Dữ liệu các gói theo ngôn ngữ
   const translations = {
     en: {
       cards: [
