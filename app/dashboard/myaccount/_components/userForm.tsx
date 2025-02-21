@@ -28,7 +28,6 @@ const formSchema = z.object({
   createdAt: z.string().optional(),
   avatar: z.string().optional().nullable(),
   facebook: z.string().optional().nullable(),
-  level: z.string().optional().nullable()
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -175,19 +174,6 @@ export default function UserForm() {
           />
           <FormField
             control={form.control}
-            name="level"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{currentTranslations.form.level}</FormLabel>
-                <FormControl>
-                  <Input placeholder="Member" {...field} value={field.value || ''} disabled />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name="createdAt"
             render={({ field }) => (
               <FormItem>
@@ -199,7 +185,8 @@ export default function UserForm() {
               </FormItem>
             )}
           />
-          <FormField
+        </div>
+        <FormField
             control={form.control}
             name="avatar"
             render={({ field }) => (
@@ -212,7 +199,6 @@ export default function UserForm() {
               </FormItem>
             )}
           />
-        </div>
         <FormField
           control={form.control}
           name="facebook"
