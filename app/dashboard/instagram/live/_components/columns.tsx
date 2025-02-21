@@ -6,6 +6,10 @@ import { ColumnDef } from '@tanstack/react-table';
 export function getColumns(locale: 'en' | 'vi'): ColumnDef<BuffHistory>[] {
   return [
     {
+      accessorKey: 'order_id',
+      header: locale === 'en' ? 'Order ID' : 'Mã đơn',
+    },
+    {
       accessorKey: 'order_link',
       header: locale === 'en' ? 'Order Link' : 'Link đơn'
     },

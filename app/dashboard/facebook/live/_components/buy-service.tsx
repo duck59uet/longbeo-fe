@@ -236,13 +236,13 @@ export default function BuyServiceForm() {
                             className="flex items-center space-x-2"
                           >
                             <RadioGroupItem value={service?.id.toString()} />
-                            <span className="font-medium text-gray-700">
+                            <span className="font-sx text-gray-700">
                               {service?.name}
                             </span>
-                            <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-sm">
+                            <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-sx">
                               {service?.price} đ
                             </span>
-                            <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sm">
+                            <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sx">
                               {translations[locale].common.active}
                             </span>
                           </div>
