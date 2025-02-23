@@ -41,7 +41,7 @@ export default function OverViewPage() {
 
     return () => clearInterval(interval);
   }, [locale]);
-  
+
   return (
     <PageContainer scrollable>
       <div className="space-y-2">
@@ -56,31 +56,45 @@ export default function OverViewPage() {
               <CardTitle>{translations[locale].common.balance}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold text-red-500">{balance} đ</p>
+              <p className="text-2xl font-bold text-red-500">
+                {locale === 'en'
+                  ? (balance / 26000).toFixed(2) + ' $'
+                  : balance + ' đ'}
+              </p>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle>{translations[locale].common.totalSpent}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold text-yellow-500">{orderSpent} đ</p>
+              <p className="text-2xl font-bold text-yellow-500">
+                {locale === 'en'
+                  ? (orderSpent / 26000).toFixed(2) + ' $'
+                  : orderSpent + ' đ'}{' '}
+              </p>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle>{translations[locale].common.totalTopup}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold text-green-500">{topup} đ</p>
+              <p className="text-2xl font-bold text-green-500">
+                {locale === 'en'
+                  ? (topup / 26000).toFixed(2) + ' $'
+                  : topup + ' đ'}
+              </p>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader>
-              <CardTitle>{translations[locale].common.memberShipLevel}</CardTitle>
+              <CardTitle>
+                {translations[locale].common.memberShipLevel}
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-2xl font-bold text-blue-500">

@@ -43,12 +43,11 @@ export function BalanceInfo() {
   }, [locale]);
 
   // Lấy chuỗi dịch cho balance. Nếu không có, dùng fallback.
-  const balanceTranslations =
-    translations[locale].balance || {
-      topup: locale === 'en' ? 'Top-up' : 'Đã nạp',
-      balance: locale === 'en' ? 'Balance' : 'Số dư',
-      orderSpent: locale === 'en' ? 'Spent' : 'Đã tiêu'
-    };
+  const balanceTranslations = translations[locale].balance || {
+    topup: locale === 'en' ? 'Top-up' : 'Đã nạp',
+    balance: locale === 'en' ? 'Balance' : 'Số dư',
+    orderSpent: locale === 'en' ? 'Spent' : 'Đã tiêu'
+  };
 
   return (
     <div className="space-y-8 mt-4">
@@ -59,7 +58,9 @@ export function BalanceInfo() {
             {balanceTranslations.topup}
           </p>
         </div>
-        <div className="ml-auto font-medium">{topup}</div>
+        <div className="ml-auto font-medium">
+          {locale === 'en' ? (topup / 26000).toFixed(2) + ' $' : topup + ' đ'}
+        </div>
       </div>
       <div className="flex items-center">
         <div className="ml-4 space-y-1 flex items-center">
@@ -68,7 +69,11 @@ export function BalanceInfo() {
             {balanceTranslations.balance}
           </p>
         </div>
-        <div className="ml-auto font-medium">{balance}</div>
+        <div className="ml-auto font-medium">
+          {locale === 'en'
+            ? (balance / 26000).toFixed(2) + ' $'
+            : balance + ' đ'}
+        </div>
       </div>
       <div className="flex items-center">
         <div className="ml-4 space-y-1 flex items-center">
@@ -77,7 +82,11 @@ export function BalanceInfo() {
             {balanceTranslations.orderSpent}
           </p>
         </div>
-        <div className="ml-auto font-medium">{orderSpent}</div>
+        <div className="ml-auto font-medium">
+          {locale === 'en'
+            ? (orderSpent / 26000).toFixed(2) + ' $'
+            : orderSpent + ' đ'}
+        </div>
       </div>
     </div>
   );

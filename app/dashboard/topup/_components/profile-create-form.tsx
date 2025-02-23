@@ -1,33 +1,63 @@
 'use client';
+
+import { useEffect, useState } from 'react';
+import PageContainer from '@/components/layout/page-container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TopupInfo } from './topup-info';
+import TopupHistoryTable from './topup-history';
 
-interface ProfileFormType {
-  initialData: any | null;
-  categories: any;
-}
-const ProfileCreateForm: React.FC<ProfileFormType> = () => {
+const TopupPage: React.FC = () => {
+  const [locale, setLocale] = useState<'en' | 'vi'>('vi');
+
+  useEffect(() => {
+    const storedLocale = sessionStorage.getItem('locale');
+    if (storedLocale === 'en' || storedLocale === 'vi') {
+      setLocale(storedLocale);
+    } else {
+      sessionStorage.setItem('locale', 'vi');
+      setLocale('vi');
+    }
+  }, []);
+
+  const translations = {
+    en: {
+      topupPage: {
+        topupAccount: "Top-up Account",
+        topupHistory: "Top-up History"
+      }
+    },
+    vi: {
+      topupPage: {
+        topupAccount: "Nạp tiền tài khoản",
+        topupHistory: "Lịch sử nạp tiền"
+      }
+    }
+  };
+
+  const currentTranslations = translations[locale].topupPage;
 
   return (
-    <>
+    <PageContainer scrollable>
       <div className="space-y-2">
         <div className="flex items-center justify-between space-y-2">
           <h2 className="text-2xl font-bold tracking-tight font-sans">
-            Nạp tiền tài khoản
+            {currentTranslations.topupAccount}
           </h2>
         </div>
         <div className="w-full">
           <TopupInfo />
-          <Card className='mt-4'>
+          <Card className="mt-4">
             <CardHeader>
-              <CardTitle>Lịch sử nạp tiền</CardTitle>
+              <CardTitle>{currentTranslations.topupHistory}</CardTitle>
             </CardHeader>
-            <CardContent></CardContent>
+            <CardContent>
+              <TopupHistoryTable />
+            </CardContent>
           </Card>
         </div>
       </div>
-    </>
+    </PageContainer>
   );
 };
 
-export default ProfileCreateForm;
+export default TopupPage;

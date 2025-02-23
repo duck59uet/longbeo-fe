@@ -1,7 +1,7 @@
 import { searchParamsCache } from '@/lib/searchparams';
 import { SearchParams } from 'nuqs/parsers';
 import React from 'react';
-import TopupListingPage from './_components/topup-page';
+import TopupPage from './_components/profile-create-form';
 
 type pageProps = {
   searchParams: SearchParams;
@@ -15,5 +15,5 @@ export default async function Page({ searchParams }: pageProps) {
   // Allow nested RSCs to access the search params (in a type-safe way)
   searchParamsCache.parse(searchParams);
 
-  return <TopupListingPage />;
+  return <TopupPage />;
 }
