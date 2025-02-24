@@ -10,19 +10,47 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
 import { signUpUser } from '@/services/signup';
 import SignInButton from './signin-button';
 
+const translations: any = {
+  en: {
+    username: 'Username',
+    fullname: 'Full name',
+    email: 'Email',
+    phone: 'Phone number',
+    password: 'Password',
+    referUser: 'Referrer',
+    register: 'Sign Up',
+    or: 'or',
+    success: 'Registration successful',
+    failure: 'Registration failed. Please try again later.'
+  },
+  vi: {
+    username: 'Tên tài khoản',
+    fullname: 'Họ và tên',
+    email: 'Email',
+    phone: 'Số điện thoại',
+    password: 'Mật khẩu',
+    referUser: 'Người giới thiệu',
+    register: 'Đăng ký',
+    or: 'hoặc',
+    success: 'Đăng ký thành công',
+    failure: 'Đăng ký thất bại. Vui lòng thử lại sau.'
+  }
+};
+
 const formSchema = z.object({
   username: z.string({ message: 'Hãy nhập tên tài khoản' }),
   fullname: z.string({ message: 'Hãy nhập họ và tên' }),
   email: z.string().email({ message: 'Hãy nhập email hợp lệ' }),
   password: z.string({ message: 'Hãy nhập mật khẩu' }),
-  phone: z.string()
+  phone: z
+    .string()
     .regex(/^[0-9]+$/, { message: 'Số điện thoại chỉ được chứa các ký tự số' })
     .nonempty({ message: 'Hãy nhập số điện thoại' }),
   referUser: z.string().optional()
@@ -48,6 +76,19 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues
   });
+  const [localeLoaded, setLocaleLoaded] = useState(false);
+
+  const [locale, setLocale] = useState<'en' | 'vi'>('vi');
+  useEffect(() => {
+    const storedLocale = sessionStorage.getItem('locale');
+    if (storedLocale === 'en' || storedLocale === 'vi') {
+      setLocale(storedLocale);
+    } else {
+      sessionStorage.setItem('locale', 'vi');
+      setLocale('vi');
+    }
+    setLocaleLoaded(true);
+  }, []);
 
   const onSubmit = async (data: UserFormValue) => {
     startTransition(async () => {
@@ -57,7 +98,7 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
         email: data.email,
         password: data.password,
         phone: data.phone,
-        referUser: data.referUser,
+        referUser: data.referUser
       });
 
       if (user.ErrorCode === 'SUCCESSFUL') {
@@ -81,9 +122,9 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Tên tài khoản</FormLabel>
+                <FormLabel>{translations[locale].username}</FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="Tên tài khoản" {...field} />
+                  <Input type="text" placeholder={translations[locale].username} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -94,9 +135,9 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
             name="fullname"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Họ và tên</FormLabel>
+                <FormLabel>{translations[locale].fullname}</FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="Họ và tên" {...field} />
+                  <Input type="text" placeholder={translations[locale].fullname} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -107,9 +148,9 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{translations[locale].email}</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="Email" {...field} />
+                  <Input type="email" placeholder={translations[locale].email} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -120,9 +161,9 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Số điện thoại</FormLabel>
+                <FormLabel>{translations[locale].phone}</FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="Số điện thoại" {...field} />
+                  <Input type="text" placeholder={translations[locale].phone} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -133,9 +174,9 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Mật khẩu</FormLabel>
+                <FormLabel>{translations[locale].password}</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="Mật khẩu" {...field} />
+                  <Input type="password" placeholder={translations[locale].password} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -146,9 +187,13 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
             name="referUser"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Người giới thiệu</FormLabel>
+                <FormLabel>{translations[locale].referUser}</FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="Người giới thiệu" {...field} />
+                  <Input
+                    type="text"
+                    placeholder={translations[locale].referUser}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -159,7 +204,7 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
             className="ml-auto w-full mt-[12px]"
             type="submit"
           >
-            Đăng ký
+            {translations[locale].register}
           </Button>
         </form>
       </Form>
@@ -168,7 +213,7 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">hoặc</span>
+          <span className="bg-background px-2 text-muted-foreground">{translations[locale].or}</span>
         </div>
       </div>
       <SignInButton toggleForm={toggleForm} />
