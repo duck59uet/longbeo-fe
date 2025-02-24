@@ -59,9 +59,6 @@ export default function SignInViewPage() {
         <button onClick={toggleLanguage} className={cn(buttonVariants({ variant: 'outline' }))}>
           {texts[locale].switchLang}
         </button>
-        <Link href="/examples/authentication" className={cn(buttonVariants({ variant: 'ghost' }))}>
-          {texts[locale].login}
-        </Link>
       </div>
 
       {/* Logo và nền bên trái */}
