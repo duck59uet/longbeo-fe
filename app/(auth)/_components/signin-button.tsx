@@ -1,10 +1,10 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
 
 interface SignInButtonProps {
   toggleForm: () => void;
+  locale: 'en' | 'vi';
 }
 
 const texts: any = {
@@ -16,20 +16,7 @@ const texts: any = {
   }
 };
 
-export default function SignInButton({ toggleForm }: SignInButtonProps) {
-  const [localeLoaded, setLocaleLoaded] = useState(false);
-
-  const [locale, setLocale] = useState<'en' | 'vi'>('vi');
-  useEffect(() => {
-    const storedLocale = sessionStorage.getItem('locale');
-    if (storedLocale === 'en' || storedLocale === 'vi') {
-      setLocale(storedLocale);
-    } else {
-      sessionStorage.setItem('locale', 'vi');
-      setLocale('vi');
-    }
-    setLocaleLoaded(true);
-  }, []);
+export default function SignInButton({ toggleForm, locale }: SignInButtonProps) {
 
   return (
     <Button

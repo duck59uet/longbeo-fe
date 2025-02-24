@@ -60,9 +60,10 @@ type UserFormValue = z.infer<typeof formSchema>;
 
 interface UserAuthFormProps {
   toggleForm: () => void;
+  locale: 'en' | 'vi';
 }
 
-export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
+export default function SignUpForm({ toggleForm, locale }: UserAuthFormProps) {
   const [loading, startTransition] = useTransition();
   const defaultValues = {
     username: '',
@@ -76,19 +77,6 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues
   });
-  const [localeLoaded, setLocaleLoaded] = useState(false);
-
-  const [locale, setLocale] = useState<'en' | 'vi'>('vi');
-  useEffect(() => {
-    const storedLocale = sessionStorage.getItem('locale');
-    if (storedLocale === 'en' || storedLocale === 'vi') {
-      setLocale(storedLocale);
-    } else {
-      sessionStorage.setItem('locale', 'vi');
-      setLocale('vi');
-    }
-    setLocaleLoaded(true);
-  }, []);
 
   const onSubmit = async (data: UserFormValue) => {
     startTransition(async () => {
@@ -216,7 +204,7 @@ export default function SignUpForm({ toggleForm }: UserAuthFormProps) {
           <span className="bg-background px-2 text-muted-foreground">{translations[locale].or}</span>
         </div>
       </div>
-      <SignInButton toggleForm={toggleForm} />
+      <SignInButton toggleForm={toggleForm} locale={locale}/>
     </>
   );
 }

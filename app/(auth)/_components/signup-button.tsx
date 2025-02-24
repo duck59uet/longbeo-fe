@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 interface SignUpButtonProps {
   toggleForm: () => void;
+  locale: 'en' | 'vi';
 }
 
 const texts: any = {
@@ -17,20 +18,7 @@ const texts: any = {
   }
 };
 
-export default function SignUpButton({ toggleForm }: SignUpButtonProps) {
-  const [localeLoaded, setLocaleLoaded] = useState(false);
-
-  const [locale, setLocale] = useState<'en' | 'vi'>('vi');
-  useEffect(() => {
-    const storedLocale = sessionStorage.getItem('locale');
-    if (storedLocale === 'en' || storedLocale === 'vi') {
-      setLocale(storedLocale);
-    } else {
-      sessionStorage.setItem('locale', 'vi');
-      setLocale('vi');
-    }
-    setLocaleLoaded(true);
-  }, []);
+export default function SignUpButton({ toggleForm, locale }: SignUpButtonProps) {
 
   return (
     <Button
