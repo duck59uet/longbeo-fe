@@ -24,13 +24,35 @@ const formSchema = z.object({
   password: z.string({ message: 'Hãy nhập mật khẩu' })
 });
 
+const translations: any = {
+  en: {
+    username: 'Username',
+    password: 'Password',
+    rememberMe: 'Remember me',
+    login: 'Login',
+    incorrectCredentials: 'Incorrect username or password',
+    loginFailed: 'Login failed. Please try again later.',
+    or: 'or'
+  },
+  vi: {
+    username: 'Tên tài khoản',
+    password: 'Mật khẩu',
+    rememberMe: 'Ghi nhớ tài khoản',
+    login: 'Đăng nhập',
+    incorrectCredentials: 'Tên tài khoản hoặc mật khẩu không đúng',
+    loginFailed: 'Đăng nhập thất bại. Vui lòng thử lại sau.',
+    or: 'hoặc'
+  }
+};
+
 type UserFormValue = z.infer<typeof formSchema>;
 
 interface UserAuthFormProps {
   toggleForm: () => void;
+  locale: 'en' | 'vi';
 }
 
-export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
+export default function UserAuthForm({ toggleForm, locale }: UserAuthFormProps) {
   const searchParams = useSearchParams();
   const [rememberMeChecked, setRememberMeChecked] = useState(false);
   const callbackUrl = searchParams.get('callbackUrl');
@@ -61,10 +83,10 @@ export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
         if (result?.ok) {
           window.location.href = result.url || '/dashboard/overview';
         } else {
-          toast.error('Tên tài khoản hoặc mật khẩu không đúng');
+          toast.error(translations[locale].incorrectCredentials);
         }
       } catch (error) {
-        toast.error('Đăng nhập thất bại. Vui lòng thử lại sau.');
+        toast.error(translations[locale].loginFailed);
       }
     });
   };
@@ -81,11 +103,11 @@ export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-sans">Tên tài khoản</FormLabel>
+                <FormLabel className="font-sans">{translations[locale].username}</FormLabel>
                 <FormControl>
                   <Input
                     type="string"
-                    placeholder="Tên tài khoản"
+                    placeholder={translations[locale].username}
                     disabled={loading}
                     {...field}
                   />
@@ -99,11 +121,11 @@ export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-sans">Mật khẩu</FormLabel>
+                <FormLabel className="font-sans">{translations[locale].password}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="Mật khẩu"
+                    placeholder={translations[locale].password}
                     autoComplete="current-password"
                     disabled={loading}
                     {...field}
@@ -121,11 +143,11 @@ export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
               disabled={loading}
             />
             <label htmlFor="rememberMe" className="font-sans">
-              Ghi nhớ tài khoản
+              {translations[locale].rememberMe}
             </label>
           </div>
           <Button disabled={loading} className="ml-auto w-full" type="submit">
-            Đăng nhập
+            {translations[locale].login}
           </Button>
         </form>
       </Form>
@@ -134,10 +156,10 @@ export default function UserAuthForm({ toggleForm }: UserAuthFormProps) {
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">hoặc</span>
+          <span className="bg-background px-2 text-muted-foreground">{translations[locale].or}</span>
         </div>
       </div>
-      <SignUpButton toggleForm={toggleForm} />
+      <SignUpButton toggleForm={toggleForm} locale={locale}/>
     </>
   );
 }

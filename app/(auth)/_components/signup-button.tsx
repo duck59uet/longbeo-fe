@@ -2,23 +2,32 @@
 
 import { signIn } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
 
 interface SignUpButtonProps {
   toggleForm: () => void;
+  locale: 'en' | 'vi';
 }
 
-export default function SignUpButton({ toggleForm }: SignUpButtonProps) {
+const texts: any = {
+  vi: {
+    signUp: 'Đăng ký tài khoản'
+  },
+  en: {
+    signUp: 'Sign up'
+  }
+};
+
+export default function SignUpButton({ toggleForm, locale }: SignUpButtonProps) {
 
   return (
     <Button
       className="w-full"
       variant="outline"
       type="button"
-      onClick={() =>
-       toggleForm()
-      }
+      onClick={() => toggleForm()}
     >
-      Đăng ký tài khoản
+      {texts[locale].signUp}
     </Button>
   );
 }
