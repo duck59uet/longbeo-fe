@@ -190,6 +190,11 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
             title: 'Service List',
             url: '/dashboard/api/listService',
             icon: 'userPen'
+          },
+          {
+            title: 'API Key',
+            url: '/dashboard/api/apiKey',
+            icon: 'userPen'
           }
         ]
       }
@@ -332,11 +337,15 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
             title: 'Tài liệu',
             url: '/dashboard/api/docs',
             icon: 'userPen',
-            shortcut: ['doc', 'doc']
           },
           {
             title: 'Danh sách service',
             url: '/dashboard/api/listService',
+            icon: 'userPen'
+          },
+          {
+            title: 'API Key',
+            url: '/dashboard/api/apiKey',
             icon: 'userPen'
           }
         ]

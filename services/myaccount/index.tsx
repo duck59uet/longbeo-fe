@@ -56,3 +56,12 @@ export const getBalanceInfo = async (): Promise<any> => {
     throw new Error('Failed to get balance info');
   }
 }
+
+export const genApiKey = async (): Promise<any> => {
+  try {
+    const response = await authInstance.post('/user/generate-api-key');
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to generate api key');
+  }
+}
