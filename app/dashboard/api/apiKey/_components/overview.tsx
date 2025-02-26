@@ -51,7 +51,7 @@ export default function OverViewPage() {
                 </p>
               ) : (
                 <Button onClick={() => genApiKeyFunc()}>
-                  Generate API Key
+                  Generate API Key: https://api.dichvumat.com/api/v2
                 </Button>
               )}
             </CardContent>
