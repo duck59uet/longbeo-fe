@@ -31,6 +31,8 @@ import { CardContent } from '@/components/ui/card';
 import { TriangleAlert } from 'lucide-react';
 import { getServiceTimeInfo } from '@/services/serviceTime';
 import translations from '@/public/locales/translations.json';
+import { getUserLevel } from '@/services/userLevel';
+import { useSession } from 'next-auth/react';
 
 const formSchema = z.object({
   link: z.string(),
@@ -48,14 +50,16 @@ const formSchema = z.object({
 type BuyServiceFormValues = z.infer<typeof formSchema>;
 
 export default function BuyServiceForm() {
+  const { data: session } = useSession();
+
   const CATEGORY_ID = 1;
-  const [hasShownToast, setHasShownToast] = useState(false);
   const [servicesData, setServicesData] = useState<any[]>([]);
   const [servicesTimeData, setServiceTimesData] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [localeLoaded, setLocaleLoaded] = useState(false);
-
+  const [userLevel, setUserLevel] = useState<number>(0);
+  const [hasFetchedUserLevel, setHasFetchedUserLevel] = useState(false);
   const [locale, setLocale] = useState<'en' | 'vi'>('vi');
   useEffect(() => {
     const storedLocale = sessionStorage.getItem('locale');
@@ -81,48 +85,6 @@ export default function BuyServiceForm() {
   });
 
   useEffect(() => {
-    if (localeLoaded && !hasShownToast) {
-      const toastId1 = toast(
-        <div className="toast-custom" onClick={() => toast.dismiss(toastId1)}>
-          <button
-            onClick={() => toast.dismiss(toastId1)}
-            className="absolute top-2 right-2 text-sm text-gray-500"
-          >
-            {translations[locale].toast.close}
-          </button>
-          <h4 className="text-lg font-semibold text-orange-800">
-            {translations[locale].toast.warning}
-          </h4>
-          <p className="text-sm text-orange-700">
-            {translations[locale].toast.warningContent}
-          </p>
-        </div>,
-        { duration: Infinity }
-      );
-
-      const toastId2 = toast(
-        <div className="toast-custom" onClick={() => toast.dismiss(toastId2)}>
-          <button
-            onClick={() => toast.dismiss(toastId2)}
-            className="absolute top-2 right-2 text-sm text-gray-500"
-          >
-            {translations[locale].toast.close}
-          </button>
-          <h4 className="text-lg font-semibold text-orange-800">
-            {translations[locale].toast.notification}
-          </h4>
-          <p className="text-sm text-orange-700">
-            {translations[locale].toast.notificationContent}
-          </p>
-        </div>,
-        { duration: Infinity }
-      );
-
-      setHasShownToast(true);
-    }
-  }, [hasShownToast, locale, localeLoaded]);
-
-  useEffect(() => {
     async function fetchServiceInfo() {
       try {
         const data = await getServiceInfo(CATEGORY_ID);
@@ -138,6 +100,37 @@ export default function BuyServiceForm() {
     }
     fetchServiceInfo();
   }, [locale]);
+
+  useEffect(() => {
+    // Chỉ fetch userLevel khi:
+    // 1) session?.user đã có
+    // 2) Chưa fetch lần nào
+    if (!session?.user || hasFetchedUserLevel) return;
+
+    async function fetchUserLevelData() {
+      try {
+        const response = await getUserLevel();
+        if (response.ErrorCode === 'SUCCESSFUL') {
+          const levels = response.Data;
+          const userSession = (session?.user as any)?.user;
+          if (userSession) {
+            const matchedLevel = levels.find(
+              (level: any) => level.id === Number(userSession.level)
+            );
+            if (matchedLevel) {
+              setUserLevel(matchedLevel.discount);
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching user level:', error);
+      } finally {
+        setHasFetchedUserLevel(true);
+      }
+    }
+
+    fetchUserLevelData();
+  }, [session, hasFetchedUserLevel]);
 
   async function fetchServiceTimeInfo(serviceId: number) {
     try {
@@ -189,6 +182,28 @@ export default function BuyServiceForm() {
       setIsModalOpen(true);
     }
   };
+
+  // Tính toán "Thành tiền" theo các thông tin đầu vào ban đầu (không thay đổi)
+  const watchedQuantity = Number(form.watch('quantity'));
+  const watchedServiceId = Number(form.watch('service_id'));
+  const watchedServiceTimeId = Number(form.watch('service_time_id'));
+  const serviceTimeItem = servicesTimeData.find(
+    (time: any) => time.id === watchedServiceTimeId
+  );
+  const serviceTimeValue = serviceTimeItem ? serviceTimeItem.time : 0;
+  const serviceItem = servicesData.find(
+    (service: any) => service.id === watchedServiceId
+  );
+  const price =
+    locale === 'vi'
+      ? Number(serviceItem?.price || 0)
+      : Number(serviceItem?.enPrice || 0);
+  const totalWithoutDiscount = serviceTimeValue * watchedQuantity * price;
+  // Tính toán thành tiền sau giảm (nhân với hệ số giảm giá)
+  const finalTotal =
+    userLevel > 0
+      ? totalWithoutDiscount * ((100 - userLevel) / 100)
+      : totalWithoutDiscount;
 
   return (
     <>
@@ -357,28 +372,31 @@ export default function BuyServiceForm() {
               )}
             />
           </div>
-          {/* Thành tiền */}
-          <div className="flex items-center space-x-3">
-            <FormLabel className="w-1/3 text-lg">
-              {translations[locale].form.total}
-            </FormLabel>
-            <span className="text-lg font-semibold text-red-500">
-              {((servicesTimeData.find(
-                (serviceTime: any) =>
-                  serviceTime.id === Number(form.watch('service_time_id'))
-              )?.time || 0) *
-                Number(form.watch('quantity')) *
-                (locale === 'vi'
-                  ? servicesData.find(
-                      (service: any) =>
-                        service.id === Number(form.watch('service_id'))
-                    )?.price || 0
-                  : servicesData.find(
-                      (service: any) =>
-                        service.id === Number(form.watch('service_id'))
-                    )?.enPrice || 0)).toFixed(5)}{' '}
-              {translations[locale].common.currency}
-            </span>
+          {/* Hiển thị "Thành tiền" ban đầu và "Thành tiền sau giảm" */}
+          <div className="flex flex-col items-start">
+            <div className="flex items-center space-x-3">
+              <FormItem className="flex items-center space-x-3">
+                <FormLabel className="w-1/3 text-lg text-black">
+                  {translations[locale].form.total}
+                </FormLabel>
+                <span className="text-lg font-semibold text-red-600">
+                  {totalWithoutDiscount.toFixed(2)}{' '}
+                  {translations[locale].common.currency}
+                </span>
+              </FormItem>
+
+              {userLevel > 0 && (
+                <FormItem className="flex items-center space-x-3">
+                  <FormLabel className="w-1/3 text-lg text-black">
+                    {locale === 'vi' ? 'Thành tiền sau giảm' : 'Final Total'}
+                  </FormLabel>
+                  <span className="text-lg font-semibold text-green-600">
+                    {finalTotal.toFixed(2)}{' '}
+                    {translations[locale].common.currency}
+                  </span>
+                </FormItem>
+              )}
+            </div>
           </div>
           <Button
             type="submit"
