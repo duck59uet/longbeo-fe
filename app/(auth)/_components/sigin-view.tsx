@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import UserAuthForm from './user-auth-form';
 import SignUpForm from './signup-view';
 import { buttonVariants } from '@/components/ui/button';
