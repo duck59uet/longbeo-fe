@@ -82,11 +82,11 @@ export function TopupInfo() {
             <div className="flex flex-col justify-center text-center md:text-left">
               <p className="text-sm font-semibold">
                 {currentTranslations.bankAccountLabel}{' '}
-                <span className="font-bold">0451000399584</span>
+                <span className="font-bold">082882359999</span>
               </p>
               <p className="text-sm font-semibold">
                 {currentTranslations.accountOwnerLabel}{' '}
-                <span className="font-bold">NGUYEN DUC THUAN</span>
+                <span className="font-bold">NGUYEN DUC THUAN - MB</span>
               </p>
               <div className="mt-6">
                 <div className="bg-[#5B7CFD] text-white text-center text-sm font-bold py-2 rounded-t-lg">
