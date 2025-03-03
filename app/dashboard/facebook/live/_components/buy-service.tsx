@@ -102,9 +102,6 @@ export default function BuyServiceForm() {
   }, [locale]);
 
   useEffect(() => {
-    // Chỉ fetch userLevel khi:
-    // 1) session?.user đã có
-    // 2) Chưa fetch lần nào
     if (!session?.user || hasFetchedUserLevel) return;
 
     async function fetchUserLevelData() {
@@ -183,7 +180,6 @@ export default function BuyServiceForm() {
     }
   };
 
-  // Tính toán "Thành tiền" theo các thông tin đầu vào ban đầu (không thay đổi)
   const watchedQuantity = Number(form.watch('quantity'));
   const watchedServiceId = Number(form.watch('service_id'));
   const watchedServiceTimeId = Number(form.watch('service_time_id'));
@@ -199,7 +195,6 @@ export default function BuyServiceForm() {
       ? Number(serviceItem?.price || 0)
       : Number(serviceItem?.enPrice || 0);
   const totalWithoutDiscount = serviceTimeValue * watchedQuantity * price;
-  // Tính toán thành tiền sau giảm (nhân với hệ số giảm giá)
   const finalTotal =
     userLevel > 0
       ? totalWithoutDiscount * ((100 - userLevel) / 100)
@@ -208,23 +203,24 @@ export default function BuyServiceForm() {
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-4">
           <div className="grid grid-cols-1 gap-6">
             <FormField
               control={form.control}
               name="link"
               render={({ field }) => (
-                <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">
+                <FormItem className="flex flex-col md:flex-row md:items-center md:space-x-3 space-y-2 md:space-y-0">
+                  <FormLabel className="md:w-1/3 text-base md:text-lg font-medium">
                     {translations[locale].form.linkOrder}
                   </FormLabel>
-                  <FormControl className="w-2/3">
+                  <FormControl className="md:w-2/3 w-full">
                     <Input
                       placeholder={translations[locale].form.orderPlaceholder}
                       {...field}
+                      className="w-full"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="mt-1" />
                 </FormItem>
               )}
             />
@@ -232,11 +228,11 @@ export default function BuyServiceForm() {
               control={form.control}
               name="service_id"
               render={({ field }) => (
-                <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">
+                <FormItem className="flex flex-col md:flex-row md:items-start md:space-x-3 space-y-2 md:space-y-0">
+                  <FormLabel className="md:w-1/3 text-base md:text-lg font-medium">
                     {translations[locale].common.server}
                   </FormLabel>
-                  <FormControl className="w-2/3">
+                  <FormControl className="md:w-2/3 w-full">
                     <div className="space-y-2">
                       <RadioGroup
                         value={field.value}
@@ -244,25 +240,26 @@ export default function BuyServiceForm() {
                           field.onChange(value);
                           handleServiceChange(value);
                         }}
+                        className="space-y-3"
                       >
                         {servicesData.map((service: any) => (
                           <div
                             key={service?.id}
-                            className="flex items-center space-x-2"
+                            className="flex flex-wrap items-center gap-2"
                           >
                             <RadioGroupItem value={service?.id.toString()} />
-                            <span className="font-sx text-gray-700">
+                            <span className="font-medium text-gray-700 text-sm md:text-base">
                               {locale === 'vi'
                                 ? service?.name
                                 : service?.enName}
                             </span>
-                            <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-sx">
+                            <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-xs md:text-sm">
                               {locale === 'vi'
                                 ? service?.price
                                 : service?.enPrice}
                               {translations[locale].common.currency}
                             </span>
-                            <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sx">
+                            <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-xs md:text-sm">
                               {translations[locale].common.active}
                             </span>
                           </div>
@@ -270,20 +267,20 @@ export default function BuyServiceForm() {
                       </RadioGroup>
                     </div>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="mt-1" />
                 </FormItem>
               )}
             />
             {/* Hướng dẫn */}
-            <CardContent className="w-full rounded-lg p-4 py-2 mb-2">
-              <div className="bg-blue-100 p-4 rounded-lg">
-                <div className="flex items-center space-x-2 mb-4">
-                  <TriangleAlert className="w-6 h-6 text-red-500" />
-                  <span className="text-red-500 font-semibold">
+            <CardContent className="w-full rounded-lg p-3 md:p-4 py-2 mb-2">
+              <div className="bg-blue-100 p-3 md:p-4 rounded-lg">
+                <div className="flex items-center space-x-2 mb-3">
+                  <TriangleAlert className="w-5 h-5 md:w-6 md:h-6 text-red-500" />
+                  <span className="text-red-500 font-semibold text-sm md:text-base">
                     {translations[locale].common.serviceDetail}:
                   </span>
                 </div>
-                <ul className="space-y-2 text-[#D82222] text-sm font-semibold font-sans">
+                <ul className="space-y-2 text-[#D82222] text-xs md:text-sm font-semibold font-sans">
                   {translations[locale].instructions.map((text, index) => (
                     <li key={index}>- {text}</li>
                   ))}
@@ -295,19 +292,20 @@ export default function BuyServiceForm() {
               control={form.control}
               name="quantity"
               render={({ field }) => (
-                <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">
+                <FormItem className="flex flex-col md:flex-row md:items-center md:space-x-3 space-y-2 md:space-y-0">
+                  <FormLabel className="md:w-1/3 text-base md:text-lg font-medium">
                     {translations[locale].form.quantity}
                   </FormLabel>
-                  <FormControl className="w-2/3">
+                  <FormControl className="md:w-2/3 w-full">
                     <Input
                       type="number"
                       placeholder={translations[locale].form.quantity}
                       {...field}
                       defaultValue={20}
+                      className="w-full"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="mt-1" />
                 </FormItem>
               )}
             />
@@ -316,16 +314,16 @@ export default function BuyServiceForm() {
               control={form.control}
               name="service_time_id"
               render={({ field }) => (
-                <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">
+                <FormItem className="flex flex-col md:flex-row md:items-center md:space-x-3 space-y-2 md:space-y-0">
+                  <FormLabel className="md:w-1/3 text-base md:text-lg font-medium">
                     {translations[locale].form.serviceTime}
                   </FormLabel>
-                  <FormControl className="w-2/3">
+                  <FormControl className="md:w-2/3 w-full">
                     <Select
                       onValueChange={(value) => field.onChange(value)}
                       value={field.value}
                     >
-                      <SelectTrigger className="w-2/3">
+                      <SelectTrigger className="w-full">
                         <SelectValue
                           placeholder={translations[locale].form.serviceTime}
                         />
@@ -346,7 +344,7 @@ export default function BuyServiceForm() {
                       </SelectContent>
                     </Select>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="mt-1" />
                 </FormItem>
               )}
             />
@@ -355,52 +353,52 @@ export default function BuyServiceForm() {
               control={form.control}
               name="note"
               render={({ field }) => (
-                <FormItem className="flex items-center space-x-3 md-9">
-                  <FormLabel className="w-1/3 text-lg">
+                <FormItem className="flex flex-col md:flex-row md:items-start md:space-x-3 space-y-2 md:space-y-0">
+                  <FormLabel className="md:w-1/3 text-base md:text-lg font-medium">
                     {translations[locale].form.note}
                   </FormLabel>
-                  <FormControl className="w-2/3">
+                  <FormControl className="md:w-2/3 w-full">
                     <Textarea
                       placeholder={translations[locale].form.note}
                       rows={4}
                       {...field}
                       value={field.value ?? ''}
+                      className="w-full"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="mt-1" />
                 </FormItem>
               )}
             />
           </div>
           {/* Hiển thị "Thành tiền" ban đầu và "Thành tiền sau giảm" */}
-          <div className="flex flex-col items-start">
-            <div className="flex items-center space-x-3">
-              <FormItem className="flex items-center space-x-3">
-                <FormLabel className="w-1/3 text-lg text-black">
-                  {translations[locale].form.total}
+          <div className="flex flex-col space-y-2 md:space-y-0 md:flex-row md:justify-between items-start">
+            <div className="flex flex-col md:flex-row md:items-center md:space-x-3 space-y-1 md:space-y-0">
+              <FormLabel className="text-base md:text-lg font-medium text-black">
+                {translations[locale].form.total}:
+              </FormLabel>
+              <span className="text-base md:text-lg font-semibold text-red-600">
+                {totalWithoutDiscount.toFixed(2)}{' '}
+                {translations[locale].common.currency}
+              </span>
+            </div>
+
+            {userLevel > 0 && (
+              <div className="flex flex-col md:flex-row md:items-center md:space-x-3 space-y-1 md:space-y-0">
+                <FormLabel className="text-base md:text-lg font-medium text-black">
+                  {locale === 'vi' ? 'Thành tiền sau giảm:' : 'Final Total:'}
                 </FormLabel>
-                <span className="text-lg font-semibold text-red-600">
-                  {totalWithoutDiscount.toFixed(2)}{' '}
+                <span className="text-base md:text-lg font-semibold text-green-600">
+                  {finalTotal.toFixed(2)}{' '}
                   {translations[locale].common.currency}
                 </span>
-              </FormItem>
-
-              {userLevel > 0 && (
-                <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg text-black">
-                    {locale === 'vi' ? 'Thành tiền sau giảm' : 'Final Total'}
-                  </FormLabel>
-                  <span className="text-lg font-semibold text-green-600">
-                    {finalTotal.toFixed(2)}{' '}
-                    {translations[locale].common.currency}
-                  </span>
-                </FormItem>
-              )}
-            </div>
+              </div>
+            )}
           </div>
+          
           <Button
             type="submit"
-            className="w-full bg-[#4680FF] text-white hover:bg-[#2E5BFF]"
+            className="w-full bg-[#4680FF] text-white hover:bg-[#2E5BFF] py-2 md:py-2.5 text-sm md:text-base"
           >
             {translations[locale].form.createProcess}
           </Button>

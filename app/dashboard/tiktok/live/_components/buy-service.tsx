@@ -1,3 +1,5 @@
+'use client';
+
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -66,6 +68,7 @@ export default function BuyServiceForm() {
       note: ''
     }
   });
+  
   const [locale, setLocale] = useState<'en' | 'vi'>('vi');
   useEffect(() => {
     const storedLocale = sessionStorage.getItem('locale');
@@ -174,6 +177,7 @@ export default function BuyServiceForm() {
       setIsModalOpen(true);
     }
   };
+  
   const watchedQuantity = Number(form.watch('quantity'));
   const watchedServiceId = Number(form.watch('service_id'));
   const watchedServiceTimeId = Number(form.watch('service_time_id'));
@@ -198,181 +202,211 @@ export default function BuyServiceForm() {
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-4">
-          <div className="grid grid-cols-1 gap-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 md:space-y-8 mt-3 md:mt-4">
+          <div className="grid grid-cols-1 gap-5 md:gap-6">
+            {/* Link Order Field */}
             <FormField
               control={form.control}
               name="link"
               render={({ field }) => (
-                <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">
+                <FormItem className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-3">
+                  <FormLabel className="text-base md:text-lg font-medium md:w-1/3">
                     {translations[locale].form.linkOrder}
                   </FormLabel>
-                  <FormControl className="w-2/3">
-                    <Input
-                      placeholder={translations[locale].form.orderPlaceholder}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
+                  <div className="w-full md:w-2/3">
+                    <FormControl>
+                      <Input
+                        placeholder={translations[locale].form.orderPlaceholder}
+                        {...field}
+                        className="w-full"
+                      />
+                    </FormControl>
+                    <FormMessage className="mt-1 text-xs" />
+                  </div>
                 </FormItem>
               )}
             />
+
+            {/* Service Selection Field */}
             <FormField
               control={form.control}
               name="service_id"
               render={({ field }) => (
-                <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">
+                <FormItem className="flex flex-col md:flex-row md:items-start space-y-2 md:space-y-0 md:space-x-3">
+                  <FormLabel className="text-base md:text-lg font-medium md:w-1/3">
                     {translations[locale].common.server}
                   </FormLabel>
-                  <FormControl className="w-2/3">
-                    <div className="space-y-2">
-                      <RadioGroup
-                        value={field.value}
-                        onValueChange={(value) => {
-                          field.onChange(value);
-                          handleServiceChange(value);
-                        }}
-                      >
-                        {servicesData.map((service: any) => (
-                          <div
-                            key={service?.id}
-                            className="flex items-center space-x-2"
-                          >
-                            <RadioGroupItem value={service?.id.toString()} />
-                            <span className="font-medium text-gray-700">
-                              {locale === 'vi'
-                                ? service?.name
-                                : service?.enName}
-                            </span>
-                            <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-sm">
-                              {locale === 'vi'
-                                ? service?.price
-                                : service?.enPrice}{' '}
-                              {translations[locale].common.currency}
-                            </span>
-                            <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-sm">
-                              {translations[locale].common.active}
-                            </span>
-                          </div>
-                        ))}
-                      </RadioGroup>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
+                  <div className="w-full md:w-2/3">
+                    <FormControl>
+                      <div className="space-y-3">
+                        <RadioGroup
+                          value={field.value}
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            handleServiceChange(value);
+                          }}
+                          className="flex flex-col space-y-3"
+                        >
+                          {servicesData.map((service: any) => (
+                            <div
+                              key={service?.id}
+                              className="flex flex-wrap items-center gap-2"
+                            >
+                              <RadioGroupItem value={service?.id.toString()} />
+                              <span className="text-sm md:text-base font-medium text-gray-700">
+                                {locale === 'vi'
+                                  ? service?.name
+                                  : service?.enName}
+                              </span>
+                              <span className="text-xs md:text-sm text-blue-600 bg-blue-100 px-2 py-1 rounded-md">
+                                {locale === 'vi'
+                                  ? service?.price
+                                  : service?.enPrice}{' '}
+                                {translations[locale].common.currency}
+                              </span>
+                              <span className="text-xs md:text-sm text-green-600 bg-green-100 px-2 py-1 rounded-md">
+                                {translations[locale].common.active}
+                              </span>
+                            </div>
+                          ))}
+                        </RadioGroup>
+                      </div>
+                    </FormControl>
+                    <FormMessage className="mt-1 text-xs" />
+                  </div>
                 </FormItem>
               )}
             />
+
+            {/* Quantity Field */}
             <FormField
               control={form.control}
               name="quantity"
               render={({ field }) => (
-                <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">
+                <FormItem className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-3">
+                  <FormLabel className="text-base md:text-lg font-medium md:w-1/3">
                     {translations[locale].form.quantity}
                   </FormLabel>
-                  <FormControl className="w-2/3">
-                    <Input
-                      type="number"
-                      placeholder={translations[locale].form.quantity}
-                      {...field}
-                      defaultValue={20}
-                    />
-                  </FormControl>
-                  <FormMessage />
+                  <div className="w-full md:w-2/3">
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder={translations[locale].form.quantity}
+                        {...field}
+                        defaultValue={20}
+                        className="w-full"
+                      />
+                    </FormControl>
+                    <FormMessage className="mt-1 text-xs" />
+                  </div>
                 </FormItem>
               )}
             />
+
+            {/* Service Time Field */}
             <FormField
               control={form.control}
               name="service_time_id"
               render={({ field }) => (
-                <FormItem className="flex items-center space-x-3">
-                  <FormLabel className="w-1/3 text-lg">
+                <FormItem className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-3">
+                  <FormLabel className="text-base md:text-lg font-medium md:w-1/3">
                     {translations[locale].form.serviceTime}
                   </FormLabel>
-                  <FormControl className="w-2/3">
-                    <Select
-                      onValueChange={(value) => field.onChange(value)}
-                      value={field.value}
-                    >
-                      <SelectTrigger className="w-2/3">
-                        <SelectValue
-                          placeholder={translations[locale].form.serviceTime}
-                        />
-                      </SelectTrigger>
-                      <SelectContent className="w-full">
-                        {Array.isArray(servicesTimeData) &&
-                        servicesTimeData.length > 0 ? (
-                          servicesTimeData.map((time: any, index: number) => (
-                            <SelectItem key={index} value={time.id.toString()}>
-                              {time.time} {translations[locale].common.minutes}
-                            </SelectItem>
-                          ))
-                        ) : (
-                          <div className="p-2 text-gray-500">
-                            {translations[locale].common.noData}
-                          </div>
-                        )}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
+                  <div className="w-full md:w-2/3">
+                    <FormControl>
+                      <Select
+                        onValueChange={(value) => field.onChange(value)}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full md:w-2/3">
+                          <SelectValue
+                            placeholder={translations[locale].form.serviceTime}
+                          />
+                        </SelectTrigger>
+                        <SelectContent className="w-full">
+                          {Array.isArray(servicesTimeData) &&
+                          servicesTimeData.length > 0 ? (
+                            servicesTimeData.map((time: any, index: number) => (
+                              <SelectItem key={index} value={time.id.toString()}>
+                                {time.time} {translations[locale].common.minutes}
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <div className="p-2 text-gray-500 text-sm">
+                              {translations[locale].common.noData}
+                            </div>
+                          )}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage className="mt-1 text-xs" />
+                  </div>
                 </FormItem>
               )}
             />
+
+            {/* Note Field */}
             <FormField
               control={form.control}
               name="note"
               render={({ field }) => (
-                <FormItem className="flex items-center space-x-3 md-9">
-                  <FormLabel className="w-1/3 text-lg">
+                <FormItem className="flex flex-col md:flex-row md:items-start space-y-2 md:space-y-0 md:space-x-3">
+                  <FormLabel className="text-base md:text-lg font-medium md:w-1/3">
                     {translations[locale].form.note}
                   </FormLabel>
-                  <FormControl className="w-2/3">
-                    <Textarea
-                      placeholder={translations[locale].form.note}
-                      rows={4}
-                      {...field}
-                      value={field.value ?? ''}
-                    />
-                  </FormControl>
-                  <FormMessage />
+                  <div className="w-full md:w-2/3">
+                    <FormControl>
+                      <Textarea
+                        placeholder={translations[locale].form.note}
+                        rows={3}
+                        {...field}
+                        value={field.value ?? ''}
+                        className="w-full"
+                      />
+                    </FormControl>
+                    <FormMessage className="mt-1 text-xs" />
+                  </div>
                 </FormItem>
               )}
             />
           </div>
-          <div className="flex items-center space-x-3">
-            <FormItem className="flex items-center space-x-3">
-              <FormLabel className="w-1/3 text-lg text-black">
-                {translations[locale].form.total}
-              </FormLabel>
-              <span className="text-lg font-semibold text-red-600">
+
+          {/* Total Price Information */}
+          <div className="flex flex-col space-y-3 md:space-y-0 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center space-x-2">
+              <span className="text-base md:text-lg font-medium text-black">
+                {translations[locale].form.total}:
+              </span>
+              <span className="text-base md:text-lg font-semibold text-red-600">
                 {totalWithoutDiscount.toFixed(2)}{' '}
                 {translations[locale].common.currency}
               </span>
-            </FormItem>
+            </div>
 
             {userLevel > 0 && (
-              <FormItem className="flex items-center space-x-3">
-                <FormLabel className="w-1/3 text-lg text-black">
-                  {locale === 'vi' ? 'Thành tiền sau giảm' : 'Final Total'}
-                </FormLabel>
-                <span className="text-lg font-semibold text-green-600">
-                  {finalTotal.toFixed(2)} {translations[locale].common.currency}
+              <div className="flex items-center space-x-2 mt-2 md:mt-0">
+                <span className="text-base md:text-lg font-medium text-black">
+                  {locale === 'vi' ? 'Thành tiền sau giảm:' : 'Final Total:'}
                 </span>
-              </FormItem>
+                <span className="text-base md:text-lg font-semibold text-green-600">
+                  {finalTotal.toFixed(2)}{' '}
+                  {translations[locale].common.currency}
+                </span>
+              </div>
             )}
           </div>
+
+          {/* Submit Button */}
           <Button
             type="submit"
-            className="w-full bg-[#4680FF] text-white hover:bg-[#2E5BFF]"
+            className="w-full bg-[#4680FF] text-white hover:bg-[#2E5BFF] py-2.5 md:py-3 text-sm md:text-base mt-2 md:mt-4"
           >
             {translations[locale].form.createProcess}
           </Button>
         </form>
       </Form>
+
+      {/* Notification Modal */}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
