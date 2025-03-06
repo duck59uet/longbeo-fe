@@ -64,7 +64,8 @@
       "greeting": "Hello, welcome back 👋",
       "memberShipLevel": "Level",
       "member": "Member",
-      "currency": "$"
+      "currency": "$",
+      "notActive": "Server overloaded"
     },
     "overviewPage": {
       "tabs": {
@@ -144,7 +145,8 @@
       "greeting": "Xin chào, chào mừng bạn quay lại 👋",
       "memberShipLevel": "Cấp bậc",
       "member": "Thành viên",
-      "currency": "đ"
+      "currency": "đ",
+      "notActive": "Server quá tải"
     },
     "overviewPage": {
       "tabs": {

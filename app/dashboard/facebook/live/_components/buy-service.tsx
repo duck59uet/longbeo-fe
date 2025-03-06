@@ -242,28 +242,38 @@ export default function BuyServiceForm() {
                         }}
                         className="space-y-3"
                       >
-                        {servicesData.map((service: any) => (
-                          <div
-                            key={service?.id}
-                            className="flex flex-wrap items-center gap-2"
-                          >
-                            <RadioGroupItem value={service?.id.toString()} />
-                            <span className="font-medium text-gray-700 text-sm md:text-base">
-                              {locale === 'vi'
-                                ? service?.name
-                                : service?.enName}
-                            </span>
-                            <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-xs md:text-sm">
-                              {locale === 'vi'
-                                ? service?.price
-                                : service?.enPrice}
-                              {translations[locale].common.currency}
-                            </span>
-                            <span className="text-green-600 bg-green-100 px-2 py-1 rounded-md text-xs md:text-sm">
-                              {translations[locale].common.active}
-                            </span>
-                          </div>
-                        ))}
+                        {servicesData.map((service: any) => {
+                          const isActive = service.status.toString() === '1';
+                          return (
+                            <div
+                              key={service.id}
+                              className="flex flex-wrap items-center gap-2"
+                            >
+                              <RadioGroupItem
+                                value={service.id.toString()}
+                                disabled={!isActive}
+                              />
+                              <span className="font-medium text-gray-700 text-sm md:text-base">
+                                {locale === 'vi' ? service.name : service.enName}
+                              </span>
+                              <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-xs md:text-sm">
+                                {locale === 'vi' ? service.price : service.enPrice}
+                                {translations[locale].common.currency}
+                              </span>
+                              <span
+                                className={`px-2 py-1 rounded-md text-xs md:text-sm ${
+                                  isActive
+                                    ? 'text-green-600 bg-green-100'
+                                    : 'text-red-600 bg-red-100'
+                                }`}
+                              >
+                                {isActive
+                                  ? translations[locale].common.active
+                                  : translations[locale].common.notActive}
+                              </span>
+                            </div>
+                          );
+                        })}
                       </RadioGroup>
                     </div>
                   </FormControl>
