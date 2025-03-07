@@ -15,11 +15,11 @@ export const createOrder = async (data: {
 };
 
 export const getOrder = async ({
-  categoryId = 0,
+  categoryId,
   page = 1,
   limit = 10
 }: {
-  categoryId ?: number;
+  categoryId ?: number | null;
   page?: number;
   limit?: number;
 }): Promise<any> => {

@@ -45,6 +45,18 @@ export type Product = {
   updated_at: string;
 };
 
+export type Order = {
+  id: number;
+  link: string;
+  createdAt: string;
+  quantity: number;
+  amount: number;
+  price: number;
+  discount: number;
+  username: string;
+  status: string;
+};
+
 export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
   if (locale === 'en') {
     return [
@@ -216,6 +228,12 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         shortcut: ['e', 'e'],
         isActive: false,
         items: []
+      },
+      {
+        title: 'Lịch sử đơn hàng',
+        url: '/dashboard/orderHistory',
+        icon: 'news',
+        isActive: false,
       },
       {
         title: 'Nạp tiền tài khoản',
