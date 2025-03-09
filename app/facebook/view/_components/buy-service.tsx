@@ -402,6 +402,7 @@ export default function BuyServiceForm() {
           {/* Submit Button */}
           <Button
             type="submit"
+            disabled={!session?.user}
             className="w-full bg-[#4680FF] text-white hover:bg-[#2E5BFF] py-2.5 md:py-3 text-sm md:text-base mt-2 md:mt-4"
           >
             {translations[locale].form.createProcess}
