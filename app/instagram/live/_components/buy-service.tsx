@@ -33,6 +33,7 @@ import { getServiceTimeInfo } from '@/services/serviceTime';
 import translations from '@/public/locales/translations.json';
 import { useSession } from 'next-auth/react';
 import { getUserLevel } from '@/services/userLevel';
+import Link from 'next/link';
 
 const formSchema = z.object({
   link: z.string(),
@@ -180,7 +181,7 @@ export default function BuyServiceForm() {
       setIsModalOpen(true);
     }
   };
-  
+
   const watchedQuantity = Number(form.watch('quantity'));
   const watchedServiceId = Number(form.watch('service_id'));
   const watchedServiceTimeId = Number(form.watch('service_time_id'));
@@ -204,8 +205,24 @@ export default function BuyServiceForm() {
 
   return (
     <>
+      {!session?.user && (
+        <div className="p-3 mb-4 bg-red-100 text-red-600 rounded-md mt-4">
+          Vui lòng{' '}
+          <Link href="/login" className="underline text-blue-600">
+            đăng nhập
+          </Link>{' '}
+          hoặc{' '}
+          <Link href="/login" className="underline text-blue-600">
+            đăng ký
+          </Link>{' '}
+          để sử dụng dịch vụ!
+        </div>
+      )}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 md:space-y-8 mt-3 md:mt-4">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6 md:space-y-8 mt-3 md:mt-4"
+        >
           <div className="grid grid-cols-1 gap-5 md:gap-6">
             {/* Link Order Field */}
             <FormField
@@ -251,37 +268,41 @@ export default function BuyServiceForm() {
                           className="flex flex-col space-y-3"
                         >
                           {servicesData.map((service: any) => {
-                          const isActive = service.status.toString() === '1';
-                          return (
-                            <div
-                              key={service.id}
-                              className="flex flex-wrap items-center gap-2"
-                            >
-                              <RadioGroupItem
-                                value={service.id.toString()}
-                                disabled={!isActive}
-                              />
-                              <span className="font-medium text-gray-700 text-sm md:text-base">
-                                {locale === 'vi' ? service.name : service.enName}
-                              </span>
-                              <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-xs md:text-sm">
-                                {locale === 'vi' ? service.price : service.enPrice}
-                                {translations[locale].common.currency}
-                              </span>
-                              <span
-                                className={`px-2 py-1 rounded-md text-xs md:text-sm ${
-                                  isActive
-                                    ? 'text-green-600 bg-green-100'
-                                    : 'text-red-600 bg-red-100'
-                                }`}
+                            const isActive = service.status.toString() === '1';
+                            return (
+                              <div
+                                key={service.id}
+                                className="flex flex-wrap items-center gap-2"
                               >
-                                {isActive
-                                  ? translations[locale].common.active
-                                  : translations[locale].common.notActive}
-                              </span>
-                            </div>
-                          );
-                        })}
+                                <RadioGroupItem
+                                  value={service.id.toString()}
+                                  disabled={!isActive}
+                                />
+                                <span className="font-medium text-gray-700 text-sm md:text-base">
+                                  {locale === 'vi'
+                                    ? service.name
+                                    : service.enName}
+                                </span>
+                                <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-xs md:text-sm">
+                                  {locale === 'vi'
+                                    ? service.price
+                                    : service.enPrice}
+                                  {translations[locale].common.currency}
+                                </span>
+                                <span
+                                  className={`px-2 py-1 rounded-md text-xs md:text-sm ${
+                                    isActive
+                                      ? 'text-green-600 bg-green-100'
+                                      : 'text-red-600 bg-red-100'
+                                  }`}
+                                >
+                                  {isActive
+                                    ? translations[locale].common.active
+                                    : translations[locale].common.notActive}
+                                </span>
+                              </div>
+                            );
+                          })}
                         </RadioGroup>
                       </div>
                     </FormControl>
@@ -366,8 +387,12 @@ export default function BuyServiceForm() {
                           {Array.isArray(servicesTimeData) &&
                           servicesTimeData.length > 0 ? (
                             servicesTimeData.map((time: any, index: number) => (
-                              <SelectItem key={index} value={time.id.toString()}>
-                                {time.time} {translations[locale].common.minutes}
+                              <SelectItem
+                                key={index}
+                                value={time.id.toString()}
+                              >
+                                {time.time}{' '}
+                                {translations[locale].common.minutes}
                               </SelectItem>
                             ))
                           ) : (
@@ -428,8 +453,7 @@ export default function BuyServiceForm() {
                   {locale === 'vi' ? 'Thành tiền sau giảm:' : 'Final Total:'}
                 </span>
                 <span className="text-base md:text-lg font-semibold text-green-600">
-                  {finalTotal.toFixed(2)}{' '}
-                  {translations[locale].common.currency}
+                  {finalTotal.toFixed(2)} {translations[locale].common.currency}
                 </span>
               </div>
             )}

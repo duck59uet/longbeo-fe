@@ -10,6 +10,7 @@ export interface NavItem {
   label?: string;
   description?: string;
   isActive?: boolean;
+  isAuthorized?: boolean;
   items?: NavItem[];
 }
 

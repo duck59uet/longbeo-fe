@@ -77,11 +77,11 @@ export default function UserAuthForm({ toggleForm, locale }: UserAuthFormProps) 
           redirect: false,
           username: data.username,
           password: data.password,
-          callbackUrl: callbackUrl ?? '/dashboard/overview'
+          callbackUrl: callbackUrl ?? '/overview'
         });
 
         if (result?.ok) {
-          window.location.href = result.url || '/dashboard/overview';
+          window.location.href = result.url || '/overview';
         } else {
           toast.error(translations[locale].incorrectCredentials);
         }

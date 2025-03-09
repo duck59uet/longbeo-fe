@@ -1,10 +1,10 @@
-import authInstance from '../authInstance';
+import instance from '../instance';
 
 export const getServiceInfo = async (seriveId: number): Promise<any> => {
   try {
-    const response = await authInstance.get(`/service/${seriveId}`);
+    const response = await instance.get(`/service/${seriveId}`);
     return response.data;
   } catch (error) {
-    throw new Error('Failed to login');
+    throw new Error('Failed to get service info');
   }
 };

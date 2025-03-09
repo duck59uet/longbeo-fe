@@ -33,6 +33,7 @@ import { getServiceTimeInfo } from '@/services/serviceTime';
 import translations from '@/public/locales/translations.json';
 import { useSession } from 'next-auth/react';
 import { getUserLevel } from '@/services/userLevel';
+import Link from 'next/link';
 
 const formSchema = z.object({
   link: z.string(),
@@ -204,6 +205,19 @@ export default function BuyServiceForm() {
 
   return (
     <>
+      {!session?.user && (
+        <div className="p-3 mb-4 bg-red-100 text-red-600 rounded-md mt-4">
+          Vui lòng{' '}
+          <Link href="/login" className="underline text-blue-600">
+            đăng nhập
+          </Link>{' '}
+          hoặc{' '}
+          <Link href="/login" className="underline text-blue-600">
+            đăng ký
+          </Link>{' '}
+          để sử dụng dịch vụ!
+        </div>
+      )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 md:space-y-8 mt-3 md:mt-4">
           <div className="grid grid-cols-1 gap-5 md:gap-6">

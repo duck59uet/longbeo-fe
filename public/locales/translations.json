@@ -65,7 +65,8 @@
       "memberShipLevel": "Level",
       "member": "Member",
       "currency": "$",
-      "notActive": "Server overloaded"
+      "notActive": "Server overloaded",
+      "login": "Login"
     },
     "overviewPage": {
       "tabs": {
@@ -146,7 +147,8 @@
       "memberShipLevel": "Cấp bậc",
       "member": "Thành viên",
       "currency": "đ",
-      "notActive": "Server quá tải"
+      "notActive": "Server quá tải",
+      "login": "Đăng nhập"
     },
     "overviewPage": {
       "tabs": {

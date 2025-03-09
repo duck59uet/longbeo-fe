@@ -71,6 +71,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
       {
         title: 'My Account',
         url: '/myaccount',
+        isAuthorized: true,
         icon: 'user',
         shortcut: ['e', 'e'],
         isActive: false,
@@ -80,6 +81,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         title: 'Top-up Account',
         url: '/topup',
         icon: 'user',
+        isAuthorized: true,
         shortcut: ['t', 't'],
         isActive: false,
         items: []
@@ -206,7 +208,8 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
           {
             title: 'API Key',
             url: '/api/apiKey',
-            icon: 'userPen'
+            icon: 'userPen',
+            isAuthorized: true
           }
         ]
       }
@@ -227,12 +230,14 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         icon: 'user',
         shortcut: ['e', 'e'],
         isActive: false,
+        isAuthorized: true,
         items: []
       },
       {
         title: 'Lịch sử đơn hàng',
         url: '/orderHistory',
         icon: 'news',
+        isAuthorized: true,
         isActive: false,
       },
       {
@@ -241,6 +246,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         icon: 'user',
         shortcut: ['t', 't'],
         isActive: false,
+        isAuthorized: true,
         items: []
       },
       {
@@ -364,7 +370,8 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
           {
             title: 'API Key',
             url: '/api/apiKey',
-            icon: 'userPen'
+            icon: 'userPen',
+            isAuthorized: true
           }
         ]
       }

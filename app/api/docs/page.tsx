@@ -1,3 +1,4 @@
+import DashboardLayout from '@/app/wrapperLayout';
 import OverViewPage from './_components/overview';
 
 export const metadata = {
@@ -5,5 +6,9 @@ export const metadata = {
 };
 
 export default function page() {
-  return <OverViewPage />;
+  return (
+    <DashboardLayout>
+      <OverViewPage />
+    </DashboardLayout>
+  );
 }
