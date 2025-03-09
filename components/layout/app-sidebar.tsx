@@ -4,6 +4,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronRight } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import {
   Collapsible,
   CollapsibleContent,
@@ -39,7 +40,6 @@ export const company = {
 export default function AppSidebar() {
   const pathname = usePathname();
   const isDesktop = useMediaQuery('(min-width: 1024px)');
-  // Lấy hàm setOpenMobile từ context để điều khiển trạng thái mở/đóng của Sidebar trên mobile.
   const { setOpenMobile } = useSidebar();
   const collapsible = isDesktop ? 'none' : 'icon';
 
@@ -54,7 +54,24 @@ export default function AppSidebar() {
     }
   }, []);
 
+  // Lấy thông tin session từ NextAuth
+  const { data: session } = useSession();
+
+  // Lấy danh sách nav items theo locale
   const navItems = getNavItems(locale);
+
+  // Lọc nav items: nếu item có isAuthorized=true thì chỉ hiển thị khi có session
+  const filteredNavItems = navItems
+    .filter(item => !item.isAuthorized || session)
+    .map(item => {
+      if (item.items && item.items.length > 0) {
+        return {
+          ...item,
+          items: item.items.filter(subItem => !subItem.isAuthorized || session)
+        };
+      }
+      return item;
+    });
 
   return (
     <Sidebar collapsible={collapsible}>
@@ -74,7 +91,7 @@ export default function AppSidebar() {
           <SidebarGroupLabel>Hệ thống</SidebarGroupLabel>
           <ScrollArea className="grid h-[calc(80vh-220px)] rounded-md border md:h-[calc(90dvh-240px)]">
             <SidebarMenu>
-              {navItems.map((item) => {
+              {filteredNavItems.map((item) => {
                 const Icon = item.icon ? Icons[item.icon] : Icons.logo;
                 return item?.items && item?.items.length > 0 ? (
                   <Collapsible
