@@ -62,7 +62,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
     return [
       {
         title: 'Dashboard',
-        url: '/dashboard/overview',
+        url: '/overview',
         icon: 'dashboard',
         isActive: false,
         shortcut: ['d', 'd'],
@@ -70,7 +70,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
       },
       {
         title: 'My Account',
-        url: '/dashboard/myaccount',
+        url: '/myaccount',
         icon: 'user',
         shortcut: ['e', 'e'],
         isActive: false,
@@ -78,7 +78,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
       },
       {
         title: 'Top-up Account',
-        url: '/dashboard/topup',
+        url: '/topup',
         icon: 'user',
         shortcut: ['t', 't'],
         isActive: false,
@@ -86,7 +86,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
       },
       {
         title: 'Account Tier',
-        url: '/dashboard/tier',
+        url: '/tier',
         icon: 'billing',
         isActive: false,
         items: []
@@ -99,18 +99,18 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Boost Facebook Live',
-            url: '/dashboard/facebook/live',
+            url: '/facebook/live',
             icon: 'userPen',
             shortcut: ['matF', 'matF']
           },
           {
             title: 'Boost Facebook Video Views',
-            url: '/dashboard/facebook/view',
+            url: '/facebook/view',
             icon: 'userPen'
           },
           {
             title: 'Boost Facebook Reels',
-            url: '/dashboard/facebook/viewReel',
+            url: '/facebook/viewReel',
             icon: 'userPen'
           }
         ]
@@ -123,13 +123,13 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Boost TikTok Live',
-            url: '/dashboard/tiktok/live',
+            url: '/tiktok/live',
             icon: 'userPen',
             shortcut: ['matT', 'matT']
           },
           {
             title: 'Boost TikTok Views',
-            url: '/dashboard/tiktok/view',
+            url: '/tiktok/view',
             icon: 'userPen'
           }
         ]
@@ -142,13 +142,13 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Boost YouTube Live',
-            url: '/dashboard/youtube/live',
+            url: '/youtube/live',
             icon: 'userPen',
             shortcut: ['matY', 'matY']
           },
           {
             title: 'Boost YouTube Views',
-            url: '/dashboard/youtube/view',
+            url: '/youtube/view',
             icon: 'userPen'
           }
         ]
@@ -161,7 +161,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Boost Shopee Live',
-            url: '/dashboard/shopee/live',
+            url: '/shopee/live',
             icon: 'userPen',
             shortcut: ['matS', 'matS']
           }
@@ -175,13 +175,13 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Boost Instagram Live',
-            url: '/dashboard/instagram/live',
+            url: '/instagram/live',
             icon: 'userPen',
             shortcut: ['matI', 'matI']
           },
           {
             title: 'Boost Instagram Views',
-            url: '/dashboard/instagram/view',
+            url: '/instagram/view',
             icon: 'userPen'
           }
         ]
@@ -194,18 +194,18 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Documentation',
-            url: '/dashboard/api/docs',
+            url: '/api/docs',
             icon: 'userPen',
             shortcut: ['doc', 'doc']
           },
           {
             title: 'Service List',
-            url: '/dashboard/api/listService',
+            url: '/api/listService',
             icon: 'userPen'
           },
           {
             title: 'API Key',
-            url: '/dashboard/api/apiKey',
+            url: '/api/apiKey',
             icon: 'userPen'
           }
         ]
@@ -215,7 +215,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
     return [
       {
         title: 'Trang chủ',
-        url: '/dashboard/overview',
+        url: '/overview',
         icon: 'dashboard',
         isActive: false,
         shortcut: ['d', 'd'],
@@ -223,7 +223,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
       },
       {
         title: 'Tài khoản của tôi',
-        url: '/dashboard/myaccount',
+        url: '/myaccount',
         icon: 'user',
         shortcut: ['e', 'e'],
         isActive: false,
@@ -231,13 +231,13 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
       },
       {
         title: 'Lịch sử đơn hàng',
-        url: '/dashboard/orderHistory',
+        url: '/orderHistory',
         icon: 'news',
         isActive: false,
       },
       {
         title: 'Nạp tiền tài khoản',
-        url: '/dashboard/topup',
+        url: '/topup',
         icon: 'user',
         shortcut: ['t', 't'],
         isActive: false,
@@ -245,7 +245,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
       },
       {
         title: 'Cấp bậc tài khoản',
-        url: '/dashboard/tier',
+        url: '/tier',
         icon: 'billing',
         isActive: false,
         items: []
@@ -258,18 +258,18 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Tăng mắt live Facebook',
-            url: '/dashboard/facebook/live',
+            url: '/facebook/live',
             icon: 'userPen',
             shortcut: ['matF', 'matF']
           },
           {
             title: 'Tăng lượt xem video Facebook',
-            url: '/dashboard/facebook/view',
+            url: '/facebook/view',
             icon: 'userPen'
           },
           {
             title: 'Tăng Reel Facebook',
-            url: '/dashboard/facebook/viewReel',
+            url: '/facebook/viewReel',
             icon: 'userPen'
           }
         ]
@@ -282,13 +282,13 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Tăng mắt tiktok',
-            url: '/dashboard/tiktok/live',
+            url: '/tiktok/live',
             icon: 'userPen',
             shortcut: ['matT', 'matT']
           },
           {
             title: 'Tăng view tiktok',
-            url: '/dashboard/tiktok/view',
+            url: '/tiktok/view',
             icon: 'userPen'
           }
         ]
@@ -301,13 +301,13 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Tăng mắt youtube',
-            url: '/dashboard/youtube/live',
+            url: '/youtube/live',
             icon: 'userPen',
             shortcut: ['matY', 'matY']
           },
           {
             title: 'Tăng view youtube',
-            url: '/dashboard/youtube/view',
+            url: '/youtube/view',
             icon: 'userPen'
           }
         ]
@@ -320,7 +320,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Tăng mắt shopee',
-            url: '/dashboard/shopee/live',
+            url: '/shopee/live',
             icon: 'userPen',
             shortcut: ['matS', 'matS']
           }
@@ -334,13 +334,13 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Tăng mắt instagram',
-            url: '/dashboard/instagram/live',
+            url: '/instagram/live',
             icon: 'userPen',
             shortcut: ['matI', 'matI']
           },
           {
             title: 'Tăng view instagram',
-            url: '/dashboard/instagram/view',
+            url: '/instagram/view',
             icon: 'userPen'
           }
         ]
@@ -353,17 +353,17 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Tài liệu',
-            url: '/dashboard/api/docs',
+            url: '/api/docs',
             icon: 'userPen',
           },
           {
             title: 'Danh sách service',
-            url: '/dashboard/api/listService',
+            url: '/api/listService',
             icon: 'userPen'
           },
           {
             title: 'API Key',
-            url: '/dashboard/api/apiKey',
+            url: '/api/apiKey',
             icon: 'userPen'
           }
         ]
