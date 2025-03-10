@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { getOrder } from '@/services/order';
 import { DataTable as OrderTable } from '@/components/ui/table/data-table';
 import PageContainer from '@/components/layout/page-container';
-// Thay vì import trực tiếp columns, ta import hàm getColumns
 import { getColumns } from './columns';
+import { Heading } from '@/components/ui/heading';
 
 export default function BuffOrderHistoryTable() {
   const [data, setData] = useState([]);

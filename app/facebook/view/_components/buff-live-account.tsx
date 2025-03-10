@@ -7,6 +7,8 @@ import BuyServiceForm from './buy-service';
 import BuffOrderHistoryTable from './order-buff-history';
 import { useEffect, useState } from 'react';
 import translations from '@/public/locales/translations.json';
+import { Heading } from '@/components/ui/heading';
+import ArticleInfo from './articleInfo';
 
 export default function BuffLiveAccountPage() {
   const [locale, setLocale] = useState<'en' | 'vi'>('vi');
@@ -22,7 +24,8 @@ export default function BuffLiveAccountPage() {
 
   return (
     <PageContainer scrollable>
-      <div className="space-y-2">
+      <Heading title="Tăng mắt view video facebook" description="" />
+      <div className="space-y-2 mt-2">
         <div className="grid gap-4">
           <Card>
             <CardContent>
@@ -47,6 +50,7 @@ export default function BuffLiveAccountPage() {
                       <Card className="mt-4 flex-1">
                         <CardContent>
                           <BuyServiceForm />
+                          <ArticleInfo />
                         </CardContent>
                       </Card>
                     </div>
