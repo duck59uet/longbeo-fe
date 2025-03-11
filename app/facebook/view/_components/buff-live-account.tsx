@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import translations from '@/public/locales/translations.json';
 import { Heading } from '@/components/ui/heading';
 import ArticleInfo from './articleInfo';
+import ThankYouMessage from '@/components/thankyou-panel';
 
 export default function BuffLiveAccountPage() {
   const [locale, setLocale] = useState<'en' | 'vi'>('vi');
@@ -49,8 +50,17 @@ export default function BuffLiveAccountPage() {
                     <div className="grid gap-4">
                       <Card className="mt-4 flex-1">
                         <CardContent>
-                          <BuyServiceForm />
-                          <ArticleInfo />
+                          <div className="flex gap-4">
+                            <div className="flex-1">
+                              <BuyServiceForm />
+                            </div>
+                            <div className="w-[300px] h-full">
+                              <ThankYouMessage />
+                            </div>
+                          </div>
+                          <div className="mt-4">
+                            <ArticleInfo />
+                          </div>
                         </CardContent>
                       </Card>
                     </div>
