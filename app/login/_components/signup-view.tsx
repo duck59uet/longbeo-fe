@@ -45,10 +45,10 @@ const translations: any = {
 };
 
 const formSchema = z.object({
-  username: z.string({ message: 'Hãy nhập tên tài khoản' }),
-  fullname: z.string({ message: 'Hãy nhập họ và tên' }),
+  username: z.string({ description: 'Hãy nhập tên tài khoản' }),
+  fullname: z.string({ description: 'Hãy nhập họ và tên' }),
   email: z.string().email({ message: 'Hãy nhập email hợp lệ' }),
-  password: z.string({ message: 'Hãy nhập mật khẩu' }),
+  password: z.string({ description: 'Hãy nhập mật khẩu' }),
   phone: z
     .string()
     .regex(/^[0-9]+$/, { message: 'Số điện thoại chỉ được chứa các ký tự số' })
