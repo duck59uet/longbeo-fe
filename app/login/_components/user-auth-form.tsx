@@ -20,8 +20,8 @@ import SignUpButton from './signup-button';
 import { Checkbox } from '@/components/ui/checkbox';
 
 const formSchema = z.object({
-  username: z.string({ message: 'Hãy nhập tên tài khoản' }),
-  password: z.string({ message: 'Hãy nhập mật khẩu' })
+  username: z.string({ description: 'Hãy nhập tên tài khoản' }),
+  password: z.string({ description: 'Hãy nhập mật khẩu' })
 });
 
 const translations: any = {

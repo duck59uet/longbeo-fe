@@ -8,18 +8,19 @@ import BuffOrderHistoryTable from './order-buff-history';
 import { useEffect, useState } from 'react';
 import translations from '@/public/locales/translations.json';
 import { Heading } from '@/components/ui/heading';
+import ThankYouMessage from '@/components/thankyou-panel';
 
 export default function BuffLiveAccountPage() {
   const [locale, setLocale] = useState<'en' | 'vi'>('vi');
-    useEffect(() => {
-      const storedLocale = sessionStorage.getItem('locale');
-      if (storedLocale === 'en' || storedLocale === 'vi') {
-        setLocale(storedLocale);
-      } else {
-        sessionStorage.setItem('locale', 'vi');
-        setLocale('vi');
-      }
-    }, []);
+  useEffect(() => {
+    const storedLocale = sessionStorage.getItem('locale');
+    if (storedLocale === 'en' || storedLocale === 'vi') {
+      setLocale(storedLocale);
+    } else {
+      sessionStorage.setItem('locale', 'vi');
+      setLocale('vi');
+    }
+  }, []);
 
   return (
     <PageContainer scrollable>
@@ -48,7 +49,17 @@ export default function BuffLiveAccountPage() {
                     <div className="grid gap-4">
                       <Card className="mt-4 flex-1">
                         <CardContent>
-                          <BuyServiceForm />
+                          <div className="flex gap-4">
+                            <div className="flex-1">
+                              <BuyServiceForm />
+                            </div>
+                            <div className="w-[300px] h-full">
+                              <ThankYouMessage />
+                            </div>
+                          </div>
+                          {/* <div className="mt-4">
+                                                  <ArticleInfo />
+                                                </div> */}
                         </CardContent>
                       </Card>
                     </div>
@@ -56,7 +67,7 @@ export default function BuffLiveAccountPage() {
                   <TabsContent value="history" className="space-y-4">
                     <div className="grid gap-4">
                       <Card className="">
-                        <CardContent className='p-0'>
+                        <CardContent className="p-0">
                           <BuffOrderHistoryTable />
                         </CardContent>
                       </Card>
