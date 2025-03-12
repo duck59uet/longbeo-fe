@@ -54,9 +54,9 @@ export default function BuffLiveAccountPage() {
                             <div className="flex-1">
                               <BuyServiceForm />
                             </div>
-                            <div className="w-[300px] h-full">
+                            {/* <div className="w-[300px] h-full">
                               <ThankYouMessage />
-                            </div>
+                            </div> */}
                           </div>
                           <div className="mt-4">
                             <ArticleInfo />
