@@ -109,7 +109,7 @@ export default function ThankYouMessage() {
                   <h4 className="text-sm font-semibold">Sản phẩm</h4>
                   <p className="text-sm font-medium">{notification.product}</p>
                   <p className="text-xs text-gray-500">
-                    Cảm ơn <span className="font-semibold">{notification.name}</span> đã mua hàng <span className='font-semibold'>{notification.product}</span>
+                    Cảm ơn <span className="font-semibold">{notification.name}</span> đã tạo tiến trình <span className='font-semibold'>{notification.product}</span>
                   </p>
                 </div>
                 <button 
