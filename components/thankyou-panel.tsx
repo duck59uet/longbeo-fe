@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { Bell } from 'lucide-react';
 
 export default function ThankYouMessage() {
   const [randomNames, setRandomNames] = useState<string[]>([]);
@@ -62,11 +61,13 @@ export default function ThankYouMessage() {
 
   // Effect để khởi tạo danh sách tên và thiết lập các interval (chạy một lần khi mount)
   useEffect(() => {
+    console.log('ThankYouMessage mounted');
     setRandomNames(generateInitialNames());
 
     const namesInterval = setInterval(() => {
       setRandomNames(prevNames => {
-        const newNames = [...prevNames, generateRandomName()];
+        // Thêm tên mới vào đầu mảng thay vì cuối mảng
+        const newNames = [generateRandomName(), ...prevNames];
         if (!isNotificationOpenRef.current) {
           shakeBell();
         }
@@ -91,11 +92,11 @@ export default function ThankYouMessage() {
 
   // Effect để xử lý click bên ngoài và đóng thông báo
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         notificationRef.current &&
-        !notificationRef.current.contains(event.target) &&
-        !event.target.closest('.notification-bell')
+        !notificationRef.current.contains(event.target as Node) &&
+        !(event.target as Element).closest('.notification-bell')
       ) {
         setIsNotificationOpen(false);
       }
@@ -111,37 +112,43 @@ export default function ThankYouMessage() {
     setIsNotificationOpen(prev => !prev);
   };
 
-  console.log('render');
-
   return (
-    <div className="relative">
+    <div className="fixed bottom-4 right-[20px] z-50">
       {/* Biểu tượng chuông với hiệu ứng rung */}
-      <div 
-        className={`notification-bell w-12 h-12 bg-[#87ceeb] rounded-full flex items-center justify-center cursor-pointer ${isShaking ? 'bell-shake' : ''}`}
+      <div
+        className={`notification-bell w-12 h-12 bg-[#87ceeb] rounded-full flex items-center justify-center cursor-pointer shadow-md ${isShaking ? 'bell-shake' : ''}`}
         onClick={toggleNotification}
       >
-        <Bell color="white" size={24} />
+        <div className="icon w-6 h-6 text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" height="100%" viewBox="0 0 448 512" fill="currentColor">
+            <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3
+              c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2
+              384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3
+              18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/>
+          </svg>
+        </div>
       </div>
 
       {/* Popup thông báo */}
       {isNotificationOpen && (
-        <div 
+        <div
           ref={notificationRef}
-          className="absolute top-14 right-0 z-50 w-72 md:w-96 bg-white border border-gray-300 rounded shadow-lg"
+          className="absolute bottom-14 right-0 z-50 w-72 md:w-96 bg-white border border-gray-300 rounded shadow-lg"
         >
           <div className="bg-[#87ceeb] text-white p-3 font-medium rounded-t">
-            <button 
+            <span>Thông báo</span>
+            <button
               className="float-right text-white"
               onClick={() => setIsNotificationOpen(false)}
             >
               ✕
             </button>
           </div>
-          
+
           <div className="border border-gray-300 rounded-b p-4 overflow-auto max-h-[400px]">
             <TransitionGroup component="ul" className="list-disc list-inside space-y-1">
               {randomNames.map((name, index) => (
-                <CSSTransition key={index} timeout={500} classNames="slide">
+                <CSSTransition key={index} timeout={500} classNames="slide-down">
                   <li className="text-[#1877f2]">
                     Cảm ơn bạn <strong>{name}</strong> đã lên đơn
                   </li>
@@ -164,26 +171,27 @@ export default function ThankYouMessage() {
           92% { transform: rotate(1deg); }
           100% { transform: rotate(0); }
         }
-        
+
         .bell-shake {
           animation: bellShake 1s cubic-bezier(.36,.07,.19,.97) both;
           transform-origin: top center;
         }
-        
-        .slide-enter {
+
+        /* Hiệu ứng cho phần tử mới xuất hiện ở đầu danh sách */
+        .slide-down-enter {
           opacity: 0;
           transform: translateY(-20px);
         }
-        .slide-enter-active {
+        .slide-down-enter-active {
           opacity: 1;
           transform: translateY(0);
           transition: all 500ms ease-in-out;
         }
-        .slide-exit {
+        .slide-down-exit {
           opacity: 1;
           transform: translateY(0);
         }
-        .slide-exit-active {
+        .slide-down-exit-active {
           opacity: 0;
           transform: translateY(20px);
           transition: all 500ms ease-in-out;

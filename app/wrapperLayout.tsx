@@ -32,7 +32,7 @@ export default function DashboardLayout({
         </SidebarInset>
       </SidebarProvider>
       <ZaloConnect />
-      {/* <ThankYouMessage /> */}
+      <ThankYouMessage />
     </KBar>
   );
 }
