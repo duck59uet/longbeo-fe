@@ -385,7 +385,10 @@ export default function BuyServiceForm() {
                 {translations[locale].form.total}:
               </span>
               <span className="text-base md:text-lg font-semibold text-red-600">
-                {totalWithoutDiscount.toFixed(2)}{' '}
+                {totalWithoutDiscount.toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })}{' '}
                 {translations[locale].common.currency}
               </span>
             </div>
@@ -396,7 +399,11 @@ export default function BuyServiceForm() {
                   {locale === 'vi' ? 'Thành tiền sau giảm:' : 'Final Total:'}
                 </span>
                 <span className="text-base md:text-lg font-semibold text-green-600">
-                  {finalTotal.toFixed(2)} {translations[locale].common.currency}
+                  {finalTotal.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })}{' '}
+                  {translations[locale].common.currency}
                 </span>
               </div>
             )}

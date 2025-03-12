@@ -1,6 +1,7 @@
 import KBar from '@/components/kbar';
 import AppSidebar from '@/components/layout/app-sidebar';
 import Header from '@/components/layout/header';
+import ThankYouMessage from '@/components/thankyou-panel';
 import {
   SidebarInset,
   SidebarProvider
@@ -31,6 +32,7 @@ export default function DashboardLayout({
         </SidebarInset>
       </SidebarProvider>
       <ZaloConnect />
+      {/* <ThankYouMessage /> */}
     </KBar>
   );
 }

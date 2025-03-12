@@ -268,10 +268,14 @@ export default function BuyServiceForm() {
                                 disabled={!isActive}
                               />
                               <span className="font-medium text-gray-700 text-sm md:text-base">
-                                {locale === 'vi' ? service.name : service.enName}
+                                {locale === 'vi'
+                                  ? service.name
+                                  : service.enName}
                               </span>
                               <span className="text-blue-600 bg-blue-100 px-2 py-1 rounded-md text-xs md:text-sm">
-                                {locale === 'vi' ? service.price : service.enPrice}
+                                {locale === 'vi'
+                                  ? service.price
+                                  : service.enPrice}
                                 {translations[locale].common.currency}
                               </span>
                               <span
@@ -402,7 +406,10 @@ export default function BuyServiceForm() {
                 {translations[locale].form.total}:
               </FormLabel>
               <span className="text-base md:text-lg font-semibold text-red-600">
-                {totalWithoutDiscount.toFixed(2)}{' '}
+                {totalWithoutDiscount.toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })}{' '}
                 {translations[locale].common.currency}
               </span>
             </div>
@@ -413,13 +420,16 @@ export default function BuyServiceForm() {
                   {locale === 'vi' ? 'Thành tiền sau giảm:' : 'Final Total:'}
                 </FormLabel>
                 <span className="text-base md:text-lg font-semibold text-green-600">
-                  {finalTotal.toFixed(2)}{' '}
+                  {finalTotal.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })}{' '}
                   {translations[locale].common.currency}
                 </span>
               </div>
             )}
           </div>
-          
+
           <Button
             type="submit"
             disabled={!session?.user}
