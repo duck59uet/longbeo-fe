@@ -27,6 +27,7 @@ import translations from '@/public/locales/translations.json';
 import { useSession } from 'next-auth/react';
 import { getUserLevel } from '@/services/userLevel';
 import Link from 'next/link';
+import { getNewsByCatogeryId } from '@/services/news';
 
 const formSchema = z.object({
   link: z.string(),
@@ -53,6 +54,8 @@ export default function BuyServiceForm() {
   const [localeLoaded, setLocaleLoaded] = useState(false);
   const [userLevel, setUserLevel] = useState<number>(0);
   const [hasFetchedUserLevel, setHasFetchedUserLevel] = useState(false);
+  const [title, setTitle] = useState<string>('');
+  const [news, setNews] = useState<string>('');
 
   const form = useForm<BuyServiceFormValues>({
     resolver: zodResolver(formSchema),
@@ -140,6 +143,21 @@ export default function BuyServiceForm() {
     }
   }
 
+  useEffect(() => {
+    async function fetchNewsData(serviceId: number) {
+      try {
+        const data = await getNewsByCatogeryId(serviceId);
+        setTitle(data.Data.title);
+        setNews(data.Data.content.content);
+      } catch (error) {
+        // toast.error(translations[locale].toast.errorServiceTime);
+        setServiceTimesData([]);
+      }
+    }
+
+    fetchNewsData(CATEGORY_ID);
+  }, []);
+
   const handleServiceChange = (value: string) => {
     form.setValue('service_id', value);
     fetchServiceTimeInfo(Number(value));
@@ -200,6 +218,11 @@ export default function BuyServiceForm() {
     userLevel > 0
       ? totalWithoutDiscount * ((100 - userLevel) / 100)
       : totalWithoutDiscount;
+
+  const renderNewsContent = () => {
+    if (!news) return null;
+    return <div dangerouslySetInnerHTML={{ __html: news }} />;
+  };
 
   return (
     <>
@@ -414,6 +437,12 @@ export default function BuyServiceForm() {
           >
             {translations[locale].form.createProcess}
           </Button>
+          {title && <h3>{title}</h3>}
+          {news && (
+            <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded">
+              {renderNewsContent()}
+            </div>
+          )}
         </form>
       </Form>
 

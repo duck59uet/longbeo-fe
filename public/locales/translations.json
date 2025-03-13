@@ -66,7 +66,8 @@
       "member": "Member",
       "currency": "$",
       "notActive": "Server overloaded",
-      "login": "Login"
+      "login": "Login",
+      "news": "News"
     },
     "overviewPage": {
       "tabs": {
@@ -148,7 +149,8 @@
       "member": "Thành viên",
       "currency": "đ",
       "notActive": "Server quá tải",
-      "login": "Đăng nhập"
+      "login": "Đăng nhập",
+      "news": "Tin tức"
     },
     "overviewPage": {
       "tabs": {
