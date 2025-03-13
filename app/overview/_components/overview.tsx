@@ -6,8 +6,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getBalanceInfo } from '@/services/myaccount';
 import { toast } from 'sonner';
 import translations from '@/public/locales/translations.json';
+import { useSession } from 'next-auth/react';
 
 export default function OverViewPage() {
+  const { data: session } = useSession();
   const [balance, setBalance] = useState(0);
   const [topup, setTopup] = useState(0);
   const [orderSpent, setOrderSpent] = useState(0);
@@ -35,12 +37,12 @@ export default function OverViewPage() {
       }
     }
 
-    fetchBalanceInfo();
-
-    const interval = setInterval(fetchBalanceInfo, 15000);
-
-    return () => clearInterval(interval);
-  }, [locale]);
+    if (session) {
+      fetchBalanceInfo();
+      const interval = setInterval(fetchBalanceInfo, 15000);
+      return () => clearInterval(interval);
+    }
+  }, [locale, session]);
 
   return (
     <PageContainer scrollable>
