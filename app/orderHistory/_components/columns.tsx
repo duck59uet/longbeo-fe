@@ -32,6 +32,10 @@ export const columns: ColumnDef<Order>[] = [
     header: 'Giảm giá'
   },
   {
+    accessorKey: 'order_start_count',
+    header: 'Số mắt bắt đầu'
+  },
+  {
     accessorKey: 'order_status',
     header: 'Trạng thái'
   },
