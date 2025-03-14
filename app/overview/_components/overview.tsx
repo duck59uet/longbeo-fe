@@ -29,11 +29,11 @@ export default function OverViewPage() {
     async function fetchBalanceInfo() {
       try {
         const data = await getBalanceInfo();
-        setBalance(data.Data.balance);
-        setTopup(data.Data.topup);
-        setOrderSpent(data.Data.order);
+        setBalance(data?.Data.balance);
+        setTopup(data?.Data.topup);
+        setOrderSpent(data?.Data.order);
       } catch (error) {
-        toast.error(translations[locale].common.errorOccurred);
+        // toast.error(translations[locale].common.errorOccurred);
       }
     }
 
