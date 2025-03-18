@@ -9,6 +9,7 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
@@ -16,6 +17,8 @@ import { toast } from 'sonner';
 import * as z from 'zod';
 import { signUpUser } from '@/services/signup';
 import SignInButton from './signin-button';
+import { TermsModal } from './term-modal';
+
 
 const translations: any = {
   en: {
@@ -28,7 +31,10 @@ const translations: any = {
     register: 'Sign Up',
     or: 'or',
     success: 'Registration successful',
-    failure: 'Registration failed. Please try again later.'
+    failure: 'Registration failed. Please try again later.',
+    terms: 'I agree to the',
+    termsLink: 'terms of service',
+    termsRequired: 'You must agree to the terms of service'
   },
   vi: {
     username: 'Tên tài khoản',
@@ -40,7 +46,10 @@ const translations: any = {
     register: 'Đăng ký',
     or: 'hoặc',
     success: 'Đăng ký thành công',
-    failure: 'Đăng ký thất bại. Vui lòng thử lại sau.'
+    failure: 'Đăng ký thất bại. Vui lòng thử lại sau.',
+    terms: 'Tôi đồng ý với',
+    termsLink: 'điều khoản dịch vụ',
+    termsRequired: 'Bạn phải đồng ý với điều khoản dịch vụ'
   }
 };
 
@@ -53,7 +62,10 @@ const formSchema = z.object({
     .string()
     .regex(/^[0-9]+$/, { message: 'Số điện thoại chỉ được chứa các ký tự số' })
     .nonempty({ message: 'Hãy nhập số điện thoại' }),
-  referUser: z.string().optional()
+  referUser: z.string().optional(),
+  agreeToTerms: z.boolean().refine(val => val === true, {
+    message: 'Bạn phải đồng ý với điều khoản dịch vụ'
+  })
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -65,14 +77,18 @@ interface UserAuthFormProps {
 
 export default function SignUpForm({ toggleForm, locale }: UserAuthFormProps) {
   const [loading, startTransition] = useTransition();
+  const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
+  
   const defaultValues = {
     username: '',
     fullname: '',
     email: '',
     password: '',
     phone: '',
-    referUser: ''
+    referUser: '',
+    agreeToTerms: false
   };
+  
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues
@@ -90,12 +106,17 @@ export default function SignUpForm({ toggleForm, locale }: UserAuthFormProps) {
       });
 
       if (user.ErrorCode === 'SUCCESSFUL') {
-        toast.success('Đăng ký thành công');
+        toast.success(translations[locale].success);
         window.location.href = '/';
       } else {
-        toast.error('Đăng ký thất bại. Vui lòng thử lại sau.');
+        toast.error(translations[locale].failure);
       }
     });
+  };
+
+  const openTermsModal = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsTermsModalOpen(true);
   };
 
   return (
@@ -187,6 +208,33 @@ export default function SignUpForm({ toggleForm, locale }: UserAuthFormProps) {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="agreeToTerms"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0 mt-2">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel className="font-normal">
+                    {translations[locale].terms}{' '}
+                    <a 
+                      href="#" 
+                      onClick={openTermsModal}
+                      className="underline text-blue-600 hover:text-blue-800"
+                    >
+                      {translations[locale].termsLink}
+                    </a>
+                  </FormLabel>
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
           <Button
             disabled={loading}
             className="ml-auto w-full mt-[12px]"
@@ -205,6 +253,13 @@ export default function SignUpForm({ toggleForm, locale }: UserAuthFormProps) {
         </div>
       </div>
       <SignInButton toggleForm={toggleForm} locale={locale}/>
+      
+      {/* Modal Điều khoản dịch vụ */}
+      <TermsModal 
+        isOpen={isTermsModalOpen} 
+        onClose={() => setIsTermsModalOpen(false)} 
+        locale={locale}
+      />
     </>
   );
 }
