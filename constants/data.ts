@@ -264,18 +264,18 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Tăng mắt live Facebook',
-            url: '/facebook/live',
+            url: '/buff-mat-Livestream-tang-luot-nguoi-xem-video-truc-tiep-tren-Facebook',
             icon: 'userPen',
             shortcut: ['matF', 'matF']
           },
           {
             title: 'Tăng lượt xem video Facebook',
-            url: '/facebook/view',
+            url: '/buff-view-video-facebook-la-gi',
             icon: 'userPen'
           },
           {
             title: 'Tăng Reel Facebook',
-            url: '/facebook/viewReel',
+            url: '/huong-dan-tang-luot-xem-reels-facebook-hieu-qua-va-nhanh-nhat',
             icon: 'userPen'
           }
         ]
@@ -288,13 +288,13 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Tăng mắt tiktok',
-            url: '/tiktok/live',
+            url: '/dich-vu-tang-mat-livestream-tikTok',
             icon: 'userPen',
             shortcut: ['matT', 'matT']
           },
           {
             title: 'Tăng view tiktok',
-            url: '/tiktok/view',
+            url: '/huong-dan-tang-luot-xem-tiktok-hieu-qua-va-nhanh-chong',
             icon: 'userPen'
           }
         ]
@@ -307,13 +307,13 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Tăng mắt youtube',
-            url: '/youtube/live',
+            url: '/mua-mat-livestream-youtube-tang-luot-xem-va-tuong-tac-truc-tiep',
             icon: 'userPen',
             shortcut: ['matY', 'matY']
           },
           {
             title: 'Tăng view youtube',
-            url: '/youtube/view',
+            url: '/mua-view-youtube-khong-tut',
             icon: 'userPen'
           }
         ]
@@ -326,7 +326,7 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Tăng mắt shopee',
-            url: '/shopee/live',
+            url: '/huong-dan-tang-mat-livestream-shopee',
             icon: 'userPen',
             shortcut: ['matS', 'matS']
           }
@@ -340,13 +340,13 @@ export function getNavItems(locale: 'en' | 'vi'): NavItem[] {
         items: [
           {
             title: 'Tăng mắt instagram',
-            url: '/instagram/live',
+            url: '/cach-tang-view-livestream-instagram-bi-quyet-thanh-cong-cho-doanh-nghiep-cua-ban',
             icon: 'userPen',
             shortcut: ['matI', 'matI']
           },
           {
             title: 'Tăng view instagram',
-            url: '/instagram/view',
+            url: '/tang-luot-xem-video-instagram-bi-quyet-giup-video-cua-ban-noi-bat-hon',
             icon: 'userPen'
           }
         ]

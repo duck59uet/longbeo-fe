@@ -16,19 +16,18 @@ export default function NotFound() {
         Something&apos;s missing
       </h2>
       <p>
-        Sorry, the page you are looking for doesn&apos;t exist or has been
-        moved.
+        Xin lỗi, trang bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.
       </p>
       <div className="mt-8 flex justify-center gap-2">
         <Button onClick={() => router.back()} variant="default" size="lg">
-          Go back
+          Quay lại
         </Button>
         <Button
-          onClick={() => router.push('/dashboard')}
+          onClick={() => router.push('/overview')}
           variant="ghost"
           size="lg"
         >
-          Back to Home
+          Trang chủ
         </Button>
       </div>
     </div>
