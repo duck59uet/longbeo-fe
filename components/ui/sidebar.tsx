@@ -354,11 +354,14 @@ SidebarInput.displayName = 'SidebarInput';
 const SidebarHeader = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<'div'>
->(({ className, ...props }, ref) => {
+>(({ className, onClick, ...props }, ref) => {
   return (
     <div
       ref={ref}
       data-sidebar="header"
+      tabIndex={0}
+      role='button'
+      onClick={onClick}
       className={cn('flex flex-col gap-2 p-2', className)}
       {...props}
     />

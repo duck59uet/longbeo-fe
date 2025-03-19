@@ -30,6 +30,7 @@ import { getNavItems } from '@/constants/data';
 import { Icons } from '../icons';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { ScrollArea } from '../ui/scroll-area';
+import { useRouter } from 'next/navigation';
 
 export const company = {
   name: 'Dichvumat.com',
@@ -42,6 +43,7 @@ export default function AppSidebar() {
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const { setOpenMobile } = useSidebar();
   const collapsible = isDesktop ? 'none' : 'icon';
+  const router = useRouter();
 
   const [locale, setLocale] = React.useState<'en' | 'vi'>('vi');
   React.useEffect(() => {
@@ -75,7 +77,7 @@ export default function AppSidebar() {
 
   return (
     <Sidebar collapsible={collapsible}>
-      <SidebarHeader>
+      <SidebarHeader onClick={() => router.push('/overview')}>
         <div className="flex gap-2 py-2 text-sidebar-accent-foreground">
           <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
             <img src={company.logo} alt="Company Logo" className="size-8" />
