@@ -4,7 +4,6 @@ import PageContainer from '@/components/layout/page-container';
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getBalanceInfo } from '@/services/myaccount';
-import { toast } from 'sonner';
 import translations from '@/public/locales/translations.json';
 import { useSession } from 'next-auth/react';
 
@@ -61,7 +60,10 @@ export default function OverViewPage() {
               <p className="text-2xl font-bold text-red-500">
                 {locale === 'en'
                   ? (balance / 26000).toFixed(2) + ' $'
-                  : balance + ' đ'}
+                  : balance.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  })  + ' đ'}
               </p>
             </CardContent>
           </Card>
@@ -74,7 +76,10 @@ export default function OverViewPage() {
               <p className="text-2xl font-bold text-yellow-500">
                 {locale === 'en'
                   ? (orderSpent / 26000).toFixed(2) + ' $'
-                  : orderSpent + ' đ'}{' '}
+                  : orderSpent.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  }) + ' đ'}{' '}
               </p>
             </CardContent>
           </Card>
@@ -87,7 +92,10 @@ export default function OverViewPage() {
               <p className="text-2xl font-bold text-green-500">
                 {locale === 'en'
                   ? (topup / 26000).toFixed(2) + ' $'
-                  : topup + ' đ'}
+                  : topup.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  }) + ' đ'}
               </p>
             </CardContent>
           </Card>
