@@ -418,7 +418,7 @@ export default function BuyServiceForm() {
               </span>
               <span className="text-base md:text-lg font-semibold text-red-600">
                 {totalWithoutDiscount.toLocaleString('en-US', {
-                  minimumFractionDigits: 2,
+                  minimumFractionDigits: 0,
                   maximumFractionDigits: 2
                 })}{' '}
                 {translations[locale].common.currency}
@@ -432,7 +432,7 @@ export default function BuyServiceForm() {
                 </span>
                 <span className="text-base md:text-lg font-semibold text-green-600">
                   {finalTotal.toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
+                    minimumFractionDigits: 0,
                     maximumFractionDigits: 2
                   })}{' '}
                   {translations[locale].common.currency}
