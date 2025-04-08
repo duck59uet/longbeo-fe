@@ -1,6 +1,11 @@
+# *
 User-agent: *
-Disallow: /admin/
-Disallow: /api/
 Allow: /
+Disallow: /admin
+Disallow: /auth
 
+# Host
+Host: https://app.dichvumat.com
+
+# Sitemaps
 Sitemap: https://app.dichvumat.com/sitemap.xml
