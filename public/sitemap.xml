@@ -1,64 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>https://app.dichvumat.com/overview</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/tier</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/buff-mat-Livestream-tang-luot-nguoi-xem-video-truc-tiep-tren-Facebook</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/buff-view-video-facebook-la-gi</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/huong-dan-tang-luot-xem-reels-facebook-hieu-qua-va-nhanh-nhat</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/dich-vu-tang-mat-livestream-tikTok</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/huong-dan-tang-luot-xem-tiktok-hieu-qua-va-nhanh-chong</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/mua-mat-livestream-youtube-tang-luot-xem-va-tuong-tac-truc-tiep</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/mua-view-youtube-khong-tut</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/huong-dan-tang-luot-xem-livestream-shopee</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/cach-tang-view-livestream-instagram-bi-quyet-thanh-cong-cho-doanh-nghiep-cua-ban</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/tang-luot-xem-video-instagram-bi-quyet-giup-video-cua-ban-noi-bat-hon</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/api/docs</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/api/listService</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://app.dichvumat.com/login</loc>
-    <lastmod>2025-04-08T06:33:23+00:00</lastmod>
-  </sitemap>
-</sitemapindex>
+
+
+<url>
+  <loc>https://app.dichvumat.com/overview</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/tier</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/buff-mat-Livestream-tang-luot-nguoi-xem-video-truc-tiep-tren-Facebook</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/buff-view-video-facebook-la-gi</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/huong-dan-tang-luot-xem-reels-facebook-hieu-qua-va-nhanh-nhat</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/dich-vu-tang-mat-livestream-tikTok</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/huong-dan-tang-luot-xem-tiktok-hieu-qua-va-nhanh-chong</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/mua-mat-livestream-youtube-tang-luot-xem-va-tuong-tac-truc-tiep</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/mua-view-youtube-khong-tut</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/huong-dan-tang-mat-livestream-shopee</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/cach-tang-view-livestream-instagram-bi-quyet-thanh-cong-cho-doanh-nghiep-cua-ban</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/tang-luot-xem-video-instagram-bi-quyet-giup-video-cua-ban-noi-bat-hon</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/api/docs</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/api/listService</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://app.dichvumat.com/login</loc>
+  <lastmod>2025-04-08T06:33:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+</urlset>
